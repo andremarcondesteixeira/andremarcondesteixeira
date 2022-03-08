@@ -21,19 +21,7 @@ body {
     font-family: 'Merriweather', serif;
     font-size: 2rem;
     font-weight: 400;
-    padding: 4rem 30rem;
-}
-
-@media (max-width: 1400px) {
-    body {
-        padding: 4rem 20rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    body {
-        padding: 2rem;
-    }
+    padding: 1rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -46,16 +34,6 @@ h1 {
     margin-bottom: 2rem;
 }
 
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-th, td {
-    border: 0.5px solid #666;
-    padding: 1rem;
-}
-
-p, table {
+p {
     margin-bottom: 1.6rem;
 }

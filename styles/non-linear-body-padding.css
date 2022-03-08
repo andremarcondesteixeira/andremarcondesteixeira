@@ -1,0 +1,95 @@
+@media only screen and (max-width: 166px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (93.75% - 5px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 167px) and (max-width: 317px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (88.74% + 2px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 318px) and (max-width: 458px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (85.81% + 11px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 459px) and (max-width: 593px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (80% + 38px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 594px) and (max-width: 721px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (74.21% + 72px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 722px) and (max-width: 843px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (68.03% + 117px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 844px) and (max-width: 961px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (61.86% + 169px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 962px) and (max-width: 1076px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (53.91% + 245px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 1077px) and (max-width: 1188px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (46.42% + 326px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 1189px) and (max-width: 1299px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (39.63% + 407px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 1300px) and (max-width: 1409px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (31.81% + 508px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 1410px) and (max-width: 1519px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (24.54% + 611px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 1520px) and (max-width: 1631px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (17.85% + 712px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 1632px) and (max-width: 1746px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (12.17% + 805px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 1747px) and (max-width: 1864px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (6.77% + 899px)) / 2);
+    }
+}
+
+@media only screen and (min-width: 1865px) {
+    body {
+        padding: var(--top-and-bottom-body-padding) calc((100% - (2.45% + 980px)) / 2);
+    }
+}
