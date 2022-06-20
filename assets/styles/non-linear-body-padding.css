@@ -1,3 +1,7 @@
+:root {
+    --top-and-bottom-body-padding: 4rem;
+}
+
 @media only screen and (max-width: 166px) {
     body {
         padding: var(--top-and-bottom-body-padding) calc((100% - (93.75% - 5px)) / 2);

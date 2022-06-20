@@ -1,0 +1,6 @@
+.codeblock {
+    border-radius: var(--default-border-radius);
+    display: block;
+    margin: 2rem 0;
+    padding: 1rem;
+}

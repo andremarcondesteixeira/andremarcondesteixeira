@@ -1,0 +1,58 @@
+* {
+    border: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+html, body {
+    height: 100vh;
+    overflow: auto;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Gentium Plus', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 1rem;
+}
+
+code {
+    background-color: var(--code-block-background-color);
+    color: var(--code-block-text-color);
+    display: inline-block;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1.6rem;
+    padding: 0 0.5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+}
+
+h2, h3, h4, h5, h6, p {
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 3rem;
+    margin-top: 2.5rem;
+}
+
+h3 {
+    font-size: 2.5rem;
+    margin-top: 2rem;
+}
