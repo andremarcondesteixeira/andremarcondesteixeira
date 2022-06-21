@@ -2,6 +2,13 @@
     --background-color: #eee;
     --code-block-background-color: #222;
     --code-block-text-color: #cfc;
-    --default-border-radius: 3px;
+    --default-border-radius: 4px;
+    --link-color: rgb(81, 128, 216);
     --text-color: #333;
+    --visited-link-color: #b176e9;;
+}
+
+:root.black-theme {
+    --background-color: #333;
+    --text-color: #eee;
 }

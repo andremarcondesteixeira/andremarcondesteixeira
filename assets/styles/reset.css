@@ -24,6 +24,14 @@ body {
     padding: 1rem;
 }
 
+a {
+    color: var(--link-color);
+}
+
+a:visited {
+    color: var(--visited-link-color);
+}
+
 code {
     background-color: var(--code-block-background-color);
     color: var(--code-block-text-color);
