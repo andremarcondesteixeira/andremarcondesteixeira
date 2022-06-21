@@ -3,51 +3,53 @@ export default class ThemeChanger extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
 
-        const sun = document.createElement('button');
-        sun.classList.add('sun');
-        sun.type = 'button';
-        sun.title = 'Light Theme';
+        const lightThemeButton = document.createElement('button');
+        lightThemeButton.classList.add('light-theme-button');
+        lightThemeButton.type = 'button';
+        lightThemeButton.title = 'Light Theme';
+        lightThemeButton.innerText = 'A';
 
-        const moon = document.createElement('button');
-        moon.classList.add('moon');
-        moon.type = 'button'
-        moon.title = 'Dark Theme';
+        const darkThemeButton = document.createElement('button');
+        darkThemeButton.classList.add('dark-theme-button');
+        darkThemeButton.type = 'button'
+        darkThemeButton.title = 'Dark Theme';
+        darkThemeButton.innerText = 'A';
 
-        const sunContainer = document.createElement('div');
-        sunContainer.classList.add('icon-container');
-        sunContainer.append(sun);
+        const lightThemeButtonContainer = document.createElement('div');
+        lightThemeButtonContainer.classList.add('icon-container');
+        lightThemeButtonContainer.append(lightThemeButton);
 
-        const moonContainer = document.createElement('div');
-        moonContainer.classList.add('icon-container');
-        moonContainer.append(moon);
+        const darkThemeButtonContainer = document.createElement('div');
+        darkThemeButtonContainer.classList.add('icon-container');
+        darkThemeButtonContainer.append(darkThemeButton);
 
-        sun.addEventListener('click', () => {
-            moonContainer.classList.remove('selected');
+        lightThemeButton.addEventListener('click', () => {
+            darkThemeButtonContainer.classList.remove('selected');
 
-            if (!sunContainer.classList.contains('selected')) {
-                sunContainer.classList.add('selected');
+            if (!lightThemeButtonContainer.classList.contains('selected')) {
+                lightThemeButtonContainer.classList.add('selected');
             }
 
-            document.querySelector(':root').classList.remove('black-theme');
+            document.querySelector(':root').classList.remove('dark-theme');
         });
 
-        moon.addEventListener('click', () => {
-            sunContainer.classList.remove('selected');
+        darkThemeButton.addEventListener('click', () => {
+            lightThemeButtonContainer.classList.remove('selected');
 
-            if (!moonContainer.classList.contains('selected')) {
-                moonContainer.classList.add('selected');
+            if (!darkThemeButtonContainer.classList.contains('selected')) {
+                darkThemeButtonContainer.classList.add('selected');
             }
 
-            if (!document.querySelector(':root').classList.contains('black-theme')) {
-                document.querySelector(':root').classList.add('black-theme');
+            if (!document.querySelector(':root').classList.contains('dark-theme')) {
+                document.querySelector(':root').classList.add('dark-theme');
             }
         });
 
         const wrapper = document.createElement('div');
         wrapper.ariaHidden = true;
         wrapper.classList.add('wrapper');
-        wrapper.append(sunContainer);
-        wrapper.append(moonContainer);
+        wrapper.append(lightThemeButtonContainer);
+        wrapper.append(darkThemeButtonContainer);
 
         const style = document.createElement('style');
         style.textContent = `
@@ -63,24 +65,27 @@ export default class ThemeChanger extends HTMLElement {
             }
             
             .icon-container.selected {
-                border: 1px solid #000;
+                border: 1px solid var(--text-color);
             }
             
-            .sun, .moon {
-                border: 1px solid #333;
+            .light-theme-button, .dark-theme-button {
+                border: 1px solid var(--text-color);
                 cursor: pointer;
                 display: block;
                 border-radius: 100%;
-                height: 2rem;
-                width: 2rem;
+                height: 3rem;
+                text-align: center;
+                width: 3rem;
             }
             
-            .sun {
-                background-color: #ffff75;
+            .light-theme-button {
+                background-color: var(--light-theme-background-color);
+                color: var(--light-theme-text-color);
             }
             
-            .moon {
-                background-color: #aaaaaa;
+            .dark-theme-button {
+                background-color: var(--dark-theme-background-color);
+                color: var(--dark-theme-text-color);
             }
         `;
 
