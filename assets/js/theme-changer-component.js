@@ -4,36 +4,37 @@ export default class ThemeChanger extends HTMLElement {
 
         const wrapper = this.createDOMTree();
         const style = this.createStyleNode();
+        this.selectPreferredColorTheme();
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.append(style, wrapper);
     }
 
     createDOMTree() {
-        const lang = this.getAttribute("lang");
+        const lang = this.getAttribute('lang');
 
-        const lightThemeButton = document.createElement('button');
-        lightThemeButton.classList.add('light-theme-button');
-        lightThemeButton.type = 'button';
-        lightThemeButton.title = lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme';
-        lightThemeButton.innerText = 'A';
+        this.lightThemeButton = document.createElement('button');
+        this.lightThemeButton.classList.add('light-theme-button');
+        this.lightThemeButton.type = 'button';
+        this.lightThemeButton.title = lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme';
+        this.lightThemeButton.innerText = 'A';
 
-        const darkThemeButton = document.createElement('button');
-        darkThemeButton.classList.add('dark-theme-button');
-        darkThemeButton.type = 'button';
-        darkThemeButton.title = lang === 'pt-BR' ? 'Tema Escuro' : 'Dark Theme';
-        darkThemeButton.innerText = 'A';
+        this.darkThemeButton = document.createElement('button');
+        this.darkThemeButton.classList.add('dark-theme-button');
+        this.darkThemeButton.type = 'button';
+        this.darkThemeButton.title = lang === 'pt-BR' ? 'Tema Escuro' : 'Dark Theme';
+        this.darkThemeButton.innerText = 'A';
 
         this.lightThemeButtonContainer = document.createElement('div');
         this.lightThemeButtonContainer.classList.add('icon-container');
-        this.lightThemeButtonContainer.append(lightThemeButton);
+        this.lightThemeButtonContainer.append(this.lightThemeButton);
 
         this.darkThemeButtonContainer = document.createElement('div');
         this.darkThemeButtonContainer.classList.add('icon-container');
-        this.darkThemeButtonContainer.append(darkThemeButton);
+        this.darkThemeButtonContainer.append(this.darkThemeButton);
 
-        lightThemeButton.addEventListener('click', this.handleLightThemeButtonClick.bind(this));
-        darkThemeButton.addEventListener('click', this.handleDarkThemeButtonClick.bind(this));
+        this.lightThemeButton.addEventListener('click', this.handleLightThemeButtonClick.bind(this));
+        this.darkThemeButton.addEventListener('click', this.handleDarkThemeButtonClick.bind(this));
 
         const wrapper = document.createElement('div');
         wrapper.ariaHidden = true;
@@ -42,6 +43,14 @@ export default class ThemeChanger extends HTMLElement {
         wrapper.append(this.darkThemeButtonContainer);
 
         return wrapper;
+    }
+
+    isDarkModePreferredByDevice() {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return true;
+        }
+
+        return false;
     }
 
     handleDarkThemeButtonClick() {
@@ -105,6 +114,14 @@ export default class ThemeChanger extends HTMLElement {
             }
         `;
         return style;
+    }
+
+    selectPreferredColorTheme() {
+        if (this.isDarkModePreferredByDevice()) {
+            this.darkThemeButton.click();
+        } else {
+            this.lightThemeButton.click();
+        }
     }
 }
 
