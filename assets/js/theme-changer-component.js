@@ -45,14 +45,6 @@ export default class ThemeChanger extends HTMLElement {
         return wrapper;
     }
 
-    isDarkModePreferredByDevice() {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return true;
-        }
-
-        return false;
-    }
-
     handleDarkThemeButtonClick() {
         this.lightThemeButtonContainer.classList.remove('selected');
 
@@ -122,6 +114,14 @@ export default class ThemeChanger extends HTMLElement {
         } else {
             this.lightThemeButton.click();
         }
+    }
+
+    isDarkModePreferredByDevice() {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return true;
+        }
+
+        return false;
     }
 }
 
