@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/styles/index.css">
+    <link rel="stylesheet" href="/assets/vendor/highlightjs/atelier-lakeside-light.css">
+    <link rel="stylesheet" href="/assets/vendor/highlightjs/atom-one-dark.css">
+    <script src="/assets/js/theme-changer-component.js" type="module" defer></script>
+    <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <title>Simples > Espertinho</title>
+</head>
+<body>
+    <theme-changer lang="pt-BR"></theme-changer>
+    <h1>Código simples é melhor que código espertinho</h1>
+    <p class="publication-date">
+        <time datetime="2022-06-21">21 de junho de 2022</time>
+    </p>
+    <p>
+        Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro.
+    </p>
+    <p>
+        Você sabe, nós programadores somos seres noturnos, afoitos à luz. Além do mais programadores não gostam de temas claros porque luz atrai insetos - bugs, insetos... sacou?... desculpa :(
+    </p>
+    <p>
+        Enfim, aproveitei a deixa para treinar um pouquinho de <a href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components" target="_blank">Web Components</a>, por isso criei um pequeno componente para essa tarefa.
+    </p>
+    <p>
+        Eu gostei do resultado final. Ficou simples e funcional, mas uma coisa estava me incomodando neste trecho de código aqui:
+    </p>
+    <p>
+        <pre><code class="language-javascript codeblock">
+createDOMTree() {
+    const lang = this.getAttribute('lang');
+
+    const lightThemeButton = document.createElement('button');
+    lightThemeButton.classList.add('light-theme-button');
+    lightThemeButton.type = 'button';
+    lightThemeButton.innerText = 'A';
+    lightThemeButton.title =
+        lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme';
+
+    this.lightThemeButton.addEventListener(
+        'click',
+        this.handleLightThemeButtonClick.bind(this)
+    );
+
+    const darkThemeButton = document.createElement('button');
+    darkThemeButton.classList.add('dark-theme-button');
+    darkThemeButton.type = 'button';
+    darkThemeButton.innerText = 'A';
+    darkThemeButton.title =
+        lang === 'pt-BR' ? 'Tema Escuro' : 'Dark Theme';
+
+    this.darkThemeButton.addEventListener(
+        'click',
+        this.handleDarkThemeButtonClick.bind(this)
+    );
+
+    const lightThemeButtonContainer = document.createElement('div');
+    lightThemeButtonContainer.classList.add('icon-container');
+    lightThemeButtonContainer.append(lightThemeButton);
+
+    const darkThemeButtonContainer = document.createElement('div');
+    darkThemeButtonContainer.classList.add('icon-container');
+    darkThemeButtonContainer.append(darkThemeButton);
+
+    const wrapper = document.createElement('div');
+    wrapper.ariaHidden = true;
+    wrapper.classList.add('wrapper');
+    wrapper.append(lightThemeButtonContainer);
+    wrapper.append(darkThemeButtonContainer);
+
+    return wrapper;
+}
+        </code></pre>
+    </p>
+    <p>
+        Eu não conseguia parar de pensar: "Olha a quantidade de vezes que estou criando um elemento manualmente, depois setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
+    </p>
+    <p>
+        Então achei que era uma boa ideia criar um utilitário para criar elementos:
+    </p>
+    <p>
+        <pre><code class="language-javascript codeblock">
+// createElement.js
+
+export const a = {
+    button: properties => createElement('button', properties),
+    div: properties => createElement('div', properties),
+};
+
+function createElement(name, properties) {
+    const element = document.createElement(name);
+
+    for (let key in properties) {
+        if (key === 'children') {
+            element.append(...properties[key])
+            continue;
+        }
+        element[key] = properties[key];
+    }
+
+    return element;
+}
+        </code></pre>
+    </p>
+    <p>
+        Este utilitário permite criar elementos mais ou menos assim:
+    </p>
+    <p>
+        <pre><code class="language-javascript codeblock">
+import { a } from './createElement.js';
+
+// antes
+const lightThemeButton = document.createElement('button');
+lightThemeButton.classList.add('light-theme-button');
+lightThemeButton.type = 'button';
+lightThemeButton.title = lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme';
+lightThemeButton.innerText = 'A';
+
+// depois
+const lightThemeButton = a.button({
+    classList: ['light-theme-button'],
+    type: 'button',
+    title: lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme',
+    innerText: 'A',
+});
+        </code></pre>
+    </p>
+    <p>
+        Legal! Podemos utilizar as propriedades já conhecidas do próprio DOM para criar elementos ao mesmo tempo em que digitamos um pouco menos de código e diminuímos o tamanho das linhas.
+    </p>
+    <p>
+        Mas e se eu quiser criar outras coisas além de <code>div</code>'s e <code>button</code>'s? Vou ter que acrescentar no objeto <code>a</code> uma propriedade para cada elemento HTML existente, e sabe-se lá quais novos elementos podem surgir no futuro.
+    </p>
+    <p>
+        Para resolver isso, podemos usar um objeto <code>Proxy</code> para criar elementos HTML com qualquer nome:
+    </p>
+    <p>
+        <pre><code class="language-javascript codeblock">
+export const a = new Proxy({}, {
+    get: (target, name) => {
+        if (!target[name])
+            target[name] = (
+                properties => createElement(name, properties)
+            );
+        return target[name];
+    },
+});
+
+function createElement(name, properties) {
+    const element = document.createElement(name);
+
+    for (let key in properties) {
+        if (key === 'children') {
+            element.append(...properties[key])
+            continue;
+        }
+        element[key] = properties[key];
+    }
+
+    return element;
+}
+        </code></pre>
+    </p>
+    <p>
+        Este novo objeto <code>Proxy</code> cria novas funções dinamicamente, de forma que não é mais preciso criar uma propriedade para cada elemento HTML que existe.
+        <br>
+        Posso criar qualquer elemento HTML e até mesmo elementos que não existem: <code>a.banana({ ... })</code>.
+    </p>
+    <p>
+        Agora, ao reescrever o código aplicando este utilitário, o resultado fica assim:
+    </p>
+    <p>
+        <pre><code class="language-javascript codeblock">
+createDOMTree() {
+    const lang = this.getAttribute('lang');
+
+    this.lightThemeButton = a.button({
+        classList: ['light-theme-button'],
+        type: 'button',
+        innerText: 'A',
+        title: lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme',
+        onclick: this.handleLightThemeButtonClick.bind(this),
+    });
+
+    this.darkThemeButton = a.button({
+        classList: ['dark-theme-button'],
+        type: 'button',
+        innerText: 'A',
+        title: lang === 'pt-BR' ? 'Tema Escuro' : 'Dark Theme',
+        onclick: this.handleDarkThemeButtonClick.bind(this),
+    });
+
+    this.lightThemeButtonContainer = a.div({
+        classList: ['icon-container'],
+        children: [this.lightThemeButton],
+    });
+
+    this.darkThemeButtonContainer = a.div({
+        classList: ['icon-container'],
+        children: [this.darkThemeButton],
+    });
+
+    const wrapper = a.div({
+        ariaHidden: true,
+        classList: ['wrapper'],
+        children: [
+            this.lightThemeButtonContainer,
+            this.darkThemeButtonContainer
+        ],
+    });
+
+    return wrapper;
+}
+        </code></pre>
+        <p>
+            Que vantagens obtemos com essa nova implementação? Bom, consigo pensar em 2 coisas somente. A primeira é que digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também não é muito grande. A segunda é que o código TALVEZ esteja mais fácil de ler. A primeira versão desse método <code>createDOMTree</code> era tão difícil de ler a ponto de justificar a mudança? Não.
+        </p>
+        <p>
+            Certo. Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos componentes e avaliar esses dois pontos novamente:
+        </p>
+        <p>
+            <pre><code class="language-javascript codeblock">
+createDOMTree() {
+    const lang = this.getAttribute('lang');
+
+    const wrapper = a.div({
+        ariaHidden: true,
+        classList: ['wrapper'],
+        children: [
+            a.div({
+                classList: ['icon-container'],
+                children: [
+                    a.button({
+                        classList: ['light-theme-button'],
+                        type: 'button',
+                        innerText: 'A',
+                        title: lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme',
+                        onclick: this.handleLightThemeButtonClick.bind(this),
+                    }),
+                ],
+            }),
+            a.div({
+                classList: ['icon-container'],
+                children: [
+                    a.button({
+                        classList: ['dark-theme-button'],
+                        type: 'button',
+                        innerText: 'A',
+                        title: lang === 'pt-BR' ? 'Tema Escuro' : 'Dark Theme',
+                        onclick: this.handleDarkThemeButtonClick.bind(this),
+                    }),
+                ],
+            }),
+        ],
+    });
+
+    return wrapper;
+}
+            </code></pre>
+        </p>
+        <p>
+            Bom, agora ficou mais difícil avaliar. Para mim, o código parece mais difícil de ler e a quantidade de código não parece ter diminuído, além de termos agora múltiplos níveis de indentação.
+        </p>
+        <p>
+            Mas apesar das possíveis (e difíceis de justificar) vantagens da nova implementação, ainda não falamos sobre as DESVANTAGENS desse novo código:
+            <ol>
+                <li>Uma pessoa lendo esse novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento da nova função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM</li>
+                <li>Criar libs e utilitários dessa forma demanda uma grande quantidade de testes para evitar a introdução de novos bugs. Ainda não sabemos quantos edge-cases existem que não funcionam com o novo utilitário.</li>
+                <li>E a maior desvantagem de todas (para mim, pelo menos): Perdemos todo o suporte da IDE: O novo método nos faz perder autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM</li>
+            </ol>
+        </p>
+        <p>No final, a ideia pareceu ser boa, mas depois mostrou ter muitas desvantagens e vantagens que dificilmente são visíveis.</p>
+        <p>Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos".</p>
+        <p>Uma pessoa deve escrever código para que outras pessoas possam ler, não para o computador. O computador entende qualquer código, uma pessoa, não.</p>
+    </p>
+</body>
+</html>
