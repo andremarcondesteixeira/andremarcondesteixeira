@@ -1,0 +1,84 @@
+:root.dark-theme pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em
+}
+
+:root.dark-theme code.hljs {
+    padding: 3px 5px
+}
+
+:root.dark-theme .hljs {
+    color: #abb2bf;
+    background: transparent;
+}
+
+:root.dark-theme .hljs-comment,
+:root.dark-theme .hljs-quote {
+    color: #949494;
+    font-style: italic
+}
+
+:root.dark-theme .hljs-doctag,
+:root.dark-theme .hljs-formula,
+:root.dark-theme .hljs-keyword {
+    color: #c678dd
+}
+
+:root.dark-theme .hljs-deletion,
+:root.dark-theme .hljs-name,
+:root.dark-theme .hljs-section,
+:root.dark-theme .hljs-selector-tag,
+:root.dark-theme .hljs-subst {
+    color: #e06c75
+}
+
+:root.dark-theme .hljs-literal {
+    color: #56b6c2
+}
+
+:root.dark-theme .hljs-addition,
+:root.dark-theme .hljs-attribute,
+:root.dark-theme .hljs-meta .hljs-string,
+:root.dark-theme .hljs-regexp,
+:root.dark-theme .hljs-string {
+    color: #98c379
+}
+
+:root.dark-theme .hljs-attr,
+:root.dark-theme .hljs-number,
+:root.dark-theme .hljs-selector-attr,
+:root.dark-theme .hljs-selector-class,
+:root.dark-theme .hljs-selector-pseudo,
+:root.dark-theme .hljs-template-variable,
+:root.dark-theme .hljs-type,
+:root.dark-theme .hljs-variable {
+    color: #d19a66
+}
+
+:root.dark-theme .hljs-bullet,
+:root.dark-theme .hljs-link,
+:root.dark-theme .hljs-meta,
+:root.dark-theme .hljs-selector-id,
+:root.dark-theme .hljs-symbol,
+:root.dark-theme .hljs-title {
+    color: #61aeee
+}
+
+:root.dark-theme .hljs-built_in,
+:root.dark-theme .hljs-class .hljs-title,
+:root.dark-theme .hljs-title.class_ {
+    color: #e6c07b
+}
+
+:root.dark-theme .hljs-emphasis {
+    font-style: italic
+}
+
+:root.dark-theme .hljs-strong {
+    font-weight: 700
+}
+
+:root.dark-theme .hljs-link {
+    text-decoration: underline
+}

@@ -1,8 +1,8 @@
 :root {
     --dark-theme-background-color: #3f3f3f;
-    --dark-theme-text-color: #ccc;
-    --light-theme-background-color: #ddd;
-    --light-theme-text-color: #444;
+    --dark-theme-text-color: #bbb;
+    --light-theme-background-color: #dfdfdf;
+    --light-theme-text-color: #333;
 }
 
 :root {
@@ -18,8 +18,8 @@
 
 :root.dark-theme {
     --background-color: var(--dark-theme-background-color);
-    --code-block-background-color: #333;
+    --code-block-background-color: #373737;
     --code-block-border-color: #666;
-    --code-block-text-color: #cfc;
+    --code-block-text-color: #98c379;
     --text-color: var(--dark-theme-text-color);
 }
