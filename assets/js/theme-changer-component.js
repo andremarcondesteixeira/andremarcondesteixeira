@@ -90,9 +90,9 @@ export default class ThemeChanger extends HTMLElement {
                 cursor: pointer;
                 display: block;
                 border-radius: 100%;
-                height: 3rem;
+                height: 2.5rem;
                 text-align: center;
-                width: 3rem;
+                width: 2.5rem;
             }
             
             .light-theme-button {

@@ -1,6 +1,11 @@
 .codeblock {
+    border: 1px solid var(--code-block-border-color);
     border-radius: var(--default-border-radius);
     display: block;
     margin: 2rem 0;
     padding: 1rem;
+}
+
+.publication-date {
+    margin-bottom: 3rem;
 }
