@@ -21,7 +21,7 @@ body {
     font-size: 2rem;
     font-weight: 400;
     line-height: 1.5;
-    padding: 1rem;
+    padding: 4rem 1rem;
 }
 
 a {
@@ -39,6 +39,10 @@ code {
     font-family: 'Source Code Pro', monospace;
     font-size: 1.6rem;
     padding: 0 0.5rem;
+}
+
+figure {
+    text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -67,9 +71,27 @@ h3 {
 
 ol, ul {
     list-style-position: inside;
-    margin: 5rem;
+    margin: 2rem 5rem;
 }
 
 li {
     margin-top: 2rem;
+}
+
+@media screen and (min-width: 640px) {
+    body {
+        padding: 4rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    body {
+        padding: 4rem 8rem;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    body {
+        padding: 4rem 20rem;
+    }
 }
