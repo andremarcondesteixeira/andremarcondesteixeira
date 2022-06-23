@@ -19,16 +19,13 @@
         <time datetime="2022-06-21">21 de junho de 2022</time>
     </p>
     <p>
-        Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro.
+        Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos... BUGS... Sacou?... Desculpa :(
     </p>
     <p>
-        Você sabe, nós programadores somos seres noturnos, afoitos à luz. Além do mais programadores não gostam de temas claros porque luz atrai insetos - bugs, insetos... sacou?... desculpa :(
+        Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro. Então, aproveitei a deixa para treinar um pouquinho de <a href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components" target="_blank">Web Components</a>, e criei um pequeno componente para essa tarefa.
     </p>
     <p>
-        Enfim, aproveitei a deixa para treinar um pouquinho de <a href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components" target="_blank">Web Components</a>, por isso criei um pequeno componente para essa tarefa.
-    </p>
-    <p>
-        Eu gostei do resultado final. Ficou simples e funcional, mas uma coisa estava me incomodando neste trecho de código aqui:
+        O resultado ficou simples e funcional, mas uma coisa estava me incomodando neste trecho de código aqui:
     </p>
     <p>
         <pre><code class="language-javascript codeblock">
@@ -131,7 +128,7 @@ const lightThemeButton = a.button({
         </code></pre>
     </p>
     <p>
-        Legal! Podemos utilizar as propriedades já conhecidas do próprio DOM para criar elementos ao mesmo tempo em que digitamos um pouco menos de código e diminuímos o tamanho das linhas.
+        Interessante! Esse código parece ter ficado bom e precisei digitar um pouco menos quando comparado à API nativa do DOM.
     </p>
     <p>
         Mas e se eu quiser criar outras coisas além de <code>div</code>'s e <code>button</code>'s? Vou ter que acrescentar no objeto <code>a</code> uma propriedade para cada elemento HTML existente, e sabe-se lá quais novos elementos podem surgir no futuro.
@@ -170,6 +167,9 @@ function createElement(name, properties) {
         Este novo objeto <code>Proxy</code> cria novas funções dinamicamente, de forma que não é mais preciso criar uma propriedade para cada elemento HTML que existe.
         <br>
         Posso criar qualquer elemento HTML e até mesmo elementos que não existem: <code>a.banana({ ... })</code>.
+    </p>
+    <p>
+        Uau! Essa ideia foi realmente muito esperta!
     </p>
     <p>
         Agora, ao reescrever o código aplicando este utilitário, o resultado fica assim:
@@ -218,10 +218,18 @@ createDOMTree() {
 }
         </code></pre>
         <p>
-            Que vantagens obtemos com essa nova implementação? Bom, consigo pensar em 2 coisas somente. A primeira é que digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também não é muito grande. A segunda é que o código TALVEZ esteja mais fácil de ler. A primeira versão desse método <code>createDOMTree</code> era tão difícil de ler a ponto de justificar a mudança? Não.
+            Que vantagens obtemos com essa nova implementação? Bom, consigo pensar somente em 2 coisas:
         </p>
+        <ol>
+            <li>
+                Digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também não é muito grande
+            </li>
+            <li>
+                O código <i>talvez</i> esteja mais fácil de ler. Mas a forma como o código foi escrito anteriormente era tão difícil de ler a ponto de justificar essa mudança? Acredito que não
+            </li>
+        </ol>
         <p>
-            Certo. Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos componentes e avaliar esses dois pontos novamente:
+            Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos elementos e avaliar estes dois pontos novamente:
         </p>
         <p>
             <pre><code class="language-javascript codeblock">
@@ -267,16 +275,36 @@ createDOMTree() {
             Bom, agora ficou mais difícil avaliar. Para mim, o código parece mais difícil de ler e a quantidade de código não parece ter diminuído, além de termos agora múltiplos níveis de indentação.
         </p>
         <p>
-            Mas apesar das possíveis (e difíceis de justificar) vantagens da nova implementação, ainda não falamos sobre as DESVANTAGENS desse novo código:
+            Mas apesar das possíveis (e difíceis de justificar) vantagens da nova implementação, ainda não falamos sobre as <u>desvantagens</u> desse novo código:
             <ol>
-                <li>Uma pessoa lendo esse novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento da nova função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM</li>
-                <li>Criar libs e utilitários dessa forma demanda uma grande quantidade de testes para evitar a introdução de novos bugs. Ainda não sabemos quantos edge-cases existem que não funcionam com o novo utilitário.</li>
-                <li>E a maior desvantagem de todas (para mim, pelo menos): Perdemos todo o suporte da IDE: O novo método nos faz perder autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM</li>
+                <li>
+                    Uma pessoa lendo o novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento da nova função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
+                </li>
+                <li>
+                    Criar bibliotecas e utilitários dessa forma demanda uma grande quantidade de testes para evitar a introdução de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil simplesmente utilizar alguma bilbioteca já pronta, como o React.
+                </li>
+                <li>
+                    E a maior desvantagem de todas (para mim, pelo menos): Perdemos quase todo o suporte da IDE: O novo código nos faz perder autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM. Tudo o que conseguimos da IDE agora são sugestões fora de contexto.
+                </li>
             </ol>
         </p>
-        <p>No final, a ideia pareceu ser boa, mas depois mostrou ter muitas desvantagens e vantagens que dificilmente são visíveis.</p>
-        <p>Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos".</p>
-        <p>Uma pessoa deve escrever código para que outras pessoas possam ler, não para o computador. O computador entende qualquer código, uma pessoa, não.</p>
+        <figure>
+            <img src="/assets/images/20220623-screenshot-good-code.png" alt="código bom">
+            <figcaption>Com a versão original do código a IDE faz sugestões baseadas no contexto</figcaption>
+        </figure>
+        <figure>
+            <img src="/assets/images/20220623-screenshot-bad-code.png" alt="código ruim">
+            <figcaption>Com a nova versão do código a IDE faz sugestões sem contexto e que não fazem sentido</figcaption>
+        </figure>
+        <p>
+            No final, a ideia pareceu ser boa, mas depois mostrou ter muitas desvantagens e vantagens que dificilmente são visíveis.
+        </p>
+        <p>
+            Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos".
+        </p>
+        <p>
+            Uma pessoa deve escrever código para que outras pessoas possam ler, não para o computador. O computador entende qualquer código, uma pessoa, não.
+        </p>
     </p>
 </body>
 </html>
