@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/styles/index.css">
-    <link rel="stylesheet" href="/assets/vendor/highlightjs/atelier-lakeside-light.css">
-    <link rel="stylesheet" href="/assets/vendor/highlightjs/atom-one-dark.css">
-    <script src="/assets/js/theme-changer-component.js" type="module" defer></script>
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="/assets/styles/index.css">
+    <link rel="stylesheet"
+          href="/assets/vendor/highlightjs/atelier-lakeside-light.css">
+    <link rel="stylesheet"
+          href="/assets/vendor/highlightjs/atom-one-dark.css">
+    <script src="/assets/js/theme-changer-component.js"
+            type="module"
+            defer></script>
     <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
     <title>Simples > Espertinho</title>
 </head>
+
 <body>
-    <theme-changer lang="pt-BR"></theme-changer>
+    <theme-changer aria-hidden="true"
+                   lang="pt-BR"></theme-changer>
     <h1>Código simples é melhor que código espertinho</h1>
     <p class="publication-date">
-        <time datetime="2022-06-21">21 de junho de 2022</time>
+        <time datetime="2022-06-21">23 de junho de 2022</time>
     </p>
     <figure class="opening-citation">
         <blockquote>
@@ -25,16 +35,19 @@
         <figcaption>&#8212; Leonardo da Vinci</figcaption>
     </figure>
     <p>
-        Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos... BUGS... Sacou?... Desculpa.
+        Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos... BUGS...
+        Sacou?... Desculpa.
     </p>
     <p>
-        Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro. Então, aproveitei a deixa para treinar um pouquinho de <a href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components" target="_blank">Web Components</a>, e criei um pequeno componente para essa tarefa.
+        Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro. Então,
+        aproveitei a deixa para treinar um pouquinho de <a
+           href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components"
+           target="_blank">Web Components</a>, e criei um pequeno componente para essa tarefa.
     </p>
     <p>
         O resultado ficou simples e funcional, mas uma coisa estava me incomodando neste trecho de código aqui:
     </p>
-    <p>
-        <pre><code class="language-javascript codeblock">
+    <pre><code class="language-javascript codeblock">
 createDOMTree() {
     const lang = this.getAttribute('lang');
 
@@ -78,16 +91,15 @@ createDOMTree() {
 
     return wrapper;
 }
-        </code></pre>
-    </p>
+    </code></pre>
     <p>
-        Eu não conseguia parar de pensar: "Olha a quantidade de vezes que estou criando um elemento manualmente, depois setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
+        Eu não conseguia parar de pensar: "Olha a quantidade de vezes que estou criando um elemento manualmente, depois
+        setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
     </p>
     <p>
         Então achei que era uma boa ideia criar um utilitário para criar elementos:
     </p>
-    <p>
-        <pre><code class="language-javascript codeblock">
+    <pre><code class="language-javascript codeblock">
 // createElement.js
 
 export const a = {
@@ -108,13 +120,11 @@ function createElement(name, properties) {
 
     return element;
 }
-        </code></pre>
-    </p>
+    </code></pre>
     <p>
         Este utilitário permite criar elementos mais ou menos assim:
     </p>
-    <p>
-        <pre><code class="language-javascript codeblock">
+    <pre><code class="language-javascript codeblock">
 import { a } from './createElement.js';
 
 // antes
@@ -131,19 +141,20 @@ const lightThemeButton = a.button({
     title: lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme',
     innerText: 'A',
 });
-        </code></pre>
+    </code></pre>
+    <p>
+        Interessante! Esse código parece ter ficado bom e precisei digitar um pouco menos quando comparado à API nativa
+        do DOM.
     </p>
     <p>
-        Interessante! Esse código parece ter ficado bom e precisei digitar um pouco menos quando comparado à API nativa do DOM.
-    </p>
-    <p>
-        Mas e se eu quiser criar outras coisas além de <code>div</code>'s e <code>button</code>'s? Vou ter que acrescentar no objeto <code>a</code> uma propriedade para cada elemento HTML existente, e sabe-se lá quais novos elementos podem surgir no futuro.
+        Mas e se eu quiser criar outras coisas além de <code>div</code>'s e <code>button</code>'s? Vou ter que
+        acrescentar no objeto <code>a</code> uma propriedade para cada elemento HTML existente, e sabe-se lá quais novos
+        elementos podem surgir no futuro.
     </p>
     <p>
         Para resolver isso, podemos usar um objeto <code>Proxy</code> para criar elementos HTML com qualquer nome:
     </p>
-    <p>
-        <pre><code class="language-javascript codeblock">
+    <pre><code class="language-javascript codeblock">
 export const a = new Proxy({}, {
     get: (target, name) => {
         if (!target[name])
@@ -167,10 +178,10 @@ function createElement(name, properties) {
 
     return element;
 }
-        </code></pre>
-    </p>
+    </code></pre>
     <p>
-        Este novo objeto <code>Proxy</code> cria novas funções dinamicamente, de forma que não é mais preciso criar uma propriedade para cada elemento HTML que existe.
+        Este novo objeto <code>Proxy</code> cria novas funções dinamicamente, de forma que não é mais preciso criar uma
+        propriedade para cada elemento HTML que existe.
         <br>
         Posso criar qualquer elemento HTML e até mesmo elementos que não existem: <code>a.banana({ ... })</code>.
     </p>
@@ -180,8 +191,7 @@ function createElement(name, properties) {
     <p>
         Agora, ao reescrever o código aplicando este utilitário, o resultado fica assim:
     </p>
-    <p>
-        <pre><code class="language-javascript codeblock">
+    <pre><code class="language-javascript codeblock">
 createDOMTree() {
     const lang = this.getAttribute('lang');
 
@@ -222,23 +232,25 @@ createDOMTree() {
 
     return wrapper;
 }
-        </code></pre>
-        <p>
-            Que vantagens obtemos com essa nova implementação? Bom, consigo pensar somente em 2 coisas:
-        </p>
-        <ol>
-            <li>
-                Digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também não é muito grande
-            </li>
-            <li>
-                O código <i>talvez</i> esteja mais fácil de ler. Mas a forma como o código foi escrito anteriormente era tão difícil de ler a ponto de justificar essa mudança? Acredito que não
-            </li>
-        </ol>
-        <p>
-            Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos elementos e avaliar estes dois pontos novamente:
-        </p>
-        <p>
-            <pre><code class="language-javascript codeblock">
+    </code></pre>
+    <p>
+        Que vantagens obtemos com essa nova implementação? Bom, consigo pensar somente em 2 coisas:
+    </p>
+    <ol>
+        <li>
+            Digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também não é
+            muito grande
+        </li>
+        <li>
+            O código <i>talvez</i> esteja mais fácil de ler. Mas a forma como o código foi escrito anteriormente era tão
+            difícil de ler a ponto de justificar essa mudança? Acredito que não
+        </li>
+    </ol>
+    <p>
+        Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos elementos e avaliar estes dois pontos
+        novamente:
+    </p>
+    <pre><code class="language-javascript codeblock">
 createDOMTree() {
     const lang = this.getAttribute('lang');
 
@@ -275,36 +287,48 @@ createDOMTree() {
 
     return wrapper;
 }
-            </code></pre>
-        </p>
-        <p>
-            Agora, o código parece menos legível, além de termos múltiplos níveis de indentação. E mesmo que alguém ache isso mais legível, se resume a um gosto pessoal e, além do mais, ainda precisamos falar sobre as <u>desvantagens</u> do novo código:
-            <ol>
-                <li>
-                    Uma pessoa lendo o novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento da nova função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
-                </li>
-                <li>
-                    Criar bibliotecas e utilitários dessa forma demanda uma grande quantidade de testes para evitar a introdução de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil simplesmente utilizar alguma bilbioteca já pronta, como o React.
-                </li>
-                <li>
-                    E a maior desvantagem de todas: Perdemos quase todo o suporte da IDE: O novo código nos faz perder autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM. Tudo o que conseguimos da IDE agora são sugestões fora de contexto.
-                </li>
-            </ol>
-        </p>
-        <figure class="cancel-out-body-x-padding">
-            <img src="/assets/images/20220623-screenshot-good-code.png" alt="código bom">
-            <figcaption>Com a versão original do código a IDE faz sugestões baseadas no contexto</figcaption>
-        </figure>
-        <figure class="cancel-out-body-x-padding">
-            <img src="/assets/images/20220623-screenshot-bad-code.png" alt="código ruim">
-            <figcaption>Com a nova versão do código a IDE faz sugestões sem contexto e que não fazem sentido</figcaption>
-        </figure>
-        <p>
-            Afinal, o que quero dizer com isso tudo? Inicialmente, a ideia de criar um utilitário para criar elementos HTML pareceu ser muito boa, mas após um pouco de análise, chegamos à conclusão que a tentativa de economizar código trouxe mais prejuízos do que benefícios.
-        </p>
-        <p>
-            Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos" <span class="nowrap">;)</span>
-        </p>
+    </code></pre>
+    </p>
+    <p>
+        Agora, o código parece menos legível, além de termos múltiplos níveis de indentação. E mesmo que alguém ache
+        isso mais legível, se resume a um gosto pessoal e, além do mais, ainda precisamos falar sobre as
+        <u>desvantagens</u> do novo código:
+    </p>
+    <ol>
+        <li>
+            Uma pessoa lendo o novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento da nova
+            função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
+        </li>
+        <li>
+            Criar bibliotecas e utilitários dessa forma demanda uma grande quantidade de testes para evitar a introdução
+            de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil simplesmente utilizar
+            alguma bilbioteca já pronta, como o React.
+        </li>
+        <li>
+            E a maior desvantagem de todas: Perdemos quase todo o suporte da IDE: O novo código nos faz perder
+            autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM. Tudo o
+            que conseguimos da IDE agora são sugestões fora de contexto.
+        </li>
+    </ol>
+    <figure class="cancel-out-body-x-padding">
+        <img src="/assets/images/20220623-screenshot-good-code.png"
+             alt="código bom">
+        <figcaption>Com a versão original do código a IDE faz sugestões baseadas no contexto</figcaption>
+    </figure>
+    <figure class="cancel-out-body-x-padding">
+        <img src="/assets/images/20220623-screenshot-bad-code.png"
+             alt="código ruim">
+        <figcaption>Com a nova versão do código a IDE faz sugestões sem contexto e que não fazem sentido</figcaption>
+    </figure>
+    <p>
+        Afinal, o que quero dizer com isso tudo? Inicialmente, a ideia de criar um utilitário para criar elementos HTML
+        pareceu ser muito boa, mas após um pouco de análise, chegamos à conclusão que a tentativa de economizar código
+        trouxe mais prejuízos do que benefícios.
+    </p>
+    <p>
+        Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos"
+        <span class="nowrap">;)</span>
     </p>
 </body>
+
 </html>
