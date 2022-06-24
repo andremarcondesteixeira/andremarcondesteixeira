@@ -19,7 +19,7 @@
         <time datetime="2022-06-21">21 de junho de 2022</time>
     </p>
     <p>
-        Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos... BUGS... Sacou?... Desculpa :(
+        Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos... BUGS... Sacou?... Desculpa.
     </p>
     <p>
         Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro. Então, aproveitei a deixa para treinar um pouquinho de <a href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components" target="_blank">Web Components</a>, e criei um pequeno componente para essa tarefa.
@@ -272,10 +272,7 @@ createDOMTree() {
             </code></pre>
         </p>
         <p>
-            Bom, agora ficou mais difícil avaliar. Para mim, o código parece mais difícil de ler e a quantidade de código não parece ter diminuído, além de termos agora múltiplos níveis de indentação.
-        </p>
-        <p>
-            Mas apesar das possíveis (e difíceis de justificar) vantagens da nova implementação, ainda não falamos sobre as <u>desvantagens</u> desse novo código:
+            Agora, o código parece menos legível, além de termos múltiplos níveis de indentação. E mesmo que alguém ache isso mais legível, se resume a um gosto pessoal e, além do mais, ainda precisamos falar sobre as <u>desvantagens</u> do novo código:
             <ol>
                 <li>
                     Uma pessoa lendo o novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento da nova função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
@@ -284,26 +281,23 @@ createDOMTree() {
                     Criar bibliotecas e utilitários dessa forma demanda uma grande quantidade de testes para evitar a introdução de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil simplesmente utilizar alguma bilbioteca já pronta, como o React.
                 </li>
                 <li>
-                    E a maior desvantagem de todas (para mim, pelo menos): Perdemos quase todo o suporte da IDE: O novo código nos faz perder autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM. Tudo o que conseguimos da IDE agora são sugestões fora de contexto.
+                    E a maior desvantagem de todas: Perdemos quase todo o suporte da IDE: O novo código nos faz perder autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM. Tudo o que conseguimos da IDE agora são sugestões fora de contexto.
                 </li>
             </ol>
         </p>
-        <figure>
+        <figure class="cancel-out-body-x-padding">
             <img src="/assets/images/20220623-screenshot-good-code.png" alt="código bom">
             <figcaption>Com a versão original do código a IDE faz sugestões baseadas no contexto</figcaption>
         </figure>
-        <figure>
+        <figure class="cancel-out-body-x-padding">
             <img src="/assets/images/20220623-screenshot-bad-code.png" alt="código ruim">
             <figcaption>Com a nova versão do código a IDE faz sugestões sem contexto e que não fazem sentido</figcaption>
         </figure>
         <p>
-            No final, a ideia pareceu ser boa, mas depois mostrou ter muitas desvantagens e vantagens que dificilmente são visíveis.
+            Afinal, o que quero dizer com isso tudo? Inicialmente, a ideia de criar um utilitário para criar elementos HTML pareceu ser muito boa, mas após um pouco de análise, chegamos à conclusão que a tentativa de economizar código trouxe mais prejuízos do que benefícios.
         </p>
         <p>
-            Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos".
-        </p>
-        <p>
-            Uma pessoa deve escrever código para que outras pessoas possam ler, não para o computador. O computador entende qualquer código, uma pessoa, não.
+            Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos" <span class="nowrap">;)</span>
         </p>
     </p>
 </body>
