@@ -109,15 +109,20 @@ export default class ThemeChanger extends HTMLElement {
                 setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
             </p>
             <p>
-                Então achei que era uma boa ideia criar um utilitário para criar elementos:
+                Então achei que era uma boa ideia escrever um pequeno utilitário para criar elementos HTML:
             </p>
             <pre><code class="language-javascript codeblock">
 // createElement.js
 
-export const a = {
-    button: properties => createElement('button', properties),
-    div: properties => createElement('div', properties),
-};
+export const a = new Proxy({}, {
+    get: (target, name) => {
+        if (!target[name])
+            target[name] = (
+                properties => createElement(name, properties)
+            );
+        return target[name];
+    },
+});
 
 function createElement(name, properties) {
     const element = document.createElement(name);
@@ -175,47 +180,6 @@ export default class ThemeChanger extends HTMLElement {
             <p>
                 Interessante! Esse código parece ter ficado bom e precisei digitar um pouco menos quando comparado à API nativa
                 do DOM.
-            </p>
-            <p>
-                Mas e se eu quiser criar outras coisas além de <code>div</code>'s e <code>button</code>'s? Vou ter que
-                acrescentar no objeto <code>a</code> uma propriedade para cada elemento HTML existente, e sabe-se lá quais novos
-                elementos podem surgir no futuro.
-            </p>
-            <p>
-                Para resolver isso, podemos usar um objeto <code>Proxy</code> para criar elementos HTML com qualquer nome:
-            </p>
-            <pre><code class="language-javascript codeblock">
-// createElement.js
-
-export const a = new Proxy({}, {
-    get: (target, name) => {
-        if (!target[name])
-            target[name] = (
-                properties => createElement(name, properties)
-            );
-        return target[name];
-    },
-});
-
-function createElement(name, properties) {
-    const element = document.createElement(name);
-
-    for (let key in properties) {
-        if (key === 'children') {
-            element.append(...properties[key])
-            continue;
-        }
-        element[key] = properties[key];
-    }
-
-    return element;
-}
-            </code></pre>
-            <p>
-                Este novo objeto <code>Proxy</code> cria novas funções dinamicamente, de forma que não é mais preciso criar uma
-                propriedade para cada elemento HTML que existe.
-                <br>
-                Posso criar qualquer elemento HTML e até mesmo elementos que não existem: <code>a.banana({ ... })</code>.
             </p>
             <p>
                 Uau! Essa ideia foi realmente muito esperta!
