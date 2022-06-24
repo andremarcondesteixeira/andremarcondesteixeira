@@ -21,7 +21,7 @@ body {
     font-size: 2rem;
     font-weight: 400;
     line-height: 1.5;
-    padding: 4rem 1rem;
+    padding: 4rem var(--body-x-padding);
 }
 
 a {
@@ -42,6 +42,8 @@ code {
 }
 
 figure {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
     text-align: center;
 }
 
@@ -76,22 +78,4 @@ ol, ul {
 
 li {
     margin-top: 2rem;
-}
-
-@media screen and (min-width: 640px) {
-    body {
-        padding: 4rem;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    body {
-        padding: 4rem 8rem;
-    }
-}
-
-@media screen and (min-width: 1400px) {
-    body {
-        padding: 4rem 20rem;
-    }
 }

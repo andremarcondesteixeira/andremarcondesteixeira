@@ -9,3 +9,8 @@
 .publication-date {
     margin-bottom: 3rem;
 }
+
+.cancel-out-body-x-padding {
+    margin-left: calc(var(--body-x-padding) * -1);
+    margin-right: calc(var(--body-x-padding) * -1);
+}
