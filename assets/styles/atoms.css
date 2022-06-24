@@ -1,3 +1,8 @@
+.cancel-out-body-x-padding {
+    margin-left: calc(var(--body-x-padding) * -1);
+    margin-right: calc(var(--body-x-padding) * -1);
+}
+
 .codeblock {
     border: 1px solid var(--code-block-border-color);
     border-radius: var(--default-border-radius);
@@ -6,15 +11,15 @@
     padding: 1rem;
 }
 
-.publication-date {
-    margin-bottom: 3rem;
-}
-
-.cancel-out-body-x-padding {
-    margin-left: calc(var(--body-x-padding) * -1);
-    margin-right: calc(var(--body-x-padding) * -1);
-}
-
 .nowrap {
     white-space: nowrap;
+}
+
+.opening-citation {
+    margin-top: 0;
+    text-align: right;
+}
+
+.publication-date {
+    margin-bottom: 3rem;
 }
