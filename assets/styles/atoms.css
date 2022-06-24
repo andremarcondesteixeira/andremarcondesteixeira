@@ -14,3 +14,7 @@
     margin-left: calc(var(--body-x-padding) * -1);
     margin-right: calc(var(--body-x-padding) * -1);
 }
+
+.nowrap {
+    white-space: nowrap;
+}
