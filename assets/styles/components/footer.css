@@ -1,0 +1,26 @@
+.main-footer {
+    align-items: center;
+    display: grid;
+    gap: 3rem;
+    grid-template-areas:
+     'profile_picture name name'
+     'profile_picture . .';
+    justify-content: center;
+    justify-items: center;
+    margin-top: 5rem;
+}
+
+.main-footer strong {
+    font-size: 5rem;
+    grid-area: name;
+}
+
+.main-footer .main-footer--profile-picture {
+    grid-area: profile_picture;
+    height: 20rem;
+    width: 20rem;
+}
+
+.main-footer .main-footer--network-icon {
+    width: 5rem;
+}
