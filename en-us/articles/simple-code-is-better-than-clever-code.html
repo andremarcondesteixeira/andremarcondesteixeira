@@ -26,23 +26,23 @@
         <nav class="header--navigation">
             <ul>
                 <li>
-                    <a href="/en/articles/simple-code-is-better-than-clever-code.html"
-                       lang="en-US">Read in English</a>
+                    <a href="/pt-br/artigos/codigo-simples-melhor-que-codigo-espertinho.html"
+                       lang="en-US">Ler em Português</a>
                 </li>
                 <li>
-                    <a href="/">Início</a>
+                    <a href="/en-us">Home</a>
                 </li>
             </ul>
         </nav>
         <theme-changer aria-hidden="true"
-                       lang="pt-BR"></theme-changer>
-        <h1>Código simples é melhor que código espertinho</h1>
+                       lang="en-US"></theme-changer>
+        <h1>Simple code is better than clever code</h1>
         <p class="header--article-publication-date">
-            <time datetime="2022-06-27">27 de junho de 2022</time>
+            <time datetime="2022-06-27">June 27th, 2022</time>
         </p>
         <figure class="header--article-opening-citation">
             <blockquote>
-                A simplicidade é o mais alto grau de sofisticação
+                Simplicity is the ultimate sophistication
             </blockquote>
             <figcaption>&#8212; Leonardo da Vinci</figcaption>
         </figure>
@@ -50,19 +50,16 @@
     <main>
         <article>
             <p>
-                Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos...
-                BUGS...
-                Sacou?... Desculpa.
+                Do you know why programmers don't like light themes? Because light attracts bugs! ... Ok, I'm sorry.
             </p>
             <p>
-                Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro.
-                Então,
-                aproveitei a deixa para treinar um pouquinho de <a
+                When creating this blog, I wanted a color theme change feature, so I created a small <a
                    href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components"
-                   target="_blank">Web Components</a>, e criei um pequeno componente para essa tarefa.
+                   target="_blank">Web Component</a> to do it.
             </p>
             <p>
-                O resultado ficou simples e funcional, mas uma coisa estava me incomodando neste trecho de código aqui:
+                The component turned out simple and functional, but still, something was bothering me about this piece
+                of code:
             </p>
             <pre><code class="language-javascript codeblock">
 // theme-changer-component.js
@@ -120,12 +117,11 @@ export default class ThemeChanger extends HTMLElement {
 }
             </code></pre>
             <p>
-                Eu não conseguia parar de pensar: "Olha a quantidade de vezes que estou criando um elemento manualmente,
-                depois
-                setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
+                I couldn't stop thinking: "Look how many times I am manually creating HTML components and then manually
+                setting their attributes! There has to be a cleaner way to do that."
             </p>
             <p>
-                Então achei que era uma boa ideia escrever um pequeno utilitário para criar elementos HTML:
+                So, I decided it was a good idea to write a simple utility function to create HTML components:
             </p>
             <pre><code class="language-javascript codeblock">
 // createElement.js
@@ -155,7 +151,7 @@ function createElement(name, properties) {
 }
             </code></pre>
             <p>
-                Este utilitário permite criar elementos mais ou menos assim:
+                With this function, I can create HTML components like this:
             </p>
             <pre><code class="language-javascript codeblock">
 // theme-changer-component.js
@@ -170,14 +166,14 @@ export default class ThemeChanger extends HTMLElement {
 
         ...
 
-        // antes
+        // before
         const lightThemeButton = document.createElement('button');
         lightThemeButton.classList.add('light-theme-button');
         lightThemeButton.type = 'button';
         lightThemeButton.title = lang === 'pt-BR' ? 'Tema Claro' : 'Light Theme';
         lightThemeButton.innerText = 'A';
 
-        // depois
+        // after
         const lightThemeButton = a.button({
             classList: ['light-theme-button'],
             type: 'button',
@@ -194,15 +190,14 @@ export default class ThemeChanger extends HTMLElement {
 }
             </code></pre>
             <p>
-                Interessante! Esse código parece ter ficado bom e precisei digitar um pouco menos quando comparado à API
-                nativa
-                do DOM.
+                Interesting! This code looks clean and I needed to type a little less code when compared to when I used
+                the native DOM API.
             </p>
             <p>
-                Uau! Essa ideia foi realmente muito esperta!
+                Wow! This was a clever idea!
             </p>
             <p>
-                Agora, ao reescrever o código aplicando este utilitário, o resultado fica assim:
+                Now, when when I rewrote the code using this new utility, this is the result:
             </p>
             <pre><code class="language-javascript codeblock">
 // theme-changer-component.js
@@ -259,24 +254,21 @@ export default class ThemeChanger extends HTMLElement {
 }
             </code></pre>
             <p>
-                Que vantagens obtemos com essa nova implementação? Bom, consigo pensar somente em 2 coisas:
+                What benefits did I get with this new approach? I can only think of two:
             </p>
             <ol>
                 <li>
-                    Digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também
-                    não é
-                    muito grande
+                    I typed less code to implement the same functionality. But the amount difference is not that big
+                    anyway.
                 </li>
                 <li>
-                    O código <i>talvez</i> esteja mais fácil de ler. Mas a forma como o código foi escrito anteriormente
-                    era tão
-                    difícil de ler a ponto de justificar essa mudança? Acredito que não
+                    The code <i>may or may not</i> look cleaner. But if we think about it, is the code from the previous
+                    approach that hard to read to justify a change? I don't think so.
                 </li>
             </ol>
             <p>
-                Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos elementos e avaliar estes dois
-                pontos
-                novamente:
+                But what if we go a little further? Let's nest the components creation and evaluate those 2 benefits
+                again:
             </p>
             <pre><code class="language-javascript codeblock">
 // theme-changer-component.js
@@ -330,55 +322,49 @@ export default class ThemeChanger extends HTMLElement {
             </code></pre>
             </p>
             <p>
-                Agora, o código parece menos legível, além de termos múltiplos níveis de indentação. E mesmo que alguém
-                ache
-                isso mais legível, se resume a um gosto pessoal e, além do mais, ainda precisamos falar sobre as
-                <u>desvantagens</u> do novo código:
+                The code doesn't look that clean now, and there are multiple indentation levels. And even if someone
+                finds it easier to read, I think it depends on personal taste. The amount of code doesn't look that
+                different too. Also, we still need to talk about what are the <u>trade-offs</u> of this approach:
             </p>
             <ol>
                 <li>
-                    Uma pessoa lendo o novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento
-                    da nova
-                    função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
+                    Someone reading this code may have a higher cognitive load to understand what's going on, because
+                    now there is this extra <code>a</code> object that needs to be understood instead of the known,
+                    native DOM API.
                 </li>
                 <li>
-                    Criar bibliotecas e utilitários dessa forma demanda uma grande quantidade de testes para evitar a
-                    introdução
-                    de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil simplesmente
-                    utilizar
-                    alguma bilbioteca já pronta, como o React.
+                    Creating utilities like this demands a high amount of automated tests to prevent the introduction of
+                    bugs on the projects that use it (we have no idea how many edge cases of HTML element creation will
+                    not work with this approach). If I make the utility function advanced enough, it is easier to just
+                    use some library that already exists, like React, instead of reinventing the wheel.
                 </li>
                 <li>
-                    E a maior desvantagem de todas: Perdemos quase todo o suporte da IDE: O novo código nos faz perder
-                    autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM.
-                    Tudo o
-                    que conseguimos da IDE agora são sugestões fora de contexto.
+                    And the biggest trade-off is that we lose almost all IDE support. When using the utility function,
+                    we lose the auto-completion feature and all tools the analyze the usage of the native DOM API's will
+                    not be able to help us. All we get from the IDE now are out of context suggestions.
                 </li>
             </ol>
             <figure class="cancel-out-body-x-padding">
                 <img src="/assets/images/20220623-screenshot-good-code.png"
                      alt="código bom">
                 <figcaption>
-                    Com a versão original do código a IDE faz sugestões baseadas no contexto
+                    With the original approach, the IDE provides sensible, context-driven auto-completion
                 </figcaption>
             </figure>
             <figure class="cancel-out-body-x-padding">
                 <img src="/assets/images/20220623-screenshot-bad-code.png"
                      alt="código ruim">
                 <figcaption>
-                    Com a nova versão do código a IDE faz sugestões sem contexto e que não fazem sentido
+                    With the utility function, the IDE can only provide out of context suggestions
                 </figcaption>
             </figure>
             <p>
-                Afinal, o que quero dizer com isso tudo? Inicialmente, a ideia de criar um utilitário para criar
-                elementos HTML
-                pareceu ser muito boa, mas após um pouco de análise, chegamos à conclusão que a tentativa de economizar
-                código
-                trouxe mais prejuízos do que benefícios.
+                Initially, the idea of a utility function to create HTML components looked pretty good. But after trying
+                it, it proved to have more trade-offs than benefits.
             </p>
             <p>
-                Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos"
-                &#x1F609;
+                We can get a simple lesson from this experiment: Don't write clever code. The tools you have at your
+                disposal are probably doing a better job than you will ever be able to achieve. &#x1F609;
             </p>
         </article>
     </main>
@@ -388,7 +374,7 @@ export default class ThemeChanger extends HTMLElement {
              aria-hidden="true"
              class="footer--profile-picture rounded">
         <strong>André Teixeira</strong>
-        <nav>
+        <nav class="footer--navigation">
             <ul>
                 <li>
                     <a href="https://www.linkedin.com/in/andremarcondesteixeira/"
