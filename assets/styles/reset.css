@@ -84,7 +84,7 @@ h3 {
 
 ol,
 ul {
-    list-style-position: inside;
+    list-style-position: outside;
     margin: 2rem 5rem;
 }
 
