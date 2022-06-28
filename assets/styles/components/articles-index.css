@@ -1,0 +1,15 @@
+.articles-index ul {
+    list-style-type: none;
+}
+
+.articles-index li {
+    border: 1px solid var(--text-color);
+    border-radius: var(--default-border-radius);
+    padding: 3rem;
+}
+
+.articles-index ul,
+.articles-index li,
+.articles-index h1 {
+    margin: 0;
+}
