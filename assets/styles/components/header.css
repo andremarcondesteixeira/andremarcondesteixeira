@@ -1,0 +1,44 @@
+.header {
+    display: grid;
+    gap: 2rem;
+    grid-template-areas:
+        'navigation theme-changer'
+        'title title'
+        'publication-date opening-citation';
+    margin-top: 1rem;
+}
+
+.header > .header--navigation {
+    grid-area: navigation;
+}
+
+.header > h1 {
+    grid-area: title;
+    margin: 0;
+}
+
+.header > theme-changer {
+    grid-area: theme-changer;
+}
+
+.header > .header--navigation > ul {
+    display: flex;
+    gap: 2rem;
+    list-style-type: none;
+    margin: 0;
+}
+
+.header > .header--navigation > ul > li {
+    margin: 0;
+}
+
+.header > .header--article-opening-citation {
+    grid-area: opening-citation;
+    margin-top: 0;
+    text-align: right;
+}
+
+.header > .header--article-publication-date {
+    grid-area: publication-date;
+    margin-bottom: 3rem;
+}

@@ -23,15 +23,10 @@
     white-space: nowrap;
 }
 
-.opening-citation {
-    margin-top: 0;
-    text-align: right;
-}
-
-.publication-date {
-    margin-bottom: 3rem;
-}
-
 .rounded {
     border-radius: 100%;
+}
+
+.text-right {
+    text-align: right;
 }
