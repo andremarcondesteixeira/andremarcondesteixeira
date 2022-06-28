@@ -30,7 +30,7 @@
                        lang="en-US">Read in English</a>
                 </li>
                 <li>
-                    <a href="/">Início</a>
+                    <a href="/pt-br">Início</a>
                 </li>
             </ul>
         </nav>
@@ -51,13 +51,11 @@
         <article>
             <p>
                 Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos...
-                BUGS...
-                Sacou?... Desculpa.
+                BUGS... Sacou?... Desculpa.
             </p>
             <p>
                 Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro.
-                Então,
-                aproveitei a deixa para treinar um pouquinho de <a
+                Então, aproveitei a deixa para treinar um pouquinho de <a
                    href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components"
                    target="_blank">Web Components</a>, e criei um pequeno componente para essa tarefa.
             </p>
@@ -121,8 +119,7 @@ export default class ThemeChanger extends HTMLElement {
             </code></pre>
             <p>
                 Eu não conseguia parar de pensar: "Olha a quantidade de vezes que estou criando um elemento manualmente,
-                depois
-                setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
+                depois setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
             </p>
             <p>
                 Então achei que era uma boa ideia escrever um pequeno utilitário para criar elementos HTML:
@@ -195,8 +192,7 @@ export default class ThemeChanger extends HTMLElement {
             </code></pre>
             <p>
                 Interessante! Esse código parece ter ficado bom e precisei digitar um pouco menos quando comparado à API
-                nativa
-                do DOM.
+                nativa do DOM.
             </p>
             <p>
                 Uau! Essa ideia foi realmente muito esperta!
@@ -264,19 +260,16 @@ export default class ThemeChanger extends HTMLElement {
             <ol>
                 <li>
                     Digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também
-                    não é
-                    muito grande
+                    não é muito grande
                 </li>
                 <li>
                     O código <i>talvez</i> esteja mais fácil de ler. Mas a forma como o código foi escrito anteriormente
-                    era tão
-                    difícil de ler a ponto de justificar essa mudança? Acredito que não
+                    era tão difícil de ler a ponto de justificar essa mudança? Acredito que não
                 </li>
             </ol>
             <p>
                 Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos elementos e avaliar estes dois
-                pontos
-                novamente:
+                pontos novamente:
             </p>
             <pre><code class="language-javascript codeblock">
 // theme-changer-component.js
@@ -331,28 +324,23 @@ export default class ThemeChanger extends HTMLElement {
             </p>
             <p>
                 Agora, o código parece menos legível, além de termos múltiplos níveis de indentação. E mesmo que alguém
-                ache
-                isso mais legível, se resume a um gosto pessoal e, além do mais, ainda precisamos falar sobre as
+                ache isso mais legível, se resume a um gosto pessoal e, além do mais, ainda precisamos falar sobre as
                 <u>desvantagens</u> do novo código:
             </p>
             <ol>
                 <li>
                     Uma pessoa lendo o novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento
-                    da nova
-                    função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
+                    da nova função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
                 </li>
                 <li>
                     Criar bibliotecas e utilitários dessa forma demanda uma grande quantidade de testes para evitar a
-                    introdução
-                    de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil simplesmente
-                    utilizar
-                    alguma bilbioteca já pronta, como o React.
+                    introdução de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil
+                    simplesmente utilizar alguma bilbioteca já pronta, como o React.
                 </li>
                 <li>
                     E a maior desvantagem de todas: Perdemos quase todo o suporte da IDE: O novo código nos faz perder
                     autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM.
-                    Tudo o
-                    que conseguimos da IDE agora são sugestões fora de contexto.
+                    Tudo o que conseguimos da IDE agora são sugestões fora de contexto.
                 </li>
             </ol>
             <figure class="cancel-out-body-x-padding">
@@ -371,10 +359,8 @@ export default class ThemeChanger extends HTMLElement {
             </figure>
             <p>
                 Afinal, o que quero dizer com isso tudo? Inicialmente, a ideia de criar um utilitário para criar
-                elementos HTML
-                pareceu ser muito boa, mas após um pouco de análise, chegamos à conclusão que a tentativa de economizar
-                código
-                trouxe mais prejuízos do que benefícios.
+                elementos HTML pareceu ser muito boa, mas após um pouco de análise, chegamos à conclusão que a tentativa
+                de economizar código trouxe mais prejuízos do que benefícios.
             </p>
             <p>
                 Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos"
