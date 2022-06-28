@@ -35,7 +35,7 @@
             </ul>
         </nav>
         <theme-changer aria-hidden="true"
-                   lang="pt-BR"></theme-changer>
+                       lang="pt-BR"></theme-changer>
         <h1>Código simples é melhor que código espertinho</h1>
         <p class="header--article-publication-date">
             <time datetime="2022-06-27">27 de junho de 2022</time>
@@ -382,26 +382,32 @@ export default class ThemeChanger extends HTMLElement {
             </p>
         </article>
     </main>
-    <footer class="main-footer">
+    <footer class="footer">
         <img src="/assets/images/profile-picture.jpg"
              alt="André Teixeira"
              aria-hidden="true"
-             class="main-footer--profile-picture rounded">
+             class="footer--profile-picture rounded">
         <strong>André Teixeira</strong>
-        <a href="https://www.linkedin.com/in/andremarcondesteixeira/"
-           target="_blank"><img src="/assets/images/LI-In-Bug.png"
-                 alt="LinkedIn"
-                 aria-hidden="true"
-                 class="main-footer--network-icon"></a>
-        <a href="https://github.com/andremarcondesteixeira"
-           target="_blank"><img src="/assets/images/GitHub-Mark-120px-plus.png"
-                 alt="GitHub"
-                 aria-hidden="true"
-                 class="main-footer--network-icon hidden-in-dark-theme"><img
-                 src="/assets/images/GitHub-Mark-Light-120px-plus.png"
-                 alt="GitHub"
-                 aria-hidden="true"
-                 class="main-footer--network-icon hidden-in-light-theme"></a>
+        <nav>
+            <ul>
+                <li>
+                    <a href="https://www.linkedin.com/in/andremarcondesteixeira/"
+                       target="_blank"><img src="/assets/images/LI-In-Bug.png"
+                             alt="LinkedIn"
+                             aria-hidden="true"
+                             class="footer--network-icon"></a>
+                </li>
+                <li>
+                    <a href="https://github.com/andremarcondesteixeira"
+                       target="_blank"><img src="/assets/images/GitHub-Mark-120px-plus.png"
+                             alt="GitHub"
+                             class="footer--network-icon hidden-in-dark-theme"><img
+                             src="/assets/images/GitHub-Mark-Light-120px-plus.png"
+                             alt="GitHub"
+                             class="footer--network-icon hidden-in-light-theme"></a>
+                </li>
+            </ul>
+        </nav>
     </footer>
 </body>
 

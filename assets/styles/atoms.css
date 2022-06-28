@@ -1,3 +1,7 @@
+.align-self-center {
+    align-self: center;
+}
+
 .cancel-out-body-x-padding {
     margin-left: calc(var(--body-x-padding) * -1);
     margin-right: calc(var(--body-x-padding) * -1);
@@ -25,6 +29,10 @@
 
 .rounded {
     border-radius: 100%;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .text-right {

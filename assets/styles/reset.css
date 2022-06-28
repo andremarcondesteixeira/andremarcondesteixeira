@@ -92,7 +92,6 @@ li {
     margin-top: 2rem;
 }
 
-/* custom scrollbar */
 ::-webkit-scrollbar {
     width: 20px;
 }

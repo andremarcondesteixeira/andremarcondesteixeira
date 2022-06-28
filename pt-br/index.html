@@ -8,20 +8,52 @@
     <link rel="stylesheet"
           href="/assets/styles/index.css">
     <link rel="stylesheet"
-          href="/assets/styles/pages/home/home.css">
+          href="/assets/styles/pages/home.css">
+    <script src="/assets/js/theme-changer-component.js"
+            type="module"
+            defer></script>
     <title>André Teixeira</title>
 </head>
 
 <body>
-    <header class="top-header">
-        <h1>André Teixeira</h1>
-        <a href="/en/"
-           lang="en">Read in english</a>
+    <header class="header">
+        <nav class="header--navigation">
+            <a href="/en/"
+               lang="en">Read in English</a>
+        </nav>
+        <theme-changer aria-hidden="true"
+                       lang="pt-BR"></theme-changer>
     </header>
-    <hr>
-    <article class="summary">
+    <article class="align-self-center text-center">
         <h1>Ainda estou construindo meu blog. Por favor cheque novamente em alguns dias. Obrigado.</h1>
     </article>
+    <footer class="footer">
+        <img src="/assets/images/profile-picture.jpg"
+             alt="André Teixeira"
+             aria-hidden="true"
+             class="footer--profile-picture rounded">
+        <strong class="footer--name">André Teixeira</strong>
+        <nav class="footer--navigation">
+            <ul>
+                <li>
+                    <a href="https://www.linkedin.com/in/andremarcondesteixeira/"
+                       target="_blank"><img src="/assets/images/LI-In-Bug.png"
+                             alt="LinkedIn"
+                             aria-hidden="true"
+                             class="footer--network-icon"></a>
+                </li>
+                <li>
+                    <a href="https://github.com/andremarcondesteixeira"
+                       target="_blank"><img src="/assets/images/GitHub-Mark-120px-plus.png"
+                             alt="GitHub"
+                             class="footer--network-icon hidden-in-dark-theme"><img
+                             src="/assets/images/GitHub-Mark-Light-120px-plus.png"
+                             alt="GitHub"
+                             class="footer--network-icon hidden-in-light-theme"></a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
 </body>
 
 </html>

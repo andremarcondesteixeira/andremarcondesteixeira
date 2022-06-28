@@ -1,0 +1,15 @@
+body {
+    display: grid;
+    gap: 3rem;
+    grid-template-rows: auto 1fr auto;
+}
+
+.header {
+    grid-template-areas:
+        'navigation theme-changer';
+}
+
+.header,
+.footer {
+    margin: 0
+}
