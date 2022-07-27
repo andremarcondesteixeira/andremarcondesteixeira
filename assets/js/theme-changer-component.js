@@ -2,15 +2,15 @@ export default class ThemeChanger extends HTMLElement {
     constructor() {
         super();
 
-        const wrapper = this.createDOMTree();
-        const style = this.createStyleNode();
-        this.selectPreferredColorTheme();
+        const wrapper = this.#createDOMTree();
+        const style = this.#createStyleNode();
+        this.#selectPreferredColorTheme();
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.append(style, wrapper);
     }
 
-    createDOMTree() {
+    #createDOMTree() {
         const lang = this.getAttribute('lang');
 
         this.lightThemeButton = document.createElement('button');
@@ -33,8 +33,8 @@ export default class ThemeChanger extends HTMLElement {
         this.darkThemeButtonContainer.classList.add('icon-container');
         this.darkThemeButtonContainer.append(this.darkThemeButton);
 
-        this.lightThemeButton.addEventListener('click', this.handleLightThemeButtonClick.bind(this));
-        this.darkThemeButton.addEventListener('click', this.handleDarkThemeButtonClick.bind(this));
+        this.lightThemeButton.addEventListener('click', this.#handleLightThemeButtonClick.bind(this));
+        this.darkThemeButton.addEventListener('click', this.#handleDarkThemeButtonClick.bind(this));
 
         const wrapper = document.createElement('div');
         wrapper.ariaHidden = true;
@@ -45,7 +45,7 @@ export default class ThemeChanger extends HTMLElement {
         return wrapper;
     }
 
-    handleDarkThemeButtonClick() {
+    #handleDarkThemeButtonClick() {
         this.lightThemeButtonContainer.classList.remove('selected');
 
         if (!this.darkThemeButtonContainer.classList.contains('selected')) {
@@ -57,7 +57,7 @@ export default class ThemeChanger extends HTMLElement {
         }
     }
 
-    handleLightThemeButtonClick() {
+    #handleLightThemeButtonClick() {
         this.darkThemeButtonContainer.classList.remove('selected');
 
         if (!this.lightThemeButtonContainer.classList.contains('selected')) {
@@ -67,7 +67,7 @@ export default class ThemeChanger extends HTMLElement {
         document.querySelector(':root').classList.remove('dark-theme');
     }
 
-    createStyleNode() {
+    #createStyleNode() {
         const style = document.createElement('style');
         style.textContent = `
             .wrapper {
@@ -108,15 +108,15 @@ export default class ThemeChanger extends HTMLElement {
         return style;
     }
 
-    selectPreferredColorTheme() {
-        if (this.isDarkModePreferredByDevice()) {
+    #selectPreferredColorTheme() {
+        if (this.#isDarkModePreferredByDevice()) {
             this.darkThemeButton.click();
         } else {
             this.lightThemeButton.click();
         }
     }
 
-    isDarkModePreferredByDevice() {
+    #isDarkModePreferredByDevice() {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             return true;
         }
