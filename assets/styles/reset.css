@@ -92,6 +92,18 @@ li {
     margin-top: 2rem;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 0.5px solid var(--text-color);
+}
+
+th, td {
+    padding: 1rem 3rem;
+}
+
 ::-webkit-scrollbar {
     width: 20px;
 }
