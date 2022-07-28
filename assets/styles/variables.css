@@ -11,11 +11,13 @@
 
 :root {
     --background-color: var(--light-theme-background-color);
+    --bad-state-background-color: #ff000040;
     --body-x-padding: 1rem;
     --code-block-background-color: #ccc;
     --code-block-border-color: #aaa;
     --code-block-text-color: var(--light-theme-text-color);
     --default-border-radius: 15px;
+    --good-state-background-color: #00ff0040;
     --link-color: #5180d8;
     --scrollbar-color: var(--light-theme-scrollbar-color);
     --scrollbar-hover-color: var(--light-theme-scrollbar-hover-color);

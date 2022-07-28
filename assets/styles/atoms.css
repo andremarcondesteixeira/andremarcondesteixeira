@@ -2,6 +2,14 @@
     align-self: center;
 }
 
+.bg-color-good {
+    background-color: var(--good-state-background-color);
+}
+
+.bg-color-bad {
+    background-color: var(--bad-state-background-color);
+}
+
 .cancel-out-body-x-padding {
     margin-left: calc(var(--body-x-padding) * -1);
     margin-right: calc(var(--body-x-padding) * -1);
@@ -21,6 +29,10 @@
 
 :root:not(.dark-theme) .hidden-in-light-theme {
     display: none;
+}
+
+.no-padding {
+    padding: 0;
 }
 
 .nowrap {
