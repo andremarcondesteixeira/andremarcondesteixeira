@@ -91,228 +91,46 @@
                     <th>a &gt; b</th>
                 </tr>
                 <tr>
-                    <th>a &lt; b</th>
+                    <th>a &lt; b && b &gt; a</th>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-bad">false</td>
                 </tr>
                 <tr>
-                    <th>!(a &lt; b)</th>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>b &lt; a</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>!(b &lt; a)</th>
+                    <th>a &lt;= b && b &gt;= a</th>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                 </tr>
                 <tr>
-                    <th>a &lt;= b</th>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>!(a &lt;= b)</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>b &lt;= a</th>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>!(b &lt;= a)</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>a == b</th>
+                    <th>a == b && b == a</th>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                 </tr>
                 <tr>
-                    <th>!(a == b)</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>b == a</th>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>!(b == a)</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>a != b</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>!(a != b)</th>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>b != a</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>!(b != a)</th>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>a &gt;= b</th>
+                    <th>a &gt;= b && b &lt;= a</th>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-good">true</td>
                 </tr>
                 <tr>
-                    <th>!(a &gt;= b)</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>b &gt;= a</th>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>!(b &gt;= a)</th>
+                    <th>a &gt; b && b &lt; a</th>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
                 </tr>
                 <tr>
-                    <th>a &gt; b</th>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-                <tr>
-                    <th>!(a &gt; b)</th>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>b &gt; a</th>
+                    <th>a != b && b != a</th>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
-                    <td class="bg-color-bad">false</td>
-                </tr>
-                <tr>
-                    <th>!(b &gt; a)</th>
                     <td class="bg-color-good">true</td>
-                    <td class="bg-color-bad">false</td>
-                    <td class="bg-color-good">true</td>
-                    <td class="bg-color-good">true</td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th class="no-padding">
-                        <div class="diagonal-divider">
-                            <svg viewBox="0 0 10 10"
-                                 preserveAspectRatio="none">
-                                <line x1="0"
-                                      y1="0"
-                                      x2="10"
-                                      y2="10"
-                                      stroke-width="0.1" />
-                            </svg>
-                            <span></span>
-                            <span class="text-right">Reality</span>
-                            <span>Expression</span>
-                        </div>
-                    </th>
-                    <th class="nowrap">a ref b ref c</th>
-                    <th class="nowrap">a ref b &lt; c</th>
-                    <th class="nowrap">a ref b = c</th>
-                    <th class="nowrap">a ref b &gt; c</th>
-                    <th class="nowrap">a &lt; b ref c</th>
-                    <th class="nowrap">a &lt; b &lt; c</th>
-                    <th class="nowrap">a &lt; b = c</th>
-                    <th class="nowrap">a &lt; b &gt; c</th>
-                    <th class="nowrap">a = b ref c</th>
-                    <th class="nowrap">a = b &lt; c</th>
-                    <th class="nowrap">a = b = c</th>
-                    <th class="nowrap">a = b &gt; c</th>
-                    <th class="nowrap">a &gt; b ref c</th>
-                    <th class="nowrap">a &gt; b &lt; c</th>
-                    <th class="nowrap">a &gt; b = c</th>
-                    <th class="nowrap">a &gt; b &gt; c</th>
-                </tr>
-                a > b && b > c && a > c
-
-                <tr>
-                    <th></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                 </tr>
             </table>
         </article>
