@@ -42,6 +42,28 @@ code {
     padding: 0 0.5rem;
 }
 
+dl {
+    padding: 0 3rem;
+}
+
+dt, dd {
+    display: inline;
+}
+
+dt {
+    font-weight: 700;
+}
+
+dt::before {
+    content: " ";
+    display: block;
+    margin-top: 1rem;
+}
+
+dt::after {
+    content: ": ";
+}
+
 figure {
     margin-top: 5rem;
     margin-bottom: 5rem;
