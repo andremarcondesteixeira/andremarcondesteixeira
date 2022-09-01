@@ -1,9 +1,11 @@
 :root {
     --dark-theme-background-color: #201e28;
+    --dark-theme-board-background-color: #ffffff10;
     --dark-theme-scrollbar-color: #bbb;
     --dark-theme-scrollbar-hover-color: #ddd;
     --dark-theme-text-color: #bbb;
     --light-theme-background-color: #fefefe;
+    --light-theme-board-background-color: #00000010;
     --light-theme-scrollbar-color: #333;
     --light-theme-scrollbar-hover-color: #555;
     --light-theme-text-color: #333;
@@ -12,12 +14,14 @@
 :root {
     --background-color: var(--light-theme-background-color);
     --bad-state-background-color: #ff000040;
+    --big-font-size: 120%;
     --body-x-padding: 1rem;
     --code-block-background-color: #ccc;
     --code-block-border-color: #aaa;
     --code-block-text-color: var(--light-theme-text-color);
     --default-border-radius: 15px;
     --good-state-background-color: #00ff0040;
+    --board-background-color: var(--light-theme-board-background-color);
     --link-color: #5180d8;
     --scrollbar-color: var(--light-theme-scrollbar-color);
     --scrollbar-hover-color: var(--light-theme-scrollbar-hover-color);
@@ -30,6 +34,7 @@
     --code-block-background-color: #373737;
     --code-block-border-color: #666;
     --code-block-text-color: #98c379;
+    --board-background-color: var(--dark-theme-board-background-color);
     --scrollbar-color: var(--dark-theme-scrollbar-color);
     --scrollbar-hover-color: var(--dark-theme-scrollbar-hover-color);
     --text-color: var(--dark-theme-text-color);
