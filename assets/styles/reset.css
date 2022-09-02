@@ -92,8 +92,15 @@ h3,
 h4,
 h5,
 h6,
-p {
+ol,
+p,
+ul {
     margin-bottom: 1rem;
+}
+
+ol + p,
+ul + p {
+    margin-top: 2.5rem;
 }
 
 h2 {
@@ -108,8 +115,8 @@ h3 {
 
 ol,
 ul {
-    list-style-position: outside;
-    margin: 2rem 5rem;
+    list-style-position: inside;
+    margin: 0 4rem;
 }
 
 li {

@@ -67,12 +67,40 @@
             <p>Agora que definimos o que estes termos significam, podemos conhecer a Equação Fundamental da
                 Contabilidade:</p>
             <p class="board">Ativo = Passivo + Patrimônio Líquido</p>
+            <p>Algumas vezes podemos encontrar essa mesma conta um pouco diferente, mas que na verdade significa a mesma
+                coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque basicamente signica que o
+                patrimônio de uma empresa é igual a tudo o que ela tem menos tudo o que ela deve.</p>
+            <p>Podemos expressar isso com um pouco de código:</p>
+            <pre><code class="language-typescript codeblock">
+class Empresa {
+    constructor(
+        private bens_e_direitos: CoisaComValorMonetario[],
+        private dividas_e_obrigacoes: CoisaComValorMonetario[],
+    ) { }
+
+    get ativo() {
+        return this.bens_e_direitos.reduce((total, bem) => {
+            return total + bem.valor;
+        }, 0);
+    }
+
+    get passivo() {
+        return this.dividas_e_obrigacoes.reduce((total, obrigacao) => {
+            return total + obrigacao.valor;
+        }, 0);
+    }
+
+    get patrimonio_liquido() {
+        return this.ativo - this.passivo;
+    }
+}
+            </code></pre>
             <h2>Fontes</h2>
             <ul>
                 <li><a href="https://docs.google.com/document/d/1HDLRa6vKpclO1JtxbGB5NeAYWf8cf1UMGy22o8OZZq4/edit"
                        target="_blank">Accounting for Developers 101</a></li>
                 <li><a href="https://docs.google.com/document/d/1qhtirHUzPu7Od7yX3A4kA424tjFCv5Kbi42xj49tKlw/edit"
-                       target="_blank">Acconting for Developers 102</a></li>
+                       target="_blank">Accounting for Developers 102</a></li>
                 <li><a href="https://pt.wikipedia.org/wiki/Equa%C3%A7%C3%A3o_cont%C3%A1bil_b%C3%A1sica"
                        target="_blank">Equação contábil básica</a></li>
                 <li><a href="https://youtu.be/_c8gVi6KQnw"
