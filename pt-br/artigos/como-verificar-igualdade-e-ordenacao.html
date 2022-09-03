@@ -18,7 +18,7 @@
             defer></script>
     <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
-    <title>Igualdade e Ordenação</title>
+    <title>Igualdade e ordenação</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
         <nav class="header--navigation">
             <ul>
                 <li>
-                    <a href="/en-us/articles/how-to-check-equality-and-sorting-of-values.html"
+                    <a href="/en-us/articles/how-to-check-equality-and-sorting.html"
                        lang="en-US">Read in English</a>
                 </li>
                 <li>
@@ -36,7 +36,7 @@
         </nav>
         <theme-changer aria-hidden="true"
                        lang="pt-BR"></theme-changer>
-        <h1>Como verificar igualdade e ordenação de valores?</h1>
+        <h1>Como verificar igualdade e ordenação</h1>
         <p class="header--article-publication-date">
             <time datetime="2022-09-03">03 de setembro de 2022</time>
         </p>
@@ -68,6 +68,8 @@
             <p>É uma tarefa trivial, entretanto, se não feita com cuidado, pode levar a bugs severos em um sistema. Por
                 exemplo, pode acontecer de um evento A ser considerado mais recente que um evento B, mas ao mesmo tempo
                 o evento B também ser considerado mais recente que o evento A, o que claramente é um erro.</p>
+            <p>Na tabela abaixo, considere que A = B também se aplica para situações em que A e B são referências para o
+                mesmo objeto na memória.</p>
             <table>
                 <tr>
                     <th class="no-padding">
@@ -85,49 +87,42 @@
                             <span>Expression</span>
                         </div>
                     </th>
-                    <th>same memory<br>address</th>
-                    <th>a &lt; b</th>
-                    <th>a = b</th>
-                    <th>a &gt; b</th>
+                    <th>A &lt; B</th>
+                    <th>A = B</th>
+                    <th>A &gt; B</th>
                 </tr>
                 <tr>
-                    <th>a &lt; b && b &gt; a</th>
-                    <td class="bg-color-bad">false</td>
+                    <th>A &lt; B && B &gt; A</th>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-bad">false</td>
                 </tr>
                 <tr>
-                    <th>a &lt;= b && b &gt;= a</th>
-                    <td class="bg-color-good">true</td>
+                    <th>A &lt;= B && B &gt;= A</th>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                 </tr>
                 <tr>
-                    <th>a == b && b == a</th>
-                    <td class="bg-color-good">true</td>
+                    <th>A == B && B == A</th>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                 </tr>
                 <tr>
-                    <th>a &gt;= b && b &lt;= a</th>
-                    <td class="bg-color-good">true</td>
+                    <th>A &gt;= B && B &lt;= A</th>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-good">true</td>
                 </tr>
                 <tr>
-                    <th>a &gt; b && b &lt; a</th>
-                    <td class="bg-color-bad">false</td>
+                    <th>A &gt; B && B &lt; A</th>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
                 </tr>
                 <tr>
-                    <th>a != b && b != a</th>
-                    <td class="bg-color-bad">false</td>
+                    <th>A != B && B != A</th>
                     <td class="bg-color-good">true</td>
                     <td class="bg-color-bad">false</td>
                     <td class="bg-color-good">true</td>
