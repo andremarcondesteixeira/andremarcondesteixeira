@@ -18,7 +18,7 @@
             defer></script>
     <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
-    <title>Simples > Espertinho</title>
+    <title>Igualdade e Ordenação</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
         <nav class="header--navigation">
             <ul>
                 <li>
-                    <a href="/en-us/articles/simple-code-is-better-than-clever-code.html"
+                    <a href="/en-us/articles/how-to-check-equality-and-sorting-of-values.html"
                        lang="en-US">Read in English</a>
                 </li>
                 <li>
@@ -36,16 +36,10 @@
         </nav>
         <theme-changer aria-hidden="true"
                        lang="pt-BR"></theme-changer>
-        <h1>Código simples é melhor que código espertinho</h1>
+        <h1>Como verificar igualdade e ordenação de valores?</h1>
         <p class="header--article-publication-date">
-            <time datetime="2022-06-28">28 de junho de 2022</time>
+            <time datetime="2022-09-03">03 de setembro de 2022</time>
         </p>
-        <figure class="header--article-opening-citation">
-            <blockquote>
-                A simplicidade é o mais alto grau de sofisticação
-            </blockquote>
-            <figcaption>&#8212; Leonardo da Vinci</figcaption>
-        </figure>
     </header>
     <main>
         <style>
@@ -57,17 +51,23 @@
                 padding: 1rem 3rem;
             }
 
-            .diagonal-divider > svg {
+            .diagonal-divider>svg {
                 height: 100%;
                 position: absolute;
                 width: 100%;
             }
 
-            .diagonal-divider > svg > line {
+            .diagonal-divider>svg>line {
                 stroke: var(--text-color);
             }
+
         </style>
         <article>
+            <p>É muito comum ser necessário verificar se alguma classe ou estrutura de dados é maior, menor ou igual a
+                outro valor. Por exemplo, quando organizamos eventos pela data, ou produtos pelo seu valor.</p>
+            <p>É uma tarefa trivial, entretanto, se não feita com cuidado, pode levar a bugs severos em um sistema. Por
+                exemplo, pode acontecer de um evento A ser considerado mais recente que um evento B, mas ao mesmo tempo
+                o evento B também ser considerado mais recente que o evento A, o que claramente é um erro.</p>
             <table>
                 <tr>
                     <th class="no-padding">
