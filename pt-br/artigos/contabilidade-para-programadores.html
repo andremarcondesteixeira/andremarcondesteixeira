@@ -51,6 +51,70 @@
                 existem diversos excelente materiais de estudo espalhados pela internet. Ao invés disso, tentarei
                 utilizar uma abordagem focada em código para explicar os principas conceitos, de forma que no final do
                 artigo, teremos um sistema de contabilidade minimalista e funcional.</p>
+            <h2>Introdução</h2>
+            <p>Empresas lidam com dinheiro. Cada país utiliza uma moeda diferente. Por isso precisamos encontrar uma
+                forma de representar quantidades de dinheiro programaticamente. Para tal, utilizamos o padrão <a
+                   href="https://en.wikipedia.org/wiki/ISO_4217"
+                   target="_blank">ISO 4217</a>.
+            </p>
+            <p>Podemos criar uma classe imutável para representar um valor em dinheiro da seguinte forma:</p>
+            <pre><code class="language-typescript codeblock">
+// Typescript
+
+class Dinheiro {
+    private _valorEmCentavos: number;
+    private _moeda: string;
+
+    constructor(valorEmCentavos: number, moeda: string) {
+        this._valorEmCentavos = Math.ceil(valorEmCentavos);
+        this._moeda = moeda;
+    }
+
+    get valorEmCentavos() {
+        return this._valorEmCentavos;
+    }
+
+    get moeda() {
+        return this._moeda;
+    }
+}
+
+// exemplo
+const cemReais = new Dinheiro(100_00, "BRL");
+            </code></pre>
+            <p>Para manter as coisas simples, por enquanto utilizaremos somente o Real Brasileiro, que no padrão
+                ISO 4217 é chamado de BRL.</p>
+            <h2>Ativos e Passivos</h2>
+            <p>Toda empresa é dona de algumas coisas e deve outras coisas. Por exemplo, uma empresa pode ser dona de
+                carros, de imóveis, do dinheiro que está no caixa, de marcas e patentes, etc., e também pode ter dívidas
+                a pagar, salários a depositar, lucros a distribuir, etc.</p>
+            <p>As coisas das quais a empresa é dona são chamadas de "Ativos", e as coisas que a empresa deve são
+                chamadas de "Passivos".</p>
+            <pre><code  class="language-typescript codeblock">
+// Typescript
+
+type CoisaComValorMonetario = {
+    nome: string;
+    valor: Dinheiro;
+};
+
+type Ativo = CoisaComValorMonetario;
+
+type Passivo = CoisaComValorMonetario;
+
+const meusAtivos: Ativo[] = [
+    { nome: "Imóvel", valor:  }
+];
+            </code></pre>
+            <p>Os Ativos e Passivos podem ser:</p>
+            <dl>
+                <dt>Circulantes ou Não Circulantes</dt>
+                <dd>Coisas que vão gerar alguma movimentação de valores dentro de um prazo menor que 1 ano, são chamadas
+                    "Circulantes" porque tem impacto no curto prazo. O contrário é chamado de "Não Circulante", por não
+                    ter impacto no curto prazo. Exemplos de Ativos Circulantes são o dinheiro em caixa e o estoque de
+                    mercadorias. Exemplos de Passivos Circulantes são dívidas com vencimento dentro do prazo de 1 ano e
+                    salários a pagar. Exemplos</dd>
+            </dl>
             <h2>A Equação Fundamental da Contabilidade</h2>
             <p>Existem 3 termos que precisamos definir anter de ir em frente: "Ativo", "Passivo", e "Patrimônio Líquido"
             </p>
@@ -72,19 +136,21 @@
                 patrimônio de uma empresa é igual a tudo o que ela tem menos tudo o que ela deve.</p>
             <p>Podemos expressar isso com um pouco de código:</p>
             <pre><code class="language-typescript codeblock">
+// Typescript
+
 class Empresa {
     constructor(
         private bens_e_direitos: CoisaComValorMonetario[],
         private dividas_e_obrigacoes: CoisaComValorMonetario[],
     ) { }
 
-    get ativo() {
+    get total_ativos() {
         return this.bens_e_direitos.reduce((total, bem) => {
             return total + bem.valor;
         }, 0);
     }
 
-    get passivo() {
+    get total_passivos_exceto_patrimonio_liquido() {
         return this.dividas_e_obrigacoes.reduce((total, obrigacao) => {
             return total + obrigacao.valor;
         }, 0);
@@ -97,6 +163,8 @@ class Empresa {
             </code></pre>
             <h2>Fontes</h2>
             <ul>
+                <li><a href="https://en.wikipedia.org/wiki/ISO_4217"
+                       target="_blank">ISO 4217 (Wikipedia)</a></li>
                 <li><a href="https://docs.google.com/document/d/1HDLRa6vKpclO1JtxbGB5NeAYWf8cf1UMGy22o8OZZq4/edit"
                        target="_blank">Accounting for Developers 101</a></li>
                 <li><a href="https://docs.google.com/document/d/1qhtirHUzPu7Od7yX3A4kA424tjFCv5Kbi42xj49tKlw/edit"
@@ -105,6 +173,8 @@ class Empresa {
                        target="_blank">Equação contábil básica</a></li>
                 <li><a href="https://youtu.be/_c8gVi6KQnw"
                        target="_blank">Equação Fundamental do Patrimônio - Equação da Contabilidade</a></li>
+                <li><a href="https://yenom.com.br/patrimonio-liquido-e-passivo/"
+                       target="_blank">Patrimônio Líquido é Considerado Passivo?</a></li>
             </ul>
         </article>
     </main>
