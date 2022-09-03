@@ -57,64 +57,123 @@
                    href="https://en.wikipedia.org/wiki/ISO_4217"
                    target="_blank">ISO 4217</a>.
             </p>
-            <p>Podemos criar uma classe imutável para representar um valor em dinheiro da seguinte forma:</p>
+            <p>Para evitar problemas com <a href="https://refactoring.guru/smells/primitive-obsession"
+                   target="_blank">Primitive Obsession</a>, podemos criar uma <a
+                   href="https://en.wikipedia.org/wiki/Immutable_object"
+                   target="_blank">classe imutável</a> para representar um valor
+                em dinheiro da seguinte forma:</p>
             <pre><code class="language-typescript codeblock">
 // Typescript
 
-class Dinheiro {
-    private _valorEmCentavos: number;
-    private _moeda: string;
+export class Moeda {
+    constructor(
+        private _codigoIso: string,
+        private _casasDecimais: number
+    ) { }
 
-    constructor(valorEmCentavos: number, moeda: string) {
-        this._valorEmCentavos = Math.ceil(valorEmCentavos);
-        this._moeda = moeda;
+    get codigoIso() {
+        return this._codigoIso;
     }
 
-    get valorEmCentavos() {
-        return this._valorEmCentavos;
-    }
-
-    get moeda() {
-        return this._moeda;
+    get casasDecimais() {
+        return this._casasDecimais;
     }
 }
 
+export const Moedas = Object.freeze({
+    BRL: new Moeda("BRL", 2),
+});
+
+export class Dinheiro {
+    constructor(
+        private _valorEmCentavos: number,
+        private _moeda: Moeda
+    ) { }
+
+    private checarMoeda(d: Dinheiro) {
+        if (this._moeda !== d._moeda) {
+            throw new TypeError("Tentativa de operação com moedas diferentes");
+        }
+    }
+
+    mais(d: Dinheiro) {
+        this.checarMoeda(d);
+        return new Dinheiro(this._valorEmCentavos + d._valorEmCentavos, this._moeda);
+    }
+
+    menos(d: Dinheiro) {
+        this.checarMoeda(d);
+        return new Dinheiro(this._valorEmCentavos - d._valorEmCentavos, this._moeda);
+    }
+
+    vezes(fator: number) {
+        return new Dinheiro(this._valorEmCentavos * fator, this._moeda);
+    }
+
+    divididoPor(fator: number) {
+        return new Dinheiro(this._valorEmCentavos / fator, this._moeda);
+    }
+
+    formatar(linguagem: string) {
+        return new Intl.NumberFormat(
+            linguagem,
+            { style: 'currency', currency: this._moeda.codigoIso }
+        ).format(this._valorEmCentavos / Math.pow(10, this._moeda.casasDecimais));
+    }
+}
+
+export default function dinheiro(valorEmCentavos: number, moeda: string) {
+    return new Dinheiro(valorEmCentavos, Moedas[moeda]);
+}
+
 // exemplo
-const cemReais = new Dinheiro(100_00, "BRL");
+const cemReais = dinheiro(100_00, "BRL");
+const centoEVinteReais = cemReais.mais(dinheiro(20_00, "BRL"));
+console.log(centoEVinteReais.formatar("pt-BR")); // R$ 120,00
             </code></pre>
+            <p>Vale ressaltar que em produção, eu utilizaria uma biblioteca de terceiros para lidar com valores
+                monetários, como por exemplo a <a href="https://dinerojs.com/">dinero.js</a>.</p>
             <p>Para manter as coisas simples, por enquanto utilizaremos somente o Real Brasileiro, que no padrão
-                ISO 4217 é chamado de BRL.</p>
+                ISO 4217 é representado pelo código "BRL".</p>
             <h2>Ativos e Passivos</h2>
             <p>Toda empresa é dona de algumas coisas e deve outras coisas. Por exemplo, uma empresa pode ser dona de
                 carros, de imóveis, do dinheiro que está no caixa, de marcas e patentes, etc., e também pode ter dívidas
                 a pagar, salários a depositar, lucros a distribuir, etc.</p>
             <p>As coisas das quais a empresa é dona são chamadas de "Ativos", e as coisas que a empresa deve são
                 chamadas de "Passivos".</p>
-            <pre><code  class="language-typescript codeblock">
-// Typescript
-
-type CoisaComValorMonetario = {
-    nome: string;
-    valor: Dinheiro;
-};
-
-type Ativo = CoisaComValorMonetario;
-
-type Passivo = CoisaComValorMonetario;
-
-const meusAtivos: Ativo[] = [
-    { nome: "Imóvel", valor:  }
-];
-            </code></pre>
             <p>Os Ativos e Passivos podem ser:</p>
             <dl>
                 <dt>Circulantes ou Não Circulantes</dt>
                 <dd>Coisas que vão gerar alguma movimentação de valores dentro de um prazo menor que 1 ano, são chamadas
                     "Circulantes" porque tem impacto no curto prazo. O contrário é chamado de "Não Circulante", por não
-                    ter impacto no curto prazo. Exemplos de Ativos Circulantes são o dinheiro em caixa e o estoque de
-                    mercadorias. Exemplos de Passivos Circulantes são dívidas com vencimento dentro do prazo de 1 ano e
-                    salários a pagar. Exemplos</dd>
+                    ter impacto no curto prazo.</dd>
+                <dt>Tangíveis ou Intangíveis</dt>
+                <dd>Coisas com existência material são chamadas "tangíveis", enquanto que coisas imateriais são chamadas
+                    "intangíveis".</dd>
             </dl>
+            <pre><code  class="language-typescript codeblock">
+// Typescript
+
+export type CoisaComValorMonetario = {
+    nome: string;
+    valor: Dinheiro;
+};
+
+export type Ativo = CoisaComValorMonetario;
+
+export type Passivo = CoisaComValorMonetario;
+
+// exemplo
+const meusAtivos: Ativo[] = [
+    { nome: "Imóvel", valor: dinheiro(500_000_00, "BRL") },
+    { nome: "Marca registrada", valor: dinheiro(1_000_000_00, "BRL") }
+];
+
+const meusPassivos: Passivo[] = [
+    { nome: "Salários do mês", valor: dinheiro(100_000_00, "BRL") },
+    { nome: "Empréstimo", valor: dinheiro(50_000_00, "BRL") },
+];
+            </code></pre>
             <h2>A Equação Fundamental da Contabilidade</h2>
             <p>Existem 3 termos que precisamos definir anter de ir em frente: "Ativo", "Passivo", e "Patrimônio Líquido"
             </p>
@@ -165,6 +224,10 @@ class Empresa {
             <ul>
                 <li><a href="https://en.wikipedia.org/wiki/ISO_4217"
                        target="_blank">ISO 4217 (Wikipedia)</a></li>
+                <li><a href="https://refactoring.guru/smells/primitive-obsession"
+                       target="_blank">Primitive Obsession</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Immutable_object"
+                       target="_blank">Immutable Object</a></li>
                 <li><a href="https://docs.google.com/document/d/1HDLRa6vKpclO1JtxbGB5NeAYWf8cf1UMGy22o8OZZq4/edit"
                        target="_blank">Accounting for Developers 101</a></li>
                 <li><a href="https://docs.google.com/document/d/1qhtirHUzPu7Od7yX3A4kA424tjFCv5Kbi42xj49tKlw/edit"
