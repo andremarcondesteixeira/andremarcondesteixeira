@@ -254,9 +254,10 @@ const exemplosDePassivos: Passivo[] = [
                 à diferença entre o Ativo e o Passivo.</p>
             <p>Sabendo disso, podemos conhecer a Equação Fundamental da Contabilidade:</p>
             <p class="board">Ativo = Passivo + Patrimônio Líquido</p>
-            <p>Algumas vezes podemos encontrar essa mesma conta um pouco diferente, mas que na verdade significa a mesma
-                coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque basicamente signica que o
-                patrimônio de uma empresa é igual a tudo o que ela tem menos tudo o que ela deve.</p>
+            <p>Algumas vezes podemos encontrar essa mesma conta expressa de um jeito um pouco diferente, mas que na
+                verdade significa a mesma coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque
+                basicamente signica que o patrimônio de uma empresa é igual a tudo o que ela tem menos tudo o que ela
+                deve.</p>
             <p>Podemos expressar isso com um pouco de código:</p>
             <pre><code class="language-typescript codeblock">
 // Typescript
@@ -287,6 +288,11 @@ export class Empresa {
     }
 }
             </code></pre>
+            <p>O Patrimônio Líquido é considerado um tipo de Passivo, pois representa um valor que a empresa deve
+                devolver aos seus donos/acionistas em forma de lucro ou prejuízo. No nosso código, no entanto, o
+                Patrimônio Líquido não deve ser registrado no <code>array</code> de <code>Passivo[]</code>, caso
+                contrário o getter <code>valorPatrimonioLiquido</code> não funcionaria. Por isso, sempre que se desejar
+                saber o valor do patrimônio líquido, nesse caso, o mesmo deveria ser calculado na hora.</p>
             <h2>Fontes</h2>
             <ul>
                 <li><a href="https://en.wikipedia.org/wiki/ISO_4217"
