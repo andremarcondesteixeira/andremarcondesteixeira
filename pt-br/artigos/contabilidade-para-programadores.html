@@ -69,10 +69,7 @@
 export type CodigoMoeda = "BRL" | "USD";
 
 export class Moeda {
-    constructor(
-        private _codigoIso: CodigoMoeda,
-        private _casasDecimais: number
-    ) {}
+    constructor(private _codigoIso: CodigoMoeda, private _casasDecimais: number) {}
 
     get codigoIso() {
         return this._codigoIso;
@@ -99,18 +96,12 @@ export class Dinheiro {
 
     mais(d: Dinheiro) {
         this.checarMoeda(d);
-        return new Dinheiro(
-            this._valorEmCentavos + d._valorEmCentavos,
-            this._moeda
-        );
+        return new Dinheiro(this._valorEmCentavos + d._valorEmCentavos, this._moeda);
     }
 
     menos(d: Dinheiro) {
         this.checarMoeda(d);
-        return new Dinheiro(
-            this._valorEmCentavos - d._valorEmCentavos,
-            this._moeda
-        );
+        return new Dinheiro(this._valorEmCentavos - d._valorEmCentavos, this._moeda);
     }
 
     vezes(fator: number) {
@@ -125,9 +116,7 @@ export class Dinheiro {
         return new Intl.NumberFormat(linguagem, {
             style: "currency",
             currency: this._moeda.codigoIso,
-        }).format(
-            this._valorEmCentavos / Math.pow(10, this._moeda.casasDecimais)
-        );
+        }).format(this._valorEmCentavos / Math.pow(10, this._moeda.casasDecimais));
     }
 }
 
@@ -150,40 +139,113 @@ console.log(centoEVinteReais.formatar("pt-BR")); // R$ 120,00
                 a pagar, salários a depositar, lucros a distribuir, etc.</p>
             <p>As coisas das quais a empresa é dona são chamadas de "Ativos", e as coisas que a empresa deve são
                 chamadas de "Passivos".</p>
-            <p>Os Ativos e Passivos podem ser:</p>
+            <p>Os Ativos e Passivos podem ser Circulantes ou Não Circulantes:</p>
             <dl>
-                <dt>Circulantes ou Não Circulantes</dt>
+                <dt>Circulantes</dt>
                 <dd>Coisas que vão gerar alguma movimentação de valores dentro de um prazo menor que 1 ano, são chamadas
-                    "Circulantes" porque tem impacto no curto prazo. O contrário é chamado de "Não Circulante", por não
-                    ter impacto no curto prazo.</dd>
-                <dt>Tangíveis ou Intangíveis</dt>
-                <dd>Coisas com existência material são chamadas "tangíveis", enquanto que coisas imateriais são chamadas
-                    "intangíveis".</dd>
+                    "Circulantes" porque tem impacto no curto prazo. Dizemos que essas coisas possuem uma "alta
+                    liquidez".</dd>
+                <dt>Não Circulantes</dt>
+                <dd>Coisas que não vão gerar movimentações financeiras dentro de um prazo de 1 ano são chamadas "Não
+                    Circulantes", por não ter impacto no curto prazo. Dizemos que essas coisas possuem uma "baixa
+                    liquidez".</dd>
+            </dl>
+            <p>Os Ativos também podem ser Tangíveis ou Intangíveis:</p>
+            <dl>
+                <dt>Ativos Tangíveis</dt>
+                <dd>São os ativos que possuem existência material, como computadores e carros.</dd>
+                <dt>Ativos Intangíveis</dt>
+                <dd>São os ativos imateriais, como marcas e patentes.</dd>
+            </dl>
+            <p>Os Passivos Circulantes por sua vez podem ser Financeiros ou Operacionais:</p>
+            <dl>
+                <dt>Passivo Circulante Financeiro</dt>
+                <dd>São os Passivos Circulantes que dizem respeito aos compromissos financeiros da empresa, como é o
+                    caso de empréstimos em geral.</dd>
+                <dt>Passivo Circulante Operacional</dt>
+                <dd>São os Passivos Circulantes que tem relação direta com a operação do negócio, como pagamento de
+                    salários, impostos mensais, etc.</dd>
             </dl>
             <pre><code  class="language-typescript codeblock">
 // src/ativo_e_passivo.ts
 // Typescript
 
 import type { Dinheiro } from "./dinheiro";
+import dinheiro from "./dinheiro";
 
 export type CoisaComValorMonetario = {
     nome: string;
     valor: Dinheiro;
 };
 
-export type Ativo = CoisaComValorMonetario;
+export type Ativo = CoisaComValorMonetario & {
+    liquidez: Liquidez;
+    tangibilidade: Tangibilidade;
+};
 
-export type Passivo = CoisaComValorMonetario;
+export type Passivo = CoisaComValorMonetario & {
+    liquidez: CirculanteFinanceiroOuOperacional | Liquidez.NaoCirculante;
+};
+
+export enum Tangibilidade {
+    Tangivel,
+    Intangivel,
+}
+
+export enum Liquidez {
+    Circulante,
+    NaoCirculante,
+}
+
+export enum CirculanteFinanceiroOuOperacional {
+    Financeiro,
+    Operacional,
+}
 
 // exemplo
-const meusAtivos: Ativo[] = [
-    { nome: "Imóvel", valor: dinheiro(500_000_00, "BRL") },
-    { nome: "Marca registrada", valor: dinheiro(1_000_000_00, "BRL") }
+const exemplosDeAtivos: Ativo[] = [
+    {
+        nome: "Dinheiro em caixa",
+        valor: dinheiro(5_000_00, "BRL"),
+        tangibilidade: Tangibilidade.Tangivel,
+        liquidez: Liquidez.Circulante,
+    },
+    {
+        nome: "Imóvel",
+        valor: dinheiro(500_000_00, "BRL"),
+        tangibilidade: Tangibilidade.Tangivel,
+        liquidez: Liquidez.NaoCirculante,
+    },
+    {
+        nome: "Saldo em conta bancária",
+        valor: dinheiro(50_000_00, "BRL"),
+        tangibilidade: Tangibilidade.Intangivel,
+        liquidez: Liquidez.Circulante,
+    },
+    {
+        nome: "Marga registrada",
+        valor: dinheiro(1_000_000_00, "BRL"),
+        tangibilidade: Tangibilidade.Intangivel,
+        liquidez: Liquidez.NaoCirculante,
+    },
 ];
 
-const meusPassivos: Passivo[] = [
-    { nome: "Salários do mês", valor: dinheiro(100_000_00, "BRL") },
-    { nome: "Empréstimo", valor: dinheiro(50_000_00, "BRL") },
+const exemplosDePassivos: Passivo[] = [
+    {
+        nome: "Saldo negativo em conta bancária",
+        valor: dinheiro(1000_00, "BRL"),
+        liquidez: CirculanteFinanceiroOuOperacional.Financeiro,
+    },
+    {
+        nome: "Salários do mês",
+        valor: dinheiro(100_000_00, "BRL"),
+        liquidez: CirculanteFinanceiroOuOperacional.Operacional,
+    },
+    {
+        nome: "Empréstimo de longo prazo",
+        valor: dinheiro(200_000_00, "BRL"),
+        liquidez: Liquidez.NaoCirculante,
+    },
 ];
             </code></pre>
             <h2>A Equação Fundamental da Contabilidade</h2>
@@ -240,6 +302,8 @@ class Empresa {
                        target="_blank">Primitive Obsession</a></li>
                 <li><a href="https://en.wikipedia.org/wiki/Immutable_object"
                        target="_blank">Immutable Object</a></li>
+                <li><a href="https://www.contabilizei.com.br/contabilidade-online/o-que-e-passivo-contabilidade/"
+                       target="_blank">O que é Passivo? Contabilidade, bens e direitos nas empresas</a></li>
                 <li><a href="https://docs.google.com/document/d/1HDLRa6vKpclO1JtxbGB5NeAYWf8cf1UMGy22o8OZZq4/edit"
                        target="_blank">Accounting for Developers 101</a></li>
                 <li><a href="https://docs.google.com/document/d/1qhtirHUzPu7Od7yX3A4kA424tjFCv5Kbi42xj49tKlw/edit"
