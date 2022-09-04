@@ -358,45 +358,36 @@ export class Empresa {
     }
 }
 
+// exemplo
 const empresaComLucro = new Empresa(
     [
         {
             nome: "saldo em conta bancária",
             valor: dinheiro(500_000_00, "BRL"),
             liquidez: Liquidez.Circulante,
-            tangibilidade: Tangibilidade.Tangivel,
-        },
-        {
-            nome: "patente registrada",
-            valor: dinheiro(1_000_000_00, "BRL"),
-            liquidez: Liquidez.NaoCirculante,
             tangibilidade: Tangibilidade.Intangivel,
-        },
-        {
-            nome: "matéria prima",
-            valor: dinheiro(200_000_00, "BRL"),
-            liquidez: Liquidez.Circulante,
-            tangibilidade: Tangibilidade.Tangivel,
         },
     ] as Ativo[],
     [
         {
             nome: "Salários do mês",
-            valor: dinheiro(100_000_00, "BRL"),
-            liquidez: CirculanteFinanceiroOuOperacional.Operacional,
-        },
-        {
-            nome: "Fornecedores do mês",
-            valor: dinheiro(50_000, "BRL"),
+            valor: dinheiro(200_000_00, "BRL"),
             liquidez: CirculanteFinanceiroOuOperacional.Operacional,
         },
     ] as Passivo[],
     "BRL"
 );
-console.log(empresaComLucro.patrimonioLiquido);
+console.log(JSON.stringify(empresaComLucro.patrimonioLiquido, null, 4));
 /*
 {
-    situacaoPatrimonial: Situacao
+    "situacaoPatrimonial": "Positiva",
+    "valor": {
+        "_valorEmCentavos": 30000000, &lt;- R$ 300.000,00
+        "_moeda": {
+            "_codigoIso": "BRL",
+            "_casasDecimais": 2
+        }
+    }
 }
 */
             </code></pre>
