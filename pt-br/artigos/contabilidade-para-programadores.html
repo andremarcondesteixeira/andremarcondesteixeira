@@ -63,13 +63,16 @@
                    target="_blank">classe imutável</a> para representar um valor
                 em dinheiro da seguinte forma:</p>
             <pre><code class="language-typescript codeblock">
+// src/dinheiro.ts
 // Typescript
+
+export type CodigoMoeda = "BRL" | "USD";
 
 export class Moeda {
     constructor(
-        private _codigoIso: string,
+        private _codigoIso: CodigoMoeda,
         private _casasDecimais: number
-    ) { }
+    ) {}
 
     get codigoIso() {
         return this._codigoIso;
@@ -82,13 +85,11 @@ export class Moeda {
 
 export const Moedas = Object.freeze({
     BRL: new Moeda("BRL", 2),
+    USD: new Moeda("USD", 2),
 });
 
 export class Dinheiro {
-    constructor(
-        private _valorEmCentavos: number,
-        private _moeda: Moeda
-    ) { }
+    constructor(private _valorEmCentavos: number, private _moeda: Moeda) {}
 
     private checarMoeda(d: Dinheiro) {
         if (this._moeda !== d._moeda) {
@@ -98,12 +99,18 @@ export class Dinheiro {
 
     mais(d: Dinheiro) {
         this.checarMoeda(d);
-        return new Dinheiro(this._valorEmCentavos + d._valorEmCentavos, this._moeda);
+        return new Dinheiro(
+            this._valorEmCentavos + d._valorEmCentavos,
+            this._moeda
+        );
     }
 
     menos(d: Dinheiro) {
         this.checarMoeda(d);
-        return new Dinheiro(this._valorEmCentavos - d._valorEmCentavos, this._moeda);
+        return new Dinheiro(
+            this._valorEmCentavos - d._valorEmCentavos,
+            this._moeda
+        );
     }
 
     vezes(fator: number) {
@@ -115,14 +122,16 @@ export class Dinheiro {
     }
 
     formatar(linguagem: string) {
-        return new Intl.NumberFormat(
-            linguagem,
-            { style: 'currency', currency: this._moeda.codigoIso }
-        ).format(this._valorEmCentavos / Math.pow(10, this._moeda.casasDecimais));
+        return new Intl.NumberFormat(linguagem, {
+            style: "currency",
+            currency: this._moeda.codigoIso,
+        }).format(
+            this._valorEmCentavos / Math.pow(10, this._moeda.casasDecimais)
+        );
     }
 }
 
-export default function dinheiro(valorEmCentavos: number, moeda: string) {
+export default function dinheiro(valorEmCentavos: number, moeda: CodigoMoeda) {
     return new Dinheiro(valorEmCentavos, Moedas[moeda]);
 }
 
@@ -152,7 +161,10 @@ console.log(centoEVinteReais.formatar("pt-BR")); // R$ 120,00
                     "intangíveis".</dd>
             </dl>
             <pre><code  class="language-typescript codeblock">
+// src/ativo_e_passivo.ts
 // Typescript
+
+import type { Dinheiro } from "./dinheiro";
 
 export type CoisaComValorMonetario = {
     nome: string;
