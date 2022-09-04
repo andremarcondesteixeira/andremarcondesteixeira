@@ -94,6 +94,10 @@ export class Dinheiro {
         }
     }
 
+    get moeda() {
+        return this._moeda;
+    }
+
     mais(d: Dinheiro) {
         this.checarMoeda(d);
         return new Dinheiro(this._valorEmCentavos + d._valorEmCentavos, this._moeda);
@@ -112,6 +116,31 @@ export class Dinheiro {
         return new Dinheiro(this._valorEmCentavos / fator, this._moeda);
     }
 
+    maiorQue(d: Dinheiro) {
+        this.checarMoeda(d);
+        return this._valorEmCentavos > d._valorEmCentavos;
+    }
+
+    maiorOuIgualA(d: Dinheiro) {
+        this.checarMoeda(d);
+        return this._valorEmCentavos >= d._valorEmCentavos;
+    }
+
+    menorQue(d: Dinheiro) {
+        this.checarMoeda(d);
+        return this._valorEmCentavos < d._valorEmCentavos;
+    }
+
+    menorOuIgualA(d: Dinheiro) {
+        this.checarMoeda(d);
+        return this._valorEmCentavos <= d._valorEmCentavos;
+    }
+
+    igualA(d: Dinheiro) {
+        this.checarMoeda(d);
+        return this._valorEmCentavos === d._valorEmCentavos;
+    }
+
     formatar(linguagem: string) {
         return new Intl.NumberFormat(linguagem, {
             style: "currency",
@@ -120,8 +149,8 @@ export class Dinheiro {
     }
 }
 
-export default function dinheiro(valorEmCentavos: number, moeda: CodigoMoeda) {
-    return new Dinheiro(valorEmCentavos, Moedas[moeda]);
+export default function dinheiro(valorEmCentavos: number, moeda: Moeda | CodigoMoeda) {
+    return new Dinheiro(valorEmCentavos, moeda instanceof Moeda ? moeda : Moedas[moeda]);
 }
 
 // exemplo
@@ -171,7 +200,6 @@ console.log(centoEVinteReais.formatar("pt-BR")); // R$ 120,00
 // src/ativo_e_passivo.ts
 
 import type { Dinheiro } from "./dinheiro";
-import dinheiro from "./dinheiro";
 
 export type CoisaComValorMonetario = {
     nome: string;
@@ -188,18 +216,18 @@ export type Passivo = CoisaComValorMonetario & {
 };
 
 export enum Tangibilidade {
-    Tangivel,
-    Intangivel,
+    Tangivel = "Tangível",
+    Intangivel = "Intangível",
 }
 
 export enum Liquidez {
-    Circulante,
-    NaoCirculante,
+    Circulante = "Circulante",
+    NaoCirculante = "Não Circulante",
 }
 
 export enum CirculanteFinanceiroOuOperacional {
-    Financeiro,
-    Operacional,
+    Financeiro = "Circulante Financeiro",
+    Operacional = "Circulante Operacional",
 }
 
 // exemplo
@@ -258,35 +286,119 @@ const exemplosDePassivos: Passivo[] = [
                 verdade significa a mesma coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque
                 basicamente signica que o patrimônio de uma empresa é igual a tudo o que ela tem menos tudo o que ela
                 deve.</p>
+            <p>O Patrimônio Líquido é utilizado para nos informar a "Situação Patrimonial" da empresa:</p>
+            <dl>
+                <dt>Situação Líquida Positiva</dt>
+                <dd>Quando o valor do Patrimônio Líquido é maior que 0 (zero).</dd>
+                <dt>Situação Líquida Nula</dt>
+                <dd>Quando o valor do Patrimônio Líquido é 0 (zero).</dd>
+                <dt>Situação Líquida Negativa</dt>
+                <dd>Quando o valor do Patrimônio Líquido é menor que 0 (zero). Nesta situação, dizemos também que a
+                    empresa está operando com "Passivo a Descoberto".</dd>
+            </dl>
             <p>Podemos expressar isso com um pouco de código:</p>
             <pre><code class="language-typescript codeblock">
 // Typescript
 // src/empresa.ts
 
-import type { Ativo, CoisaComValorMonetario, Passivo } from "./ativo_e_passivo";
-import dinheiro from "./dinheiro";
+import {
+    Ativo,
+    CirculanteFinanceiroOuOperacional,
+    CoisaComValorMonetario,
+    Liquidez,
+    Passivo,
+    Tangibilidade,
+} from "./ativo_e_passivo";
+import dinheiro, { CodigoMoeda, Moeda, Moedas } from "./dinheiro";
+
+export enum SituacaoPatrimonial {
+    Positiva = "positiva",
+    Nula = "nula",
+    Negativa = "negativa",
+}
 
 export class Empresa {
-    constructor(private ativos: Ativo[], private passivos: Passivo[]) {}
+    private moedaPadrao: Moeda;
+
+    constructor(private ativos: Ativo[], private passivos: Passivo[], moedaPadrao: Moeda | CodigoMoeda) {
+        this.moedaPadrao = moedaPadrao instanceof Moeda ? moedaPadrao : Moedas[moedaPadrao];
+    }
 
     private somarFatosContabeis(fatos: CoisaComValorMonetario[]) {
         return fatos.reduce((total, ativo) => {
             return total.mais(ativo.valor);
-        }, dinheiro(0, "BRL"));
+        }, dinheiro(0, this.moedaPadrao));
     }
 
-    get valorTotalAtivos() {
+    get totalAtivos() {
         return this.somarFatosContabeis(this.ativos);
     }
 
-    get valorTotalPassivos() {
+    get totalPassivos() {
         return this.somarFatosContabeis(this.passivos);
     }
 
-    get valorPatrimonioLiquido() {
-        return this.valorTotalAtivos.menos(this.valorTotalPassivos);
+    get patrimonioLiquido() {
+        const valor = this.totalAtivos.menos(this.totalPassivos);
+        const zero = dinheiro(0, valor.moeda.codigoIso);
+        let situacaoPatrimonial: SituacaoPatrimonial;
+
+        if (valor.maiorQue(zero)) {
+            situacaoPatrimonial = SituacaoPatrimonial.Positiva;
+        } else if (valor.igualA(zero)) {
+            situacaoPatrimonial = SituacaoPatrimonial.Nula;
+        } else {
+            situacaoPatrimonial = SituacaoPatrimonial.Negativa;
+        }
+
+        return {
+            situacaoPatrimonial,
+            valor,
+        };
     }
 }
+
+const empresaComLucro = new Empresa(
+    [
+        {
+            nome: "saldo em conta bancária",
+            valor: dinheiro(500_000_00, "BRL"),
+            liquidez: Liquidez.Circulante,
+            tangibilidade: Tangibilidade.Tangivel,
+        },
+        {
+            nome: "patente registrada",
+            valor: dinheiro(1_000_000_00, "BRL"),
+            liquidez: Liquidez.NaoCirculante,
+            tangibilidade: Tangibilidade.Intangivel,
+        },
+        {
+            nome: "matéria prima",
+            valor: dinheiro(200_000_00, "BRL"),
+            liquidez: Liquidez.Circulante,
+            tangibilidade: Tangibilidade.Tangivel,
+        },
+    ] as Ativo[],
+    [
+        {
+            nome: "Salários do mês",
+            valor: dinheiro(100_000_00, "BRL"),
+            liquidez: CirculanteFinanceiroOuOperacional.Operacional,
+        },
+        {
+            nome: "Fornecedores do mês",
+            valor: dinheiro(50_000, "BRL"),
+            liquidez: CirculanteFinanceiroOuOperacional.Operacional,
+        },
+    ] as Passivo[],
+    "BRL"
+);
+console.log(empresaComLucro.patrimonioLiquido);
+/*
+{
+    situacaoPatrimonial: Situacao
+}
+*/
             </code></pre>
             <p>O Patrimônio Líquido é considerado um tipo de Passivo, pois representa um valor que a empresa deve
                 devolver aos seus donos/acionistas em forma de lucro ou prejuízo. No nosso código, no entanto, o
