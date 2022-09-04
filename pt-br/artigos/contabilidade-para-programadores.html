@@ -249,48 +249,41 @@ const exemplosDePassivos: Passivo[] = [
 ];
             </code></pre>
             <h2>A Equação Fundamental da Contabilidade</h2>
-            <p>Existem 3 termos que precisamos definir anter de ir em frente: "Ativo", "Passivo", e "Patrimônio Líquido"
-            </p>
-            <dl>
-                <dt>Ativo</dt>
-                <dd>Tudo o que a empresa possui e tem o direito de receber. Exemplo: Dinheiro em espécie, valores a
-                    receber, carros, casas, etc.</dd>
-                <dt>Passivo</dt>
-                <dd>Basicamente, uma forma chique de dizer "dívida".</dd>
-                <dt>Patrimônio Líquido</dt>
-                <dd>O quanto a empresa deve para os donos e/ou acionistas, que representa exatamente a diferença entre o
-                    Ativo e o Passivo.</dd>
-            </dl>
-            <p>Agora que definimos o que estes termos significam, podemos conhecer a Equação Fundamental da
-                Contabilidade:</p>
+            <p>Agora que sabemos o que é Ativo e Passivo, podemos ser apresentados ao termo "Patrimônio Líquido".</p>
+            <p>O Patrimônio Líquido de uma empresa representa o valor devido aos donos e/ou acionistas, que corresponde
+                à diferença entre o Ativo e o Passivo.</p>
+            <p>Sabendo disso, podemos conhecer a Equação Fundamental da Contabilidade:</p>
             <p class="board">Ativo = Passivo + Patrimônio Líquido</p>
             <p>Algumas vezes podemos encontrar essa mesma conta um pouco diferente, mas que na verdade significa a mesma
                 coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque basicamente signica que o
                 patrimônio de uma empresa é igual a tudo o que ela tem menos tudo o que ela deve.</p>
             <p>Podemos expressar isso com um pouco de código:</p>
             <pre><code class="language-typescript codeblock">
+// src/empresa.ts
 // Typescript
 
-class Empresa {
-    constructor(
-        private bens_e_direitos: CoisaComValorMonetario[],
-        private dividas_e_obrigacoes: CoisaComValorMonetario[],
-    ) { }
+import type { Ativo, CoisaComValorMonetario, Passivo } from "./ativo_e_passivo";
+import dinheiro from "./dinheiro";
 
-    get total_ativos() {
-        return this.bens_e_direitos.reduce((total, bem) => {
-            return total + bem.valor;
-        }, 0);
+export class Empresa {
+    constructor(private ativos: Ativo[], private passivos: Passivo[]) {}
+
+    private somarFatosContabeis(fatos: CoisaComValorMonetario[]) {
+        return fatos.reduce((total, ativo) => {
+            return total.mais(ativo.valor);
+        }, dinheiro(0, "BRL"));
     }
 
-    get total_passivos_exceto_patrimonio_liquido() {
-        return this.dividas_e_obrigacoes.reduce((total, obrigacao) => {
-            return total + obrigacao.valor;
-        }, 0);
+    get valorTotalAtivos() {
+        return this.somarFatosContabeis(this.ativos);
     }
 
-    get patrimonio_liquido() {
-        return this.ativo - this.passivo;
+    get valorTotalPassivos() {
+        return this.somarFatosContabeis(this.passivos);
+    }
+
+    get valorPatrimonioLiquido() {
+        return this.valorTotalAtivos.menos(this.valorTotalPassivos);
     }
 }
             </code></pre>
