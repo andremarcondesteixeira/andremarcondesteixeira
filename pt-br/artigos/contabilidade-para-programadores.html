@@ -63,8 +63,8 @@
                    target="_blank">classe imutável</a> para representar um valor
                 em dinheiro da seguinte forma:</p>
             <pre><code class="language-typescript codeblock">
-// src/dinheiro.ts
 // Typescript
+// src/dinheiro.ts
 
 export type CodigoMoeda = "BRL" | "USD";
 
@@ -167,8 +167,8 @@ console.log(centoEVinteReais.formatar("pt-BR")); // R$ 120,00
                     salários, impostos mensais, etc.</dd>
             </dl>
             <pre><code  class="language-typescript codeblock">
-// src/ativo_e_passivo.ts
 // Typescript
+// src/ativo_e_passivo.ts
 
 import type { Dinheiro } from "./dinheiro";
 import dinheiro from "./dinheiro";
@@ -259,8 +259,8 @@ const exemplosDePassivos: Passivo[] = [
                 patrimônio de uma empresa é igual a tudo o que ela tem menos tudo o que ela deve.</p>
             <p>Podemos expressar isso com um pouco de código:</p>
             <pre><code class="language-typescript codeblock">
-// src/empresa.ts
 // Typescript
+// src/empresa.ts
 
 import type { Ativo, CoisaComValorMonetario, Passivo } from "./ativo_e_passivo";
 import dinheiro from "./dinheiro";
