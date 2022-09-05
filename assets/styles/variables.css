@@ -1,9 +1,12 @@
 :root {
+    /* DARK THEME COLORS */
     --dark-theme-background-color: #201e28;
     --dark-theme-board-background-color: #ffffff10;
     --dark-theme-scrollbar-color: #bbb;
     --dark-theme-scrollbar-hover-color: #ddd;
     --dark-theme-text-color: #bbb;
+
+    /* LIGHT THEME COLORS */
     --light-theme-background-color: #fefefe;
     --light-theme-board-background-color: #00000010;
     --light-theme-scrollbar-color: #333;
@@ -12,24 +15,35 @@
 }
 
 :root {
+    /* COLORS */
     --background-color: var(--light-theme-background-color);
     --bad-state-background-color: #ff000040;
-    --big-font-size: 120%;
-    --body-x-padding: 1rem;
-    --code-block-background-color: #ccc;
-    --code-block-border-color: #aaa;
-    --code-block-text-color: var(--light-theme-text-color);
-    --default-border-radius: 15px;
     --good-state-background-color: #00ff0040;
-    --board-background-color: var(--light-theme-board-background-color);
     --link-color: #5180d8;
     --scrollbar-color: var(--light-theme-scrollbar-color);
     --scrollbar-hover-color: var(--light-theme-scrollbar-hover-color);
     --text-color: var(--light-theme-text-color);
-    --visited-link-color: #b176e9;;
+    --visited-link-color: #b176e9;
+
+    /* FONTS */
+    --big-font-size: 120%;
+
+    /* DIMENSIONS */
+    --body-x-padding: 1rem;
+    --default-border-radius: 15px;
+
+    /* COMPONENTS */
+    /* board */
+    --board-background-color: var(--light-theme-board-background-color);
+
+    /* codeblock */
+    --code-block-background-color: #ccc;
+    --code-block-border-color: #aaa;
+    --code-block-text-color: var(--light-theme-text-color);
 }
 
 :root.dark-theme {
+    /* COLORS */
     --background-color: var(--dark-theme-background-color);
     --code-block-background-color: #373737;
     --code-block-border-color: #666;
