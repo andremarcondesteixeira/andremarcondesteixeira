@@ -272,7 +272,7 @@ export enum CirculanteFinanceiroOuOperacional {
     Operacional = "Circulante Operacional",
 }</code></pre>
             <pre class="codeblock--source"><code  class="language-typescript">// exemplo
-const exemplosDeAtivos: Ativo[] = [
+const exemplosDeAtivos = [
     new Ativo({
         nome: "Dinheiro em caixa",
         valor: dinheiro(5_000_00, "BRL"),
@@ -299,7 +299,7 @@ const exemplosDeAtivos: Ativo[] = [
     }),
 ];
 
-const exemplosDePassivos: Passivo[] = [
+const exemplosDePassivos = [
     new Passivo({
         nome: "Saldo negativo em conta bancária",
         valor: dinheiro(1000_00, "BRL"),
