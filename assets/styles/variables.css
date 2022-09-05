@@ -32,10 +32,11 @@
     --body-x-padding: 1rem;
     --default-border-radius: 15px;
 
-    /* COMPONENTS */
+    /* ATOMS */
     /* board */
     --board-background-color: var(--light-theme-board-background-color);
 
+    /* COMPONENTS */
     /* codeblock */
     --code-block-background-color: #ccc;
     --code-block-border-color: #aaa;
