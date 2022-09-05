@@ -149,9 +149,8 @@ export class Dinheiro {
 
 export default function dinheiro(valorEmCentavos: number, moeda: Moeda | CodigoMoeda) {
     return new Dinheiro(valorEmCentavos, moeda instanceof Moeda ? moeda : Moedas[moeda]);
-}
-
-// exemplo
+}</code></pre>
+            <pre class="codeblock--source"><code class="language-typescript">// exemplo
 const milReais = dinheiro(1000_00, "BRL");
 const milEDuzentosReais = milReais.mais(dinheiro(200_00, "BRL"));
 console.log(milEDuzentosReais.formatar("pt-BR")); // R$ 1.200,00</code></pre>
@@ -192,9 +191,8 @@ console.log(milEDuzentosReais.formatar("pt-BR")); // R$ 1.200,00</code></pre>
                 <dd>São os Passivos Circulantes que tem relação direta com a operação do negócio, como pagamento de
                     salários, impostos mensais, etc.</dd>
             </dl>
+            <div class="codeblock--filename">src/ativo_e_passivo.ts</div>
             <pre class="codeblock--source"><code  class="language-typescript">// Typescript
-// src/ativo_e_passivo.ts
-
 import type { Dinheiro } from "./dinheiro";
 
 export type CoisaComValorMonetario = {
@@ -224,9 +222,8 @@ export enum Liquidez {
 export enum CirculanteFinanceiroOuOperacional {
     Financeiro = "Circulante Financeiro",
     Operacional = "Circulante Operacional",
-}
-
-// exemplo
+}</code></pre>
+            <pre class="codeblock--source"><code  class="language-typescript">// exemplo
 const exemplosDeAtivos: Ativo[] = [
     {
         nome: "Dinheiro em caixa",
@@ -294,9 +291,8 @@ const exemplosDePassivos: Passivo[] = [
             <p></p>
             <p>A Equação Fundamental também representa um dos relatórios mais importantes de uma empresa: O Balanço
                 Patrimonial</p>
+            <div class="codeblock--filename">src/empresa.ts</div>
             <pre class="codeblock--source"><code class="language-typescript">// Typescript
-// src/empresa.ts
-
 import {
     Ativo,
     CirculanteFinanceiroOuOperacional,
@@ -352,9 +348,8 @@ export class Empresa {
             valor,
         };
     }
-}
-
-// exemplo
+}</code></pre>
+            <pre class="codeblock--source"><code class="language-typescript">// exemplo
 const empresaComLucro = new Empresa(
     [
         {
