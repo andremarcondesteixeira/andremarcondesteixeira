@@ -23,14 +23,6 @@
     margin-right: calc(var(--body-x-padding) * -1);
 }
 
-.codeblock {
-    border: 1px solid var(--code-block-border-color);
-    border-radius: var(--default-border-radius);
-    display: block;
-    margin: 4rem;
-    padding: 1rem;
-}
-
 :root.dark-theme .hidden-in-dark-theme {
     display: none;
 }

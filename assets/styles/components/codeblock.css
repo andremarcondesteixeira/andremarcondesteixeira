@@ -1,0 +1,36 @@
+.codeblock--filename,
+.codeblock--source {
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-top: 4rem;
+    padding: 1rem;
+}
+
+.codeblock--filename {
+    border-left: 1px solid var(--code-block-border-color);
+    border-right: 1px solid var(--code-block-border-color);
+    border-top: 1px solid var(--code-block-border-color);
+    border-top-left-radius: var(--default-border-radius);
+    border-top-right-radius: var(--default-border-radius);
+}
+
+:root[lang="pt-BR"] .codeblock--filename::before {
+    content: "Arquivo: ";
+}
+
+:root[lang="en-US"] .codeblock--filename::before {
+    content: "File: ";
+}
+
+.codeblock--source {
+    border: 1px solid var(--code-block-border-color);
+    border-radius: var(--default-border-radius);
+    display: block;
+    margin-bottom: 4rem;
+}
+
+.codeblock--filename + .codeblock--source {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

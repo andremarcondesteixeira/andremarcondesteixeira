@@ -61,7 +61,7 @@
                 The component turned out simple and functional, but still, something was bothering me about this piece
                 of code:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 export default class ThemeChanger extends HTMLElement {
@@ -123,7 +123,7 @@ export default class ThemeChanger extends HTMLElement {
             <p>
                 So, I decided it was a good idea to write a simple utility function to create HTML components:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // createElement.js
 
 export const a = new Proxy({}, {
@@ -153,7 +153,7 @@ function createElement(name, properties) {
             <p>
                 With this function, I can create HTML components like this:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -199,7 +199,7 @@ export default class ThemeChanger extends HTMLElement {
             <p>
                 Now, when when I rewrote the code using this new utility, this is the result:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -270,7 +270,7 @@ export default class ThemeChanger extends HTMLElement {
                 But what if we go a little further? Let's nest the components creation and evaluate those 2 benefits
                 again:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -281,7 +281,7 @@ export default class ThemeChanger extends HTMLElement {
 
     createDOMTree() {
         const lang = this.getAttribute('lang');
-    
+
         const wrapper = a.div({
             ariaHidden: true,
             classList: ['wrapper'],
@@ -312,7 +312,7 @@ export default class ThemeChanger extends HTMLElement {
                 }),
             ],
         });
-    
+
         return wrapper;
     }
 

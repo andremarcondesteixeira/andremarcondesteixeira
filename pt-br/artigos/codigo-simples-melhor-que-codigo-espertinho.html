@@ -62,7 +62,7 @@
             <p>
                 O resultado ficou simples e funcional, mas uma coisa estava me incomodando neste trecho de código aqui:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 export default class ThemeChanger extends HTMLElement {
@@ -124,7 +124,7 @@ export default class ThemeChanger extends HTMLElement {
             <p>
                 Então achei que era uma boa ideia escrever um pequeno utilitário para criar elementos HTML:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // createElement.js
 
 export const a = new Proxy({}, {
@@ -154,7 +154,7 @@ function createElement(name, properties) {
             <p>
                 Este utilitário permite criar elementos mais ou menos assim:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -200,7 +200,7 @@ export default class ThemeChanger extends HTMLElement {
             <p>
                 Agora, ao reescrever o código aplicando este utilitário, o resultado fica assim:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -271,7 +271,7 @@ export default class ThemeChanger extends HTMLElement {
                 Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos elementos e avaliar estes dois
                 pontos novamente:
             </p>
-            <pre><code class="language-javascript codeblock">
+            <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -282,7 +282,7 @@ export default class ThemeChanger extends HTMLElement {
 
     createDOMTree() {
         const lang = this.getAttribute('lang');
-    
+
         const wrapper = a.div({
             ariaHidden: true,
             classList: ['wrapper'],
@@ -313,7 +313,7 @@ export default class ThemeChanger extends HTMLElement {
                 }),
             ],
         });
-    
+
         return wrapper;
     }
 
