@@ -12,6 +12,8 @@
     border-top: 1px solid var(--code-block-border-color);
     border-top-left-radius: var(--default-border-radius);
     border-top-right-radius: var(--default-border-radius);
+    color: var(--dimmed-text-color);
+    font-size: var(--small-font-size);
 }
 
 :root[lang="pt-BR"] .codeblock--filename::before {

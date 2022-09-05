@@ -31,6 +31,10 @@
     display: none;
 }
 
+.dimmed-text {
+    color: var(--dimmed-text-color);
+}
+
 .no-padding {
     padding: 0;
 }

@@ -152,9 +152,9 @@ export default function dinheiro(valorEmCentavos: number, moeda: Moeda | CodigoM
 }
 
 // exemplo
-const cemReais = dinheiro(100_00, "BRL");
-const centoEVinteReais = cemReais.mais(dinheiro(20_00, "BRL"));
-console.log(centoEVinteReais.formatar("pt-BR")); // R$ 120,00</code></pre>
+const milReais = dinheiro(1000_00, "BRL");
+const milEDuzentosReais = milReais.mais(dinheiro(200_00, "BRL"));
+console.log(milEDuzentosReais.formatar("pt-BR")); // R$ 1.200,00</code></pre>
             <p>Vale ressaltar que em produção, eu utilizaria uma biblioteca de terceiros para lidar com valores
                 monetários, como por exemplo a <a href="https://dinerojs.com/">dinero.js</a>.</p>
             <p>Para manter as coisas simples, por enquanto utilizaremos somente o Real Brasileiro, que no padrão
