@@ -37,7 +37,7 @@ code {
     background-color: var(--code-block-background-color);
     color: var(--code-block-text-color);
     display: inline-block;
-    font-family: 'Source Code Pro', monospace;
+    font-family: var(--monospace-font);
     font-size: 1.6rem;
     padding: 0 0.5rem;
 }
@@ -125,6 +125,7 @@ li {
 
 table {
     border-collapse: collapse;
+    margin: 0 auto;
 }
 
 table, th, td {

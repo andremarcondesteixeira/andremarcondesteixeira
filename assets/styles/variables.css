@@ -30,6 +30,7 @@
 
     /* FONTS */
     --big-font-size: 120%;
+    --monospace-font: 'Source Code Pro', monospace;
     --small-font-size: 80%;
 
     /* DIMENSIONS */

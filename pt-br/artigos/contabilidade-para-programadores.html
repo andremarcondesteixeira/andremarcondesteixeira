@@ -19,6 +19,46 @@
     <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
     <title>Contabilidade 4 Devs</title>
+    <style>
+        table.relatorio-balanco-patrimonial {
+            margin: 4rem auto;
+        }
+
+        table.relatorio-balanco-patrimonial tbody td,
+        table.relatorio-balanco-patrimonial tbody th,
+        table.relatorio-balanco-patrimonial tfoot th {
+            border: none;
+            padding: 0.5rem 2rem;
+        }
+
+        table.relatorio-balanco-patrimonial tbody th:nth-child(2),
+        table.relatorio-balanco-patrimonial tbody td:nth-child(2),
+        table.relatorio-balanco-patrimonial tfoot th:nth-child(2) {
+            border-right: 1px solid var(--text-color);
+        }
+
+        table.relatorio-balanco-patrimonial tfoot th {
+            border-top: 1px solid var(--text-color);
+        }
+
+        table.relatorio-balanco-patrimonial tbody th:nth-child(even),
+        table.relatorio-balanco-patrimonial tbody td:nth-child(even),
+        table.relatorio-balanco-patrimonial tfoot th:nth-child(even) {
+            font-family: var(--monospace-font);
+            text-align: right;
+            font-size: var(--small-font-size);
+        }
+
+        table.relatorio-balanco-patrimonial tbody th:nth-child(odd),
+        table.relatorio-balanco-patrimonial tbody td:nth-child(odd) {
+            text-align: left;
+        }
+
+        table.relatorio-balanco-patrimonial tbody tr:not(:first-child) th {
+            border-top: 1px solid var(--dimmed-text-color);
+        }
+
+    </style>
 </head>
 
 <body>
@@ -326,7 +366,7 @@ const exemplosDePassivos = [
                 verdade significa a mesma coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque
                 basicamente signica que o patrimônio de uma empresa é igual a tudo o que ela tem menos tudo o que ela
                 deve.</p>
-            <p>O Patrimônio Líquido é utilizado para nos informar a "Situação Patrimonial" da empresa:</p>
+            <p>A partir do Patrimônio Líquido podemos conhecer a "Situação Patrimonial" da empresa:</p>
             <dl>
                 <dt>Situação Líquida Positiva</dt>
                 <dd>Quando o valor do Patrimônio Líquido é maior que 0 (zero).</dd>
@@ -337,8 +377,119 @@ const exemplosDePassivos = [
                     empresa está operando com "Passivo a Descoberto".</dd>
             </dl>
             <p></p>
-            <p>A Equação Fundamental também representa um dos relatórios mais importantes de uma empresa: O Balanço
-                Patrimonial</p>
+            <p>A Equação Fundamental é utlizada para compor um dos relatórios mais importantes de uma empresa: O Balanço
+                Patrimonial, que tem por finalidade apresentar a situação financeira da empresa em dado período.</p>
+            <p>Normalmente, o Balanço Patrimonial é elaborado 1 vez por ano, mas nada impede que seja elaborado sempre
+                que assim se deseje.</p>
+            <p>Na tabela abaixo, podemos ver um relatório de Balanço Patrimonial de exemplo:</p>
+            <table class="relatorio-balanco-patrimonial">
+                <thead>
+                    <tr>
+                        <th colspan="2">Ativo</th>
+                        <th colspan="2">Passivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Circulante</th>
+                        <th>R$ 20.000,00</th>
+                        <th>Circulante</th>
+                        <th>R$ 12.000,00</th>
+                    </tr>
+                    <tr>
+                        <td>Caixa</td>
+                        <td>R$ 5.000,00</td>
+                        <td>Contas a pagar</td>
+                        <td>R$ 3.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Estoques</td>
+                        <td>R$ 5.000,00</td>
+                        <td>Salários</td>
+                        <td>R$ 9.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Contas a receber</td>
+                        <td>R$ 10.000,00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>Não Circulante</th>
+                        <th>R$ 50.000,00</th>
+                        <th>Não Circulante</th>
+                        <th>R$ 10,000.00</th>
+                    </tr>
+                    <tr>
+                        <td>Investimentos de longo prazo</td>
+                        <td>R$ 20.000,00</td>
+                        <td>Dívidas de longo prazo</td>
+                        <td>R$ 10.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Carro</td>
+                        <td>R$ 30.000,00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <th>Patrimônio Líquido</th>
+                        <th>R$ 48.000,00</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Capital social</td>
+                        <td>R$ 20.000,00</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Lucros acumulados</td>
+                        <td>R$ 28.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th>R$ 70.000,00</th>
+                        <th>Total</th>
+                        <th>R$ 70.000,00</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <p>Note como na última linha do relatório, os valores são iguais. Essa é a igualdade que acontece na equação
+                Ativo = Passivo + Patrimônio Líquido. O Patrimônio Líquido é a parte que faz os dois lados da equação
+                ficarem iguais.</p>
+            <p>O Patrimônio Líquido é considerado um tipo de Passivo, mas ao invés de o registrarmos na seções de
+                Passivo Circulante ou Passivo Não Circulante, o calculamos como sendo a diferença entre todos os demais
+                Ativos e Passivos.</p>
+            <p>Note também que na seção do Patrimônio Líquido, há um registro para o Capital Social da empresa. O
+                Capital Social é o valor investido inicialmente para abrir a empresa. Como os donos/acionistas colocaram
+                esse valor no negócio para abrí-lo, a empresa fica devendo esse valor para os mesmos. Por isso, o
+                Capital Social é considerado um Passivo, que compõe o Patrimônio Líquido. Em outras palavras, O
+                Patrimônio Líquido, que contém o Capital Social e os lucros/prejuízos é um Passivo, porque a empresa
+                precisa devolver esse dinheiro aos sócios.</p>
             <div class="codeblock--filename">src/empresa.ts</div>
             <pre class="codeblock--source"><code class="language-typescript">// Typescript
 import {
@@ -444,6 +595,10 @@ console.log(JSON.stringify(empresaComLucro.patrimonioLiquido, null, 4));
                        target="_blank">Immutable Object</a></li>
                 <li><a href="https://www.contabilizei.com.br/contabilidade-online/o-que-e-passivo-contabilidade/"
                        target="_blank">O que é Passivo? Contabilidade, bens e direitos nas empresas</a></li>
+                <li><a href="https://www.contabilizei.com.br/contabilidade-online/balanco-patrimonial/"
+                       target="_blank">Balanço Patrimonial: O que é? Saiba como fazer e exemplos</a></li>
+                <li><a href="https://www.contabeis.com.br/artigos/5567/modelo-de-balanco-patrimonial/"
+                       target="_blank">Modelo de Balanço Patrimonial</a></li>
                 <li><a href="https://docs.google.com/document/d/1HDLRa6vKpclO1JtxbGB5NeAYWf8cf1UMGy22o8OZZq4/edit"
                        target="_blank">Accounting for Developers 101</a></li>
                 <li><a href="https://docs.google.com/document/d/1qhtirHUzPu7Od7yX3A4kA424tjFCv5Kbi42xj49tKlw/edit"
