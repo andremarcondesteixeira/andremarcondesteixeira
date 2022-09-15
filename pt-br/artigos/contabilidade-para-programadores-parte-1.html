@@ -119,19 +119,27 @@ export class Dinheiro {
     }
 
     adicionar(other: Dinheiro) {
-        return this.construirAPartirDoObjetoEncapulado(this._objetoEncapsulado.add(other._objetoEncapsulado));
+        return this.construirAPartirDoObjetoEncapulado(
+            this._objetoEncapsulado.add(other._objetoEncapsulado)
+        );
     }
 
     subtrair(other: Dinheiro) {
-        return this.construirAPartirDoObjetoEncapulado(this._objetoEncapsulado.subtract(other._objetoEncapsulado));
+        return this.construirAPartirDoObjetoEncapulado(
+            this._objetoEncapsulado.subtract(other._objetoEncapsulado)
+        );
     }
 
     multiplicar(factor: number) {
-        return this.construirAPartirDoObjetoEncapulado(this._objetoEncapsulado.multiply(factor));
+        return this.construirAPartirDoObjetoEncapulado(
+            this._objetoEncapsulado.multiply(factor)
+        );
     }
 
     dividir(factor: number) {
-        return this.construirAPartirDoObjetoEncapulado(this._objetoEncapsulado.divide(factor));
+        return this.construirAPartirDoObjetoEncapulado(
+            this._objetoEncapsulado.divide(factor)
+        );
     }
 
     menorQue(other: Dinheiro) {
