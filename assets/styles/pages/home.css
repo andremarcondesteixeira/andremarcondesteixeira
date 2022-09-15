@@ -13,3 +13,7 @@ body {
 .footer {
     margin: 0
 }
+
+.articles-index>ul>li {
+    margin-bottom: 2rem;
+}

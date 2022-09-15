@@ -113,8 +113,8 @@ export class Dinheiro {
 
     constructor(private _moeda: Moeda, private _valorEmCentavos: number) {
         this._objetoEncapsulado = Dinero({
-            amount: _valorEmCentavos,
-            currency: _moeda,
+            amount: this._valorEmCentavos,
+            currency: this._moeda,
         });
     }
 
