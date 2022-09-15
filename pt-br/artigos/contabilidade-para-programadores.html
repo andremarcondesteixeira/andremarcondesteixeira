@@ -91,14 +91,17 @@
                 existem diversos excelente materiais de estudo espalhados pela internet. Ao invés disso, tentarei
                 utilizar uma abordagem focada em código para explicar os principas conceitos, de forma que no final do
                 artigo, teremos um sistema de contabilidade minimalista e funcional.</p>
-            <h2>Introdução</h2>
+            <p>O sistema que estamos contruindo não irá possuir uma arquitetura tecnicamente ideal, pois o foco é
+                somente apresentar os conceitos da contabilidade utilizando exemplos de código para que o aprendizado
+                fiquei mais fácil a pessoas que trabalham com programação.</p>
+            <h2>Uma classe para representar dinheiro</h2>
             <p>Empresas lidam com dinheiro. Cada país utiliza uma moeda diferente. Por isso precisamos encontrar uma
                 forma de representar quantidades de dinheiro programaticamente. Para tal, utilizamos o padrão <a
                    href="https://pt.wikipedia.org/wiki/ISO_4217"
                    target="_blank">ISO 4217</a>.
             </p>
-            <p>Para evitar problemas com <a href="https://refactoring.guru/smells/primitive-obsession"
-                   target="_blank">Primitive Obsession</a>, podemos criar um <a
+            <p>Para evitar problemas com <a href="https://dev.to/wsantosdev/obsessao-por-tipos-primitivos-33g4"
+                   target="_blank">Obsessão por Tipos Primitivos</a>, podemos criar um <a
                    href="https://pt.wikipedia.org/wiki/Objeto_imut%C3%A1vel"
                    target="_blank">objeto imutável</a> para representar um valor
                 em dinheiro da seguinte forma:</p>
