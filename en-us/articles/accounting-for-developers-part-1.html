@@ -145,7 +145,7 @@ export class MoneyFacade {
             style: "currency",
             currency: this._currency,
             // in order to keep the code simple, let's assume all currencies have
-            // minor units that are 1/100 from the major unit
+            // minor units that are 1/100 of the major unit
         }).format(this._valueInMinorUnits / 100);
     }
 
@@ -159,7 +159,7 @@ export type Currency = Dinero.Currency;
 export default function money(currency: Currency, valueInMinorUnits: number) {
     return new MoneyFacade(currency, valueInMinorUnits);
 }</code></pre>
-            <pre class="codeblock--source"><code class="language-typescript">// exemplo
+            <pre class="codeblock--source"><code class="language-typescript">// example
 const aThousandDollars = money(1000_00, "USD");
 const twelveHundredDollars = aThousandDollars.add(money(200_00, "USD"));
 console.log(twelveHundredDollars.format("en-US")); // $ 1,200.00</code></pre>
