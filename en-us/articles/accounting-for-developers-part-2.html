@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +27,7 @@
             <ul>
                 <li>
                     <a href="/pt-br/artigos/contabilidade-para-programadores-parte-2.html"
-                       lang="en-US">Ler em português</a>
+                       lang="pt-BR">Ler em português</a>
                 </li>
                 <li>
                     <a href="/en-us">Home</a>
@@ -36,9 +36,9 @@
         </nav>
         <theme-changer aria-hidden="true"
                        lang="en-US"></theme-changer>
-        <h1>Accounting for developers, part 2: The accounting equation</h1>
+        <h1>Accounting for Developers, Part 2: The Accounting Equation</h1>
         <p class="header--article-publication-date">
-            <time datetime="2022-09-15">September 15th, 2022</time>
+            <time datetime="2022-09-19">September 19th, 2022</time>
         </p>
     </header>
     <main>
@@ -46,136 +46,143 @@
             <p>Imagine the following situations:</p>
             <ol>
                 <li>John decided to open a company. He invested $20,000 to buy raw materials. In the first month of
-                    operation, he used $5,000 worth of raw materials and had a $25,000 turnover, he also has $10,000 of
-                    bills to pay.</li>
-                <li>Você possui um computador que vale atualmente em torno de R$ 5.000 se você vendesse hoje. O
-                    computador lhe custou R$ 7.500 pois você comprou parcelado, e você já pagou um total de R$ 4.000 das
-                    parcelas. Além disso, você tem mais R$ 2.000 na conta bancária e R$ 1.500 de contas a pagar.</li>
+                    operation, he used $5,000 worth of raw materials and had $25,000 of total sales, he also has
+                    $10,000 of bills to pay.</li>
+                <li>You own a computer that is worth $5,000 if you sell it today. You bought it for $7,500 and paid
+                    $4,000 so far. Apart from that, you have $2,000 in your checkings account and $1,500 of bills to be
+                    paid.</li>
             </ol>
-            <h2>Ativos e passivos</h2>
-            <p>Todas as pessoas, físicas ou jurídicas, geralmente são donas de algumas coisas e também geralmente devem
-                algumas coisas.</p>
-            <p>Todas as coisas que possuímos são chamadas de "ativos" no mundo da contabilidade, e todas as coisas que
-                devemos são chamadas de "passivos".</p>
-            <p>No primeiro exemplo acima, a empresa de João tem atualmente um total de R$ 40.000 em ativos e R$ 40.000
-                em passivos. No segundo exemplo, você teria um total de R$ 7.000 em ativos e R$ 7.000 em passivos - Eu
-                sei, por enquanto isso não faz nenhum sentido, mas vou explicar em breve.</p>
-            <h2>A equação fundamental da contabilidade</h2>
-            <p>Na contabilidade, tudo deve possuir um equilíbrio. Pense na contabilidade como uma balança antiga que
-                precisa estar sempre com os dois lados na mesma altura.</p>
-            <p>Esse equilíbrio é representado pela equação fundamental da contabilidade:</p>
-            <p class="board">Ativo = Passivo + Patrimônio Líquido</p>
+            <h2>Assets and Liabilities</h2>
+            <p>All persons and companies usually own some stuff and also owe some stuff.</p>
+            <p>In accounting, all the stuff we own are called "assets", and all the stuff we owe are called
+                "liabilities".</p>
+            <p>In the first example above, John's company has $40,000 worth of assets and $40,000 worth of liabilities.
+                In the second example, you would have $7,000 worth of assets and $7,000 worth of liabilities. Yeah, I
+                know, it doesn't make sense yet, but I'll explain it.</p>
+            <h2>The Accounting Equation</h2>
+            <p>In the world of accounting, everything must be in balance. Imagine accounting as an old scale where both
+                sides must always be at the same height.</p>
+            <p>This balance is represented by the accounting equation:</p>
+            <p class="board">Assets = Liabilities + Equity</p>
             <figure>
-                <img src="/assets/images/balanca-contabilidade.jpg"
-                     alt="balança antiga"
+                <img src="/assets/images/accounting-scale.jpg"
+                     alt="old scale"
                      width="500" />
-                <figcaption>Na contabilidade, tudo precisa estar equilibrado</figcaption>
+                <figcaption>In accounting, everything must always be in balance</figcaption>
             </figure>
-            <p>O patrimônio líquido representa o quanto a empresa deve para os sócios, no caso de empresas, ou quanto
-                valem todas as posses de uma pessoa física.</p>
-            <p>Algumas vezes podemos encontrar essa mesma conta expressa de um jeito um pouco diferente, mas que na
-                verdade significa a mesma coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque
-                basicamente signica que o patrimônio de uma pessoa física ou jurídica é igual a tudo o que ela tem menos
-                tudo o que ela deve.</p>
-            <p>Agora que sabemos que a equação fundamental da contabilidade exige um equilíbrio, vamos voltar aos 2
-                exemplos do começo do artigo e demonstrá-los com código. Vale lembrar que o ponto do código é demonstrar
-                conceitos (não ligue para o fato das classes Ativo e Passivo não adicionarem nenhum novo dado ou
-                comportamento).</p>
-            <pre class="codeblock--source"><code class="language-typescript">// arquivo: src/ativo_passivo.ts
-import type { Dinheiro } from "./dinheiro";
+            <p>For a company, the equity represents how much the company owes to the shareholders, and for a person, it
+                represents how much money you actually have.</p>
+            <p>Sometimes we can find the equation expressed a little bit differently, but in the end it still represents
+                the same concept: "Equity = Assets - Liabilities", which makes sense because it basically means that
+                your equity is everything you own subtracted by everything you owe.</p>
+            <p>Now that we know that the accounting equation demands balance, let's get back to the examples and
+                demonstrate them as code. Remember that the point here is to explain the concepts, so please don't mind
+                the Asset and Liability classes adding nothing to the parent class' behavior.</p>
+            <div class="codeblock--filename">src/asset_liability.ts</div>
+            <pre class="codeblock--source"><code class="language-typescript">import type { MoneyFacade } from "./money";
+import money from "./money";
 
-export abstract class CoisaPrecificavel {
-    constructor(private _nome: string, private _valor: Dinheiro) {}
+export abstract class Priceable {
+    constructor(private _name: string, private _value: MoneyFacade) {}
 
-    get nome() {
-        return this._nome;
+    get name() {
+        return this._name;
     }
 
-    get valor() {
-        return this._valor;
-    }
-}
-
-// Ativos são coisa precificáveis
-export class Ativo extends CoisaPrecificavel {
-    constructor(nome: string, valor: Dinheiro) {
-        super(nome, valor);
+    get value() {
+        return this._value;
     }
 }
 
-// Passivos também
-export class Passivo extends CoisaPrecificavel {
-    constructor(nome: string, valor: Dinheiro) {
-        super(nome, valor);
+// An asset is something priceable
+export class Asset extends Priceable {
+    constructor(name: string, value: MoneyFacade) {
+        super(name, value);
     }
 }
 
-export function somar(itens: CoisaPrecificavel[]) {
-    return itens.reduce((total, item) => {
-        return total.adicionar(item.valor);
-    }, dinheiro("BRL", 0));
+// so is a liability
+export class Liability extends Priceable {
+    constructor(name: string, value: MoneyFacade) {
+        super(name, value);
+    }
+}
+
+export function sum(items: Priceable[]) {
+    return items.reduce((total, item) => {
+        return total.add(item.value);
+    }, money("BRL", 0));
 }</code></pre>
-            <pre class="codeblock--source"><code class="language-typescript">// exemplo 1
-// João decidiu abrir uma empresa.
-// Então, ele investiu R$ 20.000 para comprar matéria prima.
-// No primeiro mês de operação, utilizou R$ 5.000 da matéria prima comprada e teve um faturamento
-// de R$ 25.000 e tem R$ 10.000 de custos a pagar em salários em impostos.
+            <div class="codeblock--filename">test/examples.spec.ts</div>
+            <pre class="codeblock--source"><code class="language-typescript">import { Asset, Liability, sum } from "../src/asset_liability";
+import money from "../src/money";
 
-import dinheiro from "./dinheiro";
-import { somar } from "./ativo_passivo";
+test("Example 1", () => {
+    // John decided to open a company.
+    // He invested $20,000 to buy raw materials.
+    // In the first month of operation, he used $5,000 worth of raw materials and had
+    // $25,000 of total sales.
+    // He also has $10,000 of bills to pay.
 
-const ativo: Ativo[] = [
-    new Ativo("Matéria prima", dinheiro("BRL", 15_000_00)),
-    new Ativo("Faturamento", dinheiro("BRL", 25_000_00)),
-];
+    const assets: Asset[] = [
+        new Asset("Raw materials", money("USD", 15_000_00)),
+        new Asset("Total sales", money("USD", 25_000_00)),
+    ];
 
-const passivo: Passivo[] = [new Passivo("Custos", dinheiro("BRL", 10_000_00))];
+    const liabilities: Liability[] = [
+        new Liability("Bills to pay", money("USD", 10_000_00)),
+    ];
 
-// O patrimônio líquido é um tipo de passivo porque deve ser devolvido aos donos
-const patrimonioLiquido: Passivo[] = [
-    // O capital social faz parte do patrimônio líquido.
-    // Quando João decidiu abrir sua empresa, ele fez um investimento inicial de R$ 20.000.
-    // Isso compõe o capital social da empresa, e a empresa deve esse dinheiro ao dono.
-    // Se a empresa possui uma dívida com o dono, logo, a empresa tem R$ 20.000 de passivo.
-    new Passivo("Capital social", dinheiro("BRL", 20_000_00)),
+    // The equity is a liability because the company must return it to the shareholders
+    const equity: Liability[] = [
+        // The capital stock is part of the equity.
+        // When John decided to open a company, he made an initial investment of $20,000.
+        // This is the capital stock of the company, and the company owes this money to John.
+        // If the company owes this to John, then it is a liability
+        new Liability("Capital stock", money("USD", 20_000_00)),
 
-    // E o lucro (ou prejuízo) acumulado, é simplesmente a diferença entre o ativo e o passivo,
-    // e também deixa a equação equilibrada.
-    new Passivo("Lucros acumulados", dinheiro("BRL", 10_000_00)),
-];
+        // The profit (or the loss) is the difference between the all the other assets and liabilities,
+        // and it gives the balance to the equation
+        new Liability("Profit", money("USD", 10_000_00)),
+    ];
 
-const ladoEsquerdoDaEquacao = somar(ativo);
-const ladoDireitoDaEquacao = somar(passivo).adicionar(somar(patrimonioLiquido));
-expect(ladoEsquerdoDaEquacao.igualA(ladoDireitoDaEquacao)).toBe(true);</code></pre>
-            <pre class="codeblock--source"><code class="language-typescript">// exemplo 2
-// Você possui um computador que vale atualmente em torno de R$ 5.000 se você vendesse hoje.
-// O computador lhe custou R$ 7.500 pois você comprou parcelado, e você já pagou um total de
-// R$ 4.000 das parcelas. Além disso, você tem mais R$ 2.000 na conta bancária e R$ 1.500 de
-// contas a pagar.
+    const leftSideOfTheEquation = sum(assets);
+    const rightSideOfTheEquation = sum(liabilities).add(sum(equity));
+    expect(leftSideOfTheEquation.isEqualTo(rightSideOfTheEquation)).toBe(true);
+});
 
-import dinheiro from "./dinheiro";
-import { somar } from "./ativo_passivo";
+test("Example 2", () => {
+    // You own a computer that is worth $5,000 if you sell it today.
+    // You bought it for $7,500 and paid $4,000 so far.
+    // Apart from that, you have $2,000 in your checkings account and $1,500 of bills to be paid.
 
-const ativo: Ativo[] = [
-    new Ativo("Computador", dinheiro("BRL", 5_000_00)),
-    new Ativo("Dinheiro na conta bancária", dinheiro("BRL", 2_000_00)),
-];
+    const assets: Asset[] = [
+        new Asset("Computer", money("USD", 5_000_00)),
+        new Asset("Money in the checkings account", money("USD", 2_000_00)),
+    ];
 
-const passivo: Passivo[] = [
-    new Passivo("Parcelas pendentes do computador", dinheiro("BRL", 3_500_00)),
-    new Passivo("Contas a pagar", dinheiro("BRL", 1_500_00)),
-];
+    const liabilities: Liability[] = [
+        new Liability(
+            "Installments payable for the computer",
+            money("USD", 3_500_00)
+        ),
+        new Liability("Bills to be paid", money("USD", 1_500_00)),
+    ];
 
-// No caso da pessoa física, o patrimônio líquido é quanto vale tudo o que você tem
-// menos suas dívidas
-const patrimonioLiquido: Passivo[] = [
-    new Passivo("O que você realmente tem", dinheiro("BRL", 2_000_00)),
-];
+    // In the case of a person, the equity is how much money you actually have
+    // It is the value of your assets subtracted by all your present and future expenses
+    const equity: Liability[] = [
+        new Liability("What you actually have", money("USD", 2_000_00)),
+    ];
 
-const ladoEsquerdoDaEquacao = somar(ativo);
-const ladoDireitoDaEquacao = somar(passivo).adicionar(somar(patrimonioLiquido));
-expect(ladoEsquerdoDaEquacao.igualA(ladoDireitoDaEquacao)).toBe(true);</code></pre>
-            <p>Por hoje é isso. Na próxima quinta-feira posto o artigo número 3. Até mais!</p>
+    const leftSideOfTheEquation = sum(assets);
+    const rightSideOfTheEquation = sum(liabilities).add(sum(equity));
+    expect(leftSideOfTheEquation.isEqualTo(rightSideOfTheEquation)).toBe(true);
+});</code></pre>
+            <p>You can find the source code <a
+                   href="https://github.com/andremarcondesteixeira/accounting-app-blog-en-us/tree/article2"
+                   target="_blank">here</a>.</p>
+            <p>That's it for today! I'll post the third article soon. Later!</p>
         </article>
     </main>
     <footer class="footer">

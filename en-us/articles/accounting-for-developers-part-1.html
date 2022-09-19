@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +27,7 @@
             <ul>
                 <li>
                     <a href="/pt-br/artigos/contabilidade-para-programadores-parte-1.html"
-                       lang="en-US">Ler em português</a>
+                       lang="pt-BR">Ler em português</a>
                 </li>
                 <li>
                     <a href="/en-us">Home</a>
@@ -36,7 +36,7 @@
         </nav>
         <theme-changer aria-hidden="true"
                        lang="en-US"></theme-changer>
-        <h1>Accounting for developers, part 1: Money</h1>
+        <h1>Accounting for Developers, Part 1: Money</h1>
         <p class="header--article-publication-date">
             <time datetime="2022-09-15">September 15th, 2022</time>
         </p>
@@ -72,7 +72,7 @@
                     concepts and are not optimized by any means.</li>
                 <li>Explaing advanced accounting concepts. We will cover only basic concepts.</li>
             </ul>
-            <h2>Dealing with money programmatically</h2>
+            <h2>Dealing with Money Programmatically</h2>
             <p>An accounting system manipulates money. So, it's very important to chose a correct strategy when dealing
                 with it, in order to avoid some common pitfalls.</p>
             <p>A very common mistake when dealing with money is the <a
@@ -91,7 +91,7 @@
                 dependency. <a
                    href="https://levelup.gitconnected.com/why-you-should-often-wrap-your-dependencies-5fced2999616"
                    target="_blank">This article</a> shows why this is important.</p>
-            <div class="codeblock--filename">src/dinheiro.ts</div>
+            <div class="codeblock--filename">src/money.ts</div>
             <pre class="codeblock--source"><code class="language-typescript">import Dinero from "dinero.js";
 
 export class MoneyFacade {
@@ -164,7 +164,7 @@ const aThousandDollars = money(1000_00, "USD");
 const twelveHundredDollars = aThousandDollars.add(money(200_00, "USD"));
 console.log(twelveHundredDollars.format("en-US")); // $ 1,200.00</code></pre>
             <p>Cool! Now that we encapsulated our dependency we can go ahead and start writing our system.</p>
-            <p>I'll publish the next article in September 19th by 09:00 AM UTC -03:00. Stay tunned!</p>
+            <p>Now, go ahead and read <a href="accounting-for-developers-part-2.html">the part 2</a>!</p>
         </article>
     </main>
     <footer class="footer">
