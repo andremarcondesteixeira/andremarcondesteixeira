@@ -83,124 +83,6 @@
     </header>
     <main>
         <article>
-            <p>Sempre tive interesse em aprender o básico de contabilidade, mas também sempre tive dificuldade em
-                encontrar algum material de estudo sobre o tema que eu não achasse difícil de entender.</p>
-            <p>Então, decidi escrever este artigo como uma forma de backup do que aprendi até então e também para
-                compartilhar o conhecimento com quem tiver interesse.</p>
-            <p>Neste artigo, não tentarei explicar nada sobre a história da contabilidade ou sua utilidade. Para tal, já
-                existem diversos excelente materiais de estudo espalhados pela internet. Ao invés disso, tentarei
-                utilizar uma abordagem focada em código para explicar os principas conceitos, de forma que no final do
-                artigo, teremos um sistema de contabilidade minimalista e funcional.</p>
-            <p>O sistema que estamos contruindo não irá possuir uma arquitetura tecnicamente ideal, pois o foco é
-                somente apresentar os conceitos da contabilidade utilizando exemplos de código para que o aprendizado
-                fiquei mais fácil a pessoas que trabalham com programação.</p>
-            <h2>Uma classe para representar dinheiro</h2>
-            <p>Empresas lidam com dinheiro. Cada país utiliza uma moeda diferente. Por isso precisamos encontrar uma
-                forma de representar quantidades de dinheiro programaticamente. Para tal, utilizamos o padrão <a
-                   href="https://pt.wikipedia.org/wiki/ISO_4217"
-                   target="_blank">ISO 4217</a>.
-            </p>
-            <p>Para evitar problemas com <a href="https://dev.to/wsantosdev/obsessao-por-tipos-primitivos-33g4"
-                   target="_blank">Obsessão por Tipos Primitivos</a>, podemos criar um <a
-                   href="https://pt.wikipedia.org/wiki/Objeto_imut%C3%A1vel"
-                   target="_blank">objeto imutável</a> para representar um valor
-                em dinheiro da seguinte forma:</p>
-            <div class="codeblock--filename">src/dinheiro.ts</div>
-            <pre class="codeblock--source"><code class="language-typescript">// Typescript
-export type CodigoMoeda = "BRL" | "USD";
-
-export class Moeda {
-    constructor(private _codigoIso: CodigoMoeda, private _casasDecimais: number) {}
-
-    get codigoIso() {
-        return this._codigoIso;
-    }
-
-    get casasDecimais() {
-        return this._casasDecimais;
-    }
-}
-
-export const Moedas = Object.freeze({
-    BRL: new Moeda("BRL", 2),
-    USD: new Moeda("USD", 2),
-});
-
-export class Dinheiro {
-    constructor(private _valorEmCentavos: number, private _moeda: Moeda) {}
-
-    private checarMoeda(d: Dinheiro) {
-        if (this._moeda !== d._moeda) {
-            throw new TypeError("Tentativa de operação com moedas diferentes");
-        }
-    }
-
-    get moeda() {
-        return this._moeda;
-    }
-
-    mais(d: Dinheiro) {
-        this.checarMoeda(d);
-        return new Dinheiro(this._valorEmCentavos + d._valorEmCentavos, this._moeda);
-    }
-
-    menos(d: Dinheiro) {
-        this.checarMoeda(d);
-        return new Dinheiro(this._valorEmCentavos - d._valorEmCentavos, this._moeda);
-    }
-
-    vezes(fator: number) {
-        return new Dinheiro(this._valorEmCentavos * fator, this._moeda);
-    }
-
-    divididoPor(fator: number) {
-        return new Dinheiro(this._valorEmCentavos / fator, this._moeda);
-    }
-
-    maiorQue(d: Dinheiro) {
-        this.checarMoeda(d);
-        return this._valorEmCentavos > d._valorEmCentavos;
-    }
-
-    maiorOuIgualA(d: Dinheiro) {
-        this.checarMoeda(d);
-        return this._valorEmCentavos >= d._valorEmCentavos;
-    }
-
-    menorQue(d: Dinheiro) {
-        this.checarMoeda(d);
-        return this._valorEmCentavos < d._valorEmCentavos;
-    }
-
-    menorOuIgualA(d: Dinheiro) {
-        this.checarMoeda(d);
-        return this._valorEmCentavos <= d._valorEmCentavos;
-    }
-
-    igualA(d: Dinheiro) {
-        this.checarMoeda(d);
-        return this._valorEmCentavos === d._valorEmCentavos;
-    }
-
-    formatar(linguagem: string) {
-        return new Intl.NumberFormat(linguagem, {
-            style: "currency",
-            currency: this._moeda.codigoIso,
-        }).format(this._valorEmCentavos / Math.pow(10, this._moeda.casasDecimais));
-    }
-}
-
-export default function dinheiro(valorEmCentavos: number, moeda: Moeda | CodigoMoeda) {
-    return new Dinheiro(valorEmCentavos, moeda instanceof Moeda ? moeda : Moedas[moeda]);
-}</code></pre>
-            <pre class="codeblock--source"><code class="language-typescript">// exemplo
-const milReais = dinheiro(1000_00, "BRL");
-const milEDuzentosReais = milReais.mais(dinheiro(200_00, "BRL"));
-console.log(milEDuzentosReais.formatar("pt-BR")); // R$ 1.200,00</code></pre>
-            <p>Vale ressaltar que em produção, eu utilizaria uma biblioteca de terceiros para lidar com valores
-                monetários, como por exemplo a <a href="https://dinerojs.com/">dinero.js</a>.</p>
-            <p>Para manter as coisas simples, por enquanto utilizaremos somente o Real Brasileiro, que no padrão
-                ISO 4217 é representado pelo código "BRL".</p>
             <h2>Ativos e Passivos</h2>
             <p>Toda empresa é dona de algumas coisas e deve outras coisas. Por exemplo, uma empresa pode ser dona de
                 carros, de imóveis, do dinheiro que está no caixa, de marcas e patentes, etc., e também pode ter dívidas
@@ -314,7 +196,7 @@ export enum CirculanteFinanceiroOuOperacional {
     Financeiro = "Circulante Financeiro",
     Operacional = "Circulante Operacional",
 }</code></pre>
-            <pre class="codeblock--source"><code  class="language-typescript">// exemplo
+            <pre class="codeblock--source"><code class="language-typescript">// exemplo
 const exemplosDeAtivos = [
     new Ativo({
         nome: "Dinheiro em caixa",
@@ -379,7 +261,6 @@ const exemplosDePassivos = [
                 <dd>Quando o valor do Patrimônio Líquido é menor que 0 (zero). Nesta situação, dizemos também que a
                     empresa está operando com "Passivo a Descoberto".</dd>
             </dl>
-            <p></p>
             <p>A Equação Fundamental é utlizada para compor um dos relatórios mais importantes de uma empresa: O Balanço
                 Patrimonial, que tem por finalidade apresentar a situação financeira da empresa em dado período.</p>
             <p>Normalmente, o Balanço Patrimonial é elaborado 1 vez por ano, mas nada impede que seja elaborado sempre
