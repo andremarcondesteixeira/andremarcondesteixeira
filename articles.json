@@ -1,0 +1,52 @@
+{
+    "pt-BR": {
+        "template": "sources/pt-BR/template.html",
+        "index_output_path": "pt-BR",
+        "articles_output_path": "pt-BR/artigos",
+        "articles": [
+            {
+                "title": "Contabilidade para programadores, parte 2: A equação fundamental",
+                "publication_date": "2022-09-19",
+                "show_in_index": true,
+                "source": "sources/pt-BR/articles/contabilidade-para-programadores-parte-2.html"
+            },
+            {
+                "title": "Contabilidade para programadores, parte 1: Dinheiro",
+                "publication_date": "2022-09-14",
+                "show_in_index": true,
+                "source": "sources/pt-BR/articles/contabilidade-para-programadores-parte-1.html"
+            },
+            {
+                "title": "Código simples é melhor que código espertinho",
+                "publication_date": "2022-06-28",
+                "show_in_index": true,
+                "source": "sources/pt-BR/articles/codigo-simples-melhor-que-codigo-espertinho.html"
+            }
+        ]
+    },
+    "en-US": {
+        "template": "source/en-US/template.html",
+        "index_output_path": "en-US",
+        "articles_output_path": "en-US/articles",
+        "articles": [
+            {
+                "title": "Accounting for Developers, Part 2: The Accounting Equation",
+                "publication_date": "2022-09-19",
+                "show_in_index": true,
+                "source": "sources/en-US/articles/accounting-for-developers-part-2.html"
+            },
+            {
+                "title": "Accounting for Developers, Part 1: Money",
+                "publication_date": "2022-09-15",
+                "show_in_index": true,
+                "source": "sources/en-US/articles/accounting-for-developers-part-1.html"
+            },
+            {
+                "title": "Simple code is better than clever code",
+                "publication_date": "2022-06-28",
+                "show_in_index": true,
+                "source": "sources/en-US/articles/simple-code-is-better-than-clever-code.html"
+            }
+        ]
+    }
+}
