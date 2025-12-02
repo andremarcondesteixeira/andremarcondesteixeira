@@ -81,7 +81,6 @@ h6 {
 }
 
 h1 {
-    font-size: 2.5rem;
     margin-bottom: 2rem;
 }
 
@@ -102,12 +101,10 @@ ul + p {
 }
 
 h2 {
-    font-size: 2rem;
     margin-top: 2.5rem;
 }
 
 h3 {
-    font-size: 1.5rem;
     margin-top: 2rem;
 }
 
