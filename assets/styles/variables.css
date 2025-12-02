@@ -26,7 +26,7 @@
     --scrollbar-color: var(--light-theme-scrollbar-color);
     --scrollbar-hover-color: var(--light-theme-scrollbar-hover-color);
     --text-color: var(--light-theme-text-color);
-    --visited-link-color: #b176e9;
+    --visited-link-color: var(--text-color);
 
     /* FONTS */
     --big-font-size: 120%;
