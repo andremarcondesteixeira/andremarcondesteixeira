@@ -1,98 +1,56 @@
-<!DOCTYPE html>
-<html lang="en-US">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="/assets/styles/index.css">
-    <link rel="stylesheet"
-          href="/assets/vendor/highlightjs/vs.min.css">
-    <link rel="stylesheet"
-          href="/assets/vendor/highlightjs/atom-one-dark.css">
-    <script src="/assets/js/theme-changer-component.js"
-            type="module"
-            defer></script>
-    <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-    <title>Accounting 4 Devs</title>
-</head>
-
-<body>
-    <header class="header">
-        <nav class="header--navigation">
-            <ul>
-                <li>
-                    <a href="/pt-br/artigos/contabilidade-para-programadores-parte-1.html"
-                       lang="pt-BR">Ler em português</a>
-                </li>
-                <li>
-                    <a href="/en-us">Home</a>
-                </li>
-            </ul>
-        </nav>
-        <theme-changer aria-hidden="true"
-                       lang="en-US"></theme-changer>
-        <h1>Accounting for Developers, Part 1: Money</h1>
-        <p class="header--article-publication-date">
-            <time datetime="2022-09-15">September 15th, 2022</time>
-        </p>
-    </header>
-    <main>
-        <article>
-            <p>It's been some time now that I want to learn accounting fundamentals.</p>
-            <p>There are several books and internet articles about the topic, but I never found any study material that
-                was created specifically for developers, that also included code examples.</p>
-            <p>I've actually found 4 articles called "Accounting for Developers", but they don't provide code examples:
-            </p>
-            <ul>
-                <li><a href="https://docs.google.com/document/d/1HDLRa6vKpclO1JtxbGB5NeAYWf8cf1UMGy22o8OZZq4/edit"
-                       target="_blank">Accounting for Developers 101</a></li>
-                <li><a href="https://docs.google.com/document/d/1qhtirHUzPu7Od7yX3A4kA424tjFCv5Kbi42xj49tKlw/edit"
-                       target="_blank">Accounting for Developers 102</a></li>
-                <li><a href="https://www.moderntreasury.com/journal/accounting-for-developers-part-i"
-                       target="_blank">Accounting for Developers, Part I</a></li>
-                <li><a href="https://www.moderntreasury.com/journal/accounting-for-developers-part-ii"
-                       target="_blank">Accounting for Developers, Part II</a></li>
-            </ul>
-            <h2>Approach</h2>
-            <p>I'll not try to write about the history of accounting, its ramifications or why it is useful. To learn
-                about those topics, I recommend reading <a href="https://en.wikipedia.org/wiki/Accounting"
-                   target="_blank">the Wikipedia article about accounting</a>.</p>
-            <p>This series of articles is focused on explaining accounting principles using code examples writen in
-                Typescript. This approach is good to help developers understand the concepts.</p>
-            <p>We aim to have a simple, functional accounting system at the end of the series, capable of doing basic
-                tasks.</p>
-            <p>The following topics are <strong>non-goals</strong>:</p>
-            <ul>
-                <li>Implementing an ideal software architecture. The code examples are written to explain accounting
-                    concepts and are not optimized by any means.</li>
-                <li>Explaing advanced accounting concepts. We will cover only basic concepts.</li>
-            </ul>
-            <h2>Dealing with Money Programmatically</h2>
-            <p>An accounting system manipulates money. So, it's very important to chose a correct strategy when dealing
-                with it, in order to avoid some common pitfalls.</p>
-            <p>A very common mistake when dealing with money is the <a
-                   href="https://medium.com/the-sixt-india-blog/primitive-obsession-code-smell-that-hurt-people-the-most-5cbdd70496e9"
-                   target="_blank">obsession for primitive types</a>. Treating monetary values like they are just simple
-                numbers is a mistake. We also need to consider currency conversions, rounding, internationalization
-                (i18n) and localization (i10n).</p>
-            <p>Most programming languages have libraries that implement the <a
-                   href="https://en.wikipedia.org/wiki/ISO_4217"
-                   target="_blank">ISO 4217</a> standard and solve those issues. As examples, we can use <a
-                   href="https://v2.dinerojs.com/docs"
-                   target="_blank">dinero.js</a> for Javascript and <a href="https://www.joda.org/joda-money/"
-                   target="_blank">Joda-Money</a> for Java. I'll not try to explain how to install and use those
-                libraries, since this is not the focus here.</p>
-            <p>We will use dinero.js. The first thing we need to do in our system is to create a wrapper around this
-                dependency. <a
-                   href="https://levelup.gitconnected.com/why-you-should-often-wrap-your-dependencies-5fced2999616"
-                   target="_blank">This article</a> shows why this is important.</p>
-            <div class="codeblock--filename">src/money.ts</div>
-            <pre class="codeblock--source"><code class="language-typescript">import Dinero from "dinero.js";
+<h1>Accounting for Developers, Part 1: Money</h1>
+<p class="header--article-publication-date">
+    <time datetime="2022-09-15">September 15th, 2022</time>
+</p>
+<article>
+    <p>It's been some time now that I want to learn accounting fundamentals.</p>
+    <p>There are several books and internet articles about the topic, but I never found any study material that
+        was created specifically for developers, that also included code examples.</p>
+    <p>I've actually found 4 articles called "Accounting for Developers", but they don't provide code examples:
+    </p>
+    <ul>
+        <li><a href="https://docs.google.com/document/d/1HDLRa6vKpclO1JtxbGB5NeAYWf8cf1UMGy22o8OZZq4/edit"
+                target="_blank">Accounting for Developers 101</a></li>
+        <li><a href="https://docs.google.com/document/d/1qhtirHUzPu7Od7yX3A4kA424tjFCv5Kbi42xj49tKlw/edit"
+                target="_blank">Accounting for Developers 102</a></li>
+        <li><a href="https://www.moderntreasury.com/journal/accounting-for-developers-part-i" target="_blank">Accounting
+                for Developers, Part I</a></li>
+        <li><a href="https://www.moderntreasury.com/journal/accounting-for-developers-part-ii"
+                target="_blank">Accounting for Developers, Part II</a></li>
+    </ul>
+    <h2>Approach</h2>
+    <p>I'll not try to write about the history of accounting, its ramifications or why it is useful. To learn
+        about those topics, I recommend reading <a href="https://en.wikipedia.org/wiki/Accounting" target="_blank">the
+            Wikipedia article about accounting</a>.</p>
+    <p>This series of articles is focused on explaining accounting principles using code examples writen in
+        Typescript. This approach is good to help developers understand the concepts.</p>
+    <p>We aim to have a simple, functional accounting system at the end of the series, capable of doing basic
+        tasks.</p>
+    <p>The following topics are <strong>non-goals</strong>:</p>
+    <ul>
+        <li>Implementing an ideal software architecture. The code examples are written to explain accounting
+            concepts and are not optimized by any means.</li>
+        <li>Explaing advanced accounting concepts. We will cover only basic concepts.</li>
+    </ul>
+    <h2>Dealing with Money Programmatically</h2>
+    <p>An accounting system manipulates money. So, it's very important to chose a correct strategy when dealing
+        with it, in order to avoid some common pitfalls.</p>
+    <p>A very common mistake when dealing with money is the <a
+            href="https://medium.com/the-sixt-india-blog/primitive-obsession-code-smell-that-hurt-people-the-most-5cbdd70496e9"
+            target="_blank">obsession for primitive types</a>. Treating monetary values like they are just simple
+        numbers is a mistake. We also need to consider currency conversions, rounding, internationalization
+        (i18n) and localization (i10n).</p>
+    <p>Most programming languages have libraries that implement the <a href="https://en.wikipedia.org/wiki/ISO_4217"
+            target="_blank">ISO 4217</a> standard and solve those issues. As examples, we can use <a
+            href="https://v2.dinerojs.com/docs" target="_blank">dinero.js</a> for Javascript and <a
+            href="https://www.joda.org/joda-money/" target="_blank">Joda-Money</a> for Java. I'll not try to explain how
+        to install and use those
+        libraries, since this is not the focus here.</p>
+    <p>We will use dinero.js. The first thing we need to do in our system is to create a wrapper around this
+        dependency. <a href="https://levelup.gitconnected.com/why-you-should-often-wrap-your-dependencies-5fced2999616"
+            target="_blank">This article</a> shows why this is important.</p>
+    <div class="codeblock--filename">src/money.ts</div>
+    <pre class="codeblock--source"><code class="language-typescript">import Dinero from "dinero.js";
 
 export class MoneyFacade {
     private _wrappedObj: Dinero.Dinero;
@@ -159,41 +117,10 @@ export type Currency = Dinero.Currency;
 export default function money(currency: Currency, valueInMinorUnits: number) {
     return new MoneyFacade(currency, valueInMinorUnits);
 }</code></pre>
-            <pre class="codeblock--source"><code class="language-typescript">// example
+    <pre class="codeblock--source"><code class="language-typescript">// example
 const aThousandDollars = money(1000_00, "USD");
 const twelveHundredDollars = aThousandDollars.add(money(200_00, "USD"));
 console.log(twelveHundredDollars.format("en-US")); // $ 1,200.00</code></pre>
-            <p>Cool! Now that we encapsulated our dependency we can go ahead and start writing our system.</p>
-            <p>Now, go ahead and read <a href="accounting-for-developers-part-2.html">the part 2</a>!</p>
-        </article>
-    </main>
-    <footer class="footer">
-        <img src="/assets/images/profile-picture.jpg"
-             alt="André Teixeira"
-             aria-hidden="true"
-             class="footer--profile-picture rounded">
-        <strong>André Teixeira</strong>
-        <nav class="footer--navigation">
-            <ul>
-                <li>
-                    <a href="https://www.linkedin.com/in/andremarcondesteixeira/?locale=en_US"
-                       target="_blank"><img src="/assets/images/LI-In-Bug.png"
-                             alt="LinkedIn"
-                             aria-hidden="true"
-                             class="footer--network-icon"></a>
-                </li>
-                <li>
-                    <a href="https://github.com/andremarcondesteixeira"
-                       target="_blank"><img src="/assets/images/GitHub-Mark-120px-plus.png"
-                             alt="GitHub"
-                             class="footer--network-icon hidden-in-dark-theme"><img
-                             src="/assets/images/GitHub-Mark-Light-120px-plus.png"
-                             alt="GitHub"
-                             class="footer--network-icon hidden-in-light-theme"></a>
-                </li>
-            </ul>
-        </nav>
-    </footer>
-</body>
-
-</html>
+    <p>Cool! Now that we encapsulated our dependency we can go ahead and start writing our system.</p>
+    <p>Now, go ahead and read <a href="accounting-for-developers-part-2.html">the part 2</a>!</p>
+</article>

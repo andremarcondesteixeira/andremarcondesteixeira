@@ -1,68 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="/assets/styles/index.css">
-    <link rel="stylesheet"
-          href="/assets/vendor/highlightjs/vs.min.css">
-    <link rel="stylesheet"
-          href="/assets/vendor/highlightjs/atom-one-dark.css">
-    <script src="/assets/js/theme-changer-component.js"
-            type="module"
-            defer></script>
-    <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-    <title>Simples > Espertinho</title>
-</head>
-
-<body>
-    <header class="header">
-        <nav class="header--navigation">
-            <ul>
-                <li>
-                    <a href="/en-us/articles/simple-code-is-better-than-clever-code.html"
-                       lang="en-US">Read in English</a>
-                </li>
-                <li>
-                    <a href="/pt-br">Início</a>
-                </li>
-            </ul>
-        </nav>
-        <theme-changer aria-hidden="true"
-                       lang="pt-BR"></theme-changer>
-        <h1>Código simples é melhor que código espertinho</h1>
-        <p class="header--article-publication-date">
-            <time datetime="2022-06-28">28 de junho de 2022</time>
-        </p>
-        <figure class="header--article-opening-citation">
-            <blockquote>
-                A simplicidade é o mais alto grau de sofisticação
-            </blockquote>
-            <figcaption>&#8212; Leonardo da Vinci</figcaption>
-        </figure>
-    </header>
-    <main>
-        <article>
-            <p>
-                Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos...
-                BUGS... Sacou?... Desculpa.
-            </p>
-            <p>
-                Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro.
-                Então, aproveitei a deixa para treinar um pouquinho de <a
-                   href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components"
-                   target="_blank">Web Components</a>, e criei um pequeno componente para essa tarefa.
-            </p>
-            <p>
-                O resultado ficou simples e funcional, mas uma coisa estava me incomodando neste trecho de código aqui:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+<h1>Código simples é melhor que código espertinho</h1>
+<p class="header--article-publication-date">
+    <time datetime="2022-06-28">28 de junho de 2022</time>
+</p>
+<article>
+    <p>
+        Você sabe por quê programadores não gostam de temas claros? Porque luz atrai insetos!... Insetos...
+        BUGS... Sacou?... Desculpa.
+    </p>
+    <p>
+        Pra fazer esse blog, eu decidi que queria a capacidade de trocar o tema de cores entre claro e escuro.
+        Então, aproveitei a deixa para treinar um pouquinho de <a
+            href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components" target="_blank">Web Components</a>, e
+        criei um pequeno componente para essa tarefa.
+    </p>
+    <p>
+        O resultado ficou simples e funcional, mas uma coisa estava me incomodando neste trecho de código aqui:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 export default class ThemeChanger extends HTMLElement {
@@ -117,14 +71,14 @@ export default class ThemeChanger extends HTMLElement {
 
 }
             </code></pre>
-            <p>
-                Eu não conseguia parar de pensar: "Olha a quantidade de vezes que estou criando um elemento manualmente,
-                depois setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
-            </p>
-            <p>
-                Então achei que era uma boa ideia escrever um pequeno utilitário para criar elementos HTML:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+    <p>
+        Eu não conseguia parar de pensar: "Olha a quantidade de vezes que estou criando um elemento manualmente,
+        depois setando atributos manualmente! Tem que haver um jeito mais conciso de fazer isso."
+    </p>
+    <p>
+        Então achei que era uma boa ideia escrever um pequeno utilitário para criar elementos HTML:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // createElement.js
 
 export const a = new Proxy({}, {
@@ -151,10 +105,10 @@ function createElement(name, properties) {
     return element;
 }
             </code></pre>
-            <p>
-                Este utilitário permite criar elementos mais ou menos assim:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+    <p>
+        Este utilitário permite criar elementos mais ou menos assim:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -190,17 +144,17 @@ export default class ThemeChanger extends HTMLElement {
 
 }
             </code></pre>
-            <p>
-                Interessante! Esse código parece ter ficado bom e precisei digitar um pouco menos quando comparado à API
-                nativa do DOM.
-            </p>
-            <p>
-                Uau! Essa ideia foi realmente muito esperta!
-            </p>
-            <p>
-                Agora, ao reescrever o código aplicando este utilitário, o resultado fica assim:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+    <p>
+        Interessante! Esse código parece ter ficado bom e precisei digitar um pouco menos quando comparado à API
+        nativa do DOM.
+    </p>
+    <p>
+        Uau! Essa ideia foi realmente muito esperta!
+    </p>
+    <p>
+        Agora, ao reescrever o código aplicando este utilitário, o resultado fica assim:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -254,24 +208,24 @@ export default class ThemeChanger extends HTMLElement {
 
 }
             </code></pre>
-            <p>
-                Que vantagens obtemos com essa nova implementação? Bom, consigo pensar somente em 2 coisas:
-            </p>
-            <ol>
-                <li>
-                    Digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também
-                    não é muito grande
-                </li>
-                <li>
-                    O código <i>talvez</i> esteja mais fácil de ler. Mas a forma como o código foi escrito anteriormente
-                    era tão difícil de ler a ponto de justificar essa mudança? Acredito que não
-                </li>
-            </ol>
-            <p>
-                Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos elementos e avaliar estes dois
-                pontos novamente:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+    <p>
+        Que vantagens obtemos com essa nova implementação? Bom, consigo pensar somente em 2 coisas:
+    </p>
+    <ol>
+        <li>
+            Digitamos um pouquinho menos de código, mas isso por si só não tem muito valor e a diferença também
+            não é muito grande
+        </li>
+        <li>
+            O código <i>talvez</i> esteja mais fácil de ler. Mas a forma como o código foi escrito anteriormente
+            era tão difícil de ler a ponto de justificar essa mudança? Acredito que não
+        </li>
+    </ol>
+    <p>
+        Mas e se irmos um pouquinho mais além? Vamos tentar aninhar a criação dos elementos e avaliar estes dois
+        pontos novamente:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -321,79 +275,46 @@ export default class ThemeChanger extends HTMLElement {
 
 }
             </code></pre>
-            </p>
-            <p>
-                Agora, o código parece menos legível, além de termos múltiplos níveis de indentação. E mesmo que alguém
-                ache isso mais legível, se resume a um gosto pessoal e, além do mais, ainda precisamos falar sobre as
-                <u>desvantagens</u> do novo código:
-            </p>
-            <ol>
-                <li>
-                    Uma pessoa lendo o novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento
-                    da nova função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
-                </li>
-                <li>
-                    Criar bibliotecas e utilitários dessa forma demanda uma grande quantidade de testes para evitar a
-                    introdução de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil
-                    simplesmente utilizar alguma bilbioteca já pronta, como o React.
-                </li>
-                <li>
-                    E a maior desvantagem de todas: Perdemos quase todo o suporte da IDE: O novo código nos faz perder
-                    autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM.
-                    Tudo o que conseguimos da IDE agora são sugestões fora de contexto.
-                </li>
-            </ol>
-            <figure class="cancel-out-body-x-padding">
-                <img src="/assets/images/20220623-screenshot-good-code.png"
-                     alt="código bom">
-                <figcaption>
-                    Com a versão original do código a IDE faz sugestões baseadas no contexto
-                </figcaption>
-            </figure>
-            <figure class="cancel-out-body-x-padding">
-                <img src="/assets/images/20220623-screenshot-bad-code.png"
-                     alt="código ruim">
-                <figcaption>
-                    Com a nova versão do código a IDE faz sugestões sem contexto e que não fazem sentido
-                </figcaption>
-            </figure>
-            <p>
-                Inicialmente, a ideia de criar um utilitário para criar elementos HTML pareceu ser muito boa, mas após
-                um pouco de análise, chegamos à conclusão que a tentativa de economizar código trouxe mais prejuízos do
-                que benefícios.
-            </p>
-            <p>
-                Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos" &#x1F609;
-            </p>
-        </article>
-    </main>
-    <footer class="footer">
-        <img src="/assets/images/profile-picture.jpg"
-             alt="André Teixeira"
-             aria-hidden="true"
-             class="footer--profile-picture rounded">
-        <strong>André Teixeira</strong>
-        <nav class="footer--navigation">
-            <ul>
-                <li>
-                    <a href="https://www.linkedin.com/in/andremarcondesteixeira/"
-                       target="_blank"><img src="/assets/images/LI-In-Bug.png"
-                             alt="LinkedIn"
-                             aria-hidden="true"
-                             class="footer--network-icon"></a>
-                </li>
-                <li>
-                    <a href="https://github.com/andremarcondesteixeira"
-                       target="_blank"><img src="/assets/images/GitHub-Mark-120px-plus.png"
-                             alt="GitHub"
-                             class="footer--network-icon hidden-in-dark-theme"><img
-                             src="/assets/images/GitHub-Mark-Light-120px-plus.png"
-                             alt="GitHub"
-                             class="footer--network-icon hidden-in-light-theme"></a>
-                </li>
-            </ul>
-        </nav>
-    </footer>
-</body>
-
-</html>
+    </p>
+    <p>
+        Agora, o código parece menos legível, além de termos múltiplos níveis de indentação. E mesmo que alguém
+        ache isso mais legível, se resume a um gosto pessoal e, além do mais, ainda precisamos falar sobre as
+        <u>desvantagens</u> do novo código:
+    </p>
+    <ol>
+        <li>
+            Uma pessoa lendo o novo código vai ter uma maior carga cognitiva por ter de entender o funcionamento
+            da nova função <code>a</code> ao invés de ter de lidar somente com a API nativa do DOM
+        </li>
+        <li>
+            Criar bibliotecas e utilitários dessa forma demanda uma grande quantidade de testes para evitar a
+            introdução de novos bugs. Se eu avançar muito na funcionalidade do utilitário, é mais fácil
+            simplesmente utilizar alguma bilbioteca já pronta, como o React.
+        </li>
+        <li>
+            E a maior desvantagem de todas: Perdemos quase todo o suporte da IDE: O novo código nos faz perder
+            autocomplete, detecção de erros e toda e qualquer ferramenta que trabalhe analisando as API do DOM.
+            Tudo o que conseguimos da IDE agora são sugestões fora de contexto.
+        </li>
+    </ol>
+    <figure class="cancel-out-body-x-padding">
+        <img src="/assets/images/20220623-screenshot-good-code.png" alt="código bom">
+        <figcaption>
+            Com a versão original do código a IDE faz sugestões baseadas no contexto
+        </figcaption>
+    </figure>
+    <figure class="cancel-out-body-x-padding">
+        <img src="/assets/images/20220623-screenshot-bad-code.png" alt="código ruim">
+        <figcaption>
+            Com a nova versão do código a IDE faz sugestões sem contexto e que não fazem sentido
+        </figcaption>
+    </figure>
+    <p>
+        Inicialmente, a ideia de criar um utilitário para criar elementos HTML pareceu ser muito boa, mas após
+        um pouco de análise, chegamos à conclusão que a tentativa de economizar código trouxe mais prejuízos do
+        que benefícios.
+    </p>
+    <p>
+        Qual lição fica disso? Simples: Não tente reinventar a roda e não crie códigos "espertinhos" &#x1F609;
+    </p>
+</article>

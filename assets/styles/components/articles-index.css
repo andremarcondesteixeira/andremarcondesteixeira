@@ -1,5 +1,6 @@
 .articles-index ul {
     list-style-type: none;
+    padding: 0;
 }
 
 .articles-index li {

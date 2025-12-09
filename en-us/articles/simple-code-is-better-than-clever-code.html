@@ -1,67 +1,21 @@
-<!DOCTYPE html>
-<html lang="en-US">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="/assets/styles/index.css">
-    <link rel="stylesheet"
-          href="/assets/vendor/highlightjs/vs.min.css">
-    <link rel="stylesheet"
-          href="/assets/vendor/highlightjs/atom-one-dark.css">
-    <script src="/assets/js/theme-changer-component.js"
-            type="module"
-            defer></script>
-    <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-    <title>Simple > Clever</title>
-</head>
-
-<body>
-    <header class="header">
-        <nav class="header--navigation">
-            <ul>
-                <li>
-                    <a href="/pt-br/artigos/codigo-simples-melhor-que-codigo-espertinho.html"
-                       lang="en-US">Ler em Português</a>
-                </li>
-                <li>
-                    <a href="/en-us">Home</a>
-                </li>
-            </ul>
-        </nav>
-        <theme-changer aria-hidden="true"
-                       lang="en-US"></theme-changer>
-        <h1>Simple code is better than clever code</h1>
-        <p class="header--article-publication-date">
-            <time datetime="2022-06-28">June 28th, 2022</time>
-        </p>
-        <figure class="header--article-opening-citation">
-            <blockquote>
-                Simplicity is the ultimate sophistication
-            </blockquote>
-            <figcaption>&#8212; Leonardo da Vinci</figcaption>
-        </figure>
-    </header>
-    <main>
-        <article>
-            <p>
-                Do you know why programmers don't like light themes? Because light attracts bugs! ... Ok, I'm sorry.
-            </p>
-            <p>
-                When creating this blog, I wanted a color theme change feature, so I created a small <a
-                   href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components"
-                   target="_blank">Web Component</a> to do it.
-            </p>
-            <p>
-                The component turned out simple and functional, but still, something was bothering me about this piece
-                of code:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+<h1>Simple code is better than clever code</h1>
+<p class="header--article-publication-date">
+    <time datetime="2022-06-28">June 28th, 2022</time>
+</p>
+<article>
+    <p>
+        Do you know why programmers don't like light themes? Because light attracts bugs! ... Ok, I'm sorry.
+    </p>
+    <p>
+        When creating this blog, I wanted a color theme change feature, so I created a small <a
+            href="https://developer.mozilla.org/pt-BR/docs/Web/Web_Components" target="_blank">Web Component</a> to do
+        it.
+    </p>
+    <p>
+        The component turned out simple and functional, but still, something was bothering me about this piece
+        of code:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 export default class ThemeChanger extends HTMLElement {
@@ -116,14 +70,14 @@ export default class ThemeChanger extends HTMLElement {
 
 }
             </code></pre>
-            <p>
-                I couldn't stop thinking: "Look how many times I am manually creating HTML components and then manually
-                setting their attributes! There has to be a cleaner way to do that."
-            </p>
-            <p>
-                So, I decided it was a good idea to write a simple utility function to create HTML components:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+    <p>
+        I couldn't stop thinking: "Look how many times I am manually creating HTML components and then manually
+        setting their attributes! There has to be a cleaner way to do that."
+    </p>
+    <p>
+        So, I decided it was a good idea to write a simple utility function to create HTML components:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // createElement.js
 
 export const a = new Proxy({}, {
@@ -150,10 +104,10 @@ function createElement(name, properties) {
     return element;
 }
             </code></pre>
-            <p>
-                With this function, I can create HTML components like this:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+    <p>
+        With this function, I can create HTML components like this:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -189,17 +143,17 @@ export default class ThemeChanger extends HTMLElement {
 
 }
             </code></pre>
-            <p>
-                Interesting! This code looks clean and I needed to type a little less code when compared to when I used
-                the native DOM API.
-            </p>
-            <p>
-                Wow! This was a clever idea!
-            </p>
-            <p>
-                Now, when when I rewrote the code using this new utility, this is the result:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+    <p>
+        Interesting! This code looks clean and I needed to type a little less code when compared to when I used
+        the native DOM API.
+    </p>
+    <p>
+        Wow! This was a clever idea!
+    </p>
+    <p>
+        Now, when when I rewrote the code using this new utility, this is the result:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -253,24 +207,24 @@ export default class ThemeChanger extends HTMLElement {
 
 }
             </code></pre>
-            <p>
-                What benefits did I get with this new approach? I can only think of two:
-            </p>
-            <ol>
-                <li>
-                    I typed less code to implement the same functionality. But the amount difference is not that big
-                    anyway.
-                </li>
-                <li>
-                    The code <i>may or may not</i> look cleaner. But if we think about it, is the code from the previous
-                    approach that hard to read to justify a change? I don't think so.
-                </li>
-            </ol>
-            <p>
-                But what if we go a little further? Let's nest the components creation and evaluate those 2 benefits
-                again:
-            </p>
-            <pre class="codeblock--source"><code class="language-javascript">
+    <p>
+        What benefits did I get with this new approach? I can only think of two:
+    </p>
+    <ol>
+        <li>
+            I typed less code to implement the same functionality. But the amount difference is not that big
+            anyway.
+        </li>
+        <li>
+            The code <i>may or may not</i> look cleaner. But if we think about it, is the code from the previous
+            approach that hard to read to justify a change? I don't think so.
+        </li>
+    </ol>
+    <p>
+        But what if we go a little further? Let's nest the components creation and evaluate those 2 benefits
+        again:
+    </p>
+    <pre class="codeblock--source"><code class="language-javascript">
 // theme-changer-component.js
 
 import { a } from './createElement.js';
@@ -320,81 +274,48 @@ export default class ThemeChanger extends HTMLElement {
 
 }
             </code></pre>
-            </p>
-            <p>
-                The code doesn't look that clean now, and there are multiple indentation levels. And even if someone
-                finds it easier to read, I think it depends on personal taste. The amount of code doesn't look that
-                different too. Also, we still need to talk about what are the <u>trade-offs</u> of this approach:
-            </p>
-            <ol>
-                <li>
-                    Someone reading this code may have a higher cognitive load to understand what's going on, because
-                    now there is this extra <code>a</code> object that needs to be understood instead of the known,
-                    native DOM API.
-                </li>
-                <li>
-                    Creating utilities like this demands a high amount of automated tests to prevent the introduction of
-                    bugs on the projects that use it (we have no idea how many edge cases of HTML element creation will
-                    not work with this approach). If I make the utility function advanced enough, it is easier to just
-                    use some library that already exists, like React, instead of reinventing the wheel.
-                </li>
-                <li>
-                    And the biggest trade-off is that we lose almost all IDE support. When using the utility function,
-                    we lose the auto-completion feature and all tools the analyze the usage of the native DOM API's will
-                    not be able to help us. All we get from the IDE now are out of context suggestions.
-                </li>
-            </ol>
-            <figure class="cancel-out-body-x-padding">
-                <img src="/assets/images/20220623-screenshot-good-code.png"
-                     alt="código bom">
-                <figcaption>
-                    With the original approach, the IDE provides sensible, context-driven auto-completion
-                </figcaption>
-            </figure>
-            <figure class="cancel-out-body-x-padding">
-                <img src="/assets/images/20220623-screenshot-bad-code.png"
-                     alt="código ruim">
-                <figcaption>
-                    With the utility function, the IDE can only provide out of context suggestions
-                </figcaption>
-            </figure>
-            <p>
-                Initially, the idea of a utility function to create HTML components looked pretty good. But after trying
-                it, it proved to have more trade-offs than benefits.
-            </p>
-            <p>
-                We can get a simple lesson from this experiment: Don't write clever code. The tools you have at your
-                disposal are probably doing a better job than you will ever be able to achieve. &#x1F609;
-            </p>
-        </article>
-    </main>
-    <footer class="footer">
-        <img src="/assets/images/profile-picture.jpg"
-             alt="André Teixeira"
-             aria-hidden="true"
-             class="footer--profile-picture rounded">
-        <strong>André Teixeira</strong>
-        <nav class="footer--navigation">
-            <ul>
-                <li>
-                    <a href="https://www.linkedin.com/in/andremarcondesteixeira/"
-                       target="_blank"><img src="/assets/images/LI-In-Bug.png"
-                             alt="LinkedIn"
-                             aria-hidden="true"
-                             class="footer--network-icon"></a>
-                </li>
-                <li>
-                    <a href="https://github.com/andremarcondesteixeira"
-                       target="_blank"><img src="/assets/images/GitHub-Mark-120px-plus.png"
-                             alt="GitHub"
-                             class="footer--network-icon hidden-in-dark-theme"><img
-                             src="/assets/images/GitHub-Mark-Light-120px-plus.png"
-                             alt="GitHub"
-                             class="footer--network-icon hidden-in-light-theme"></a>
-                </li>
-            </ul>
-        </nav>
-    </footer>
-</body>
-
-</html>
+    </p>
+    <p>
+        The code doesn't look that clean now, and there are multiple indentation levels. And even if someone
+        finds it easier to read, I think it depends on personal taste. The amount of code doesn't look that
+        different too. Also, we still need to talk about what are the <u>trade-offs</u> of this approach:
+    </p>
+    <ol>
+        <li>
+            Someone reading this code may have a higher cognitive load to understand what's going on, because
+            now there is this extra <code>a</code> object that needs to be understood instead of the known,
+            native DOM API.
+        </li>
+        <li>
+            Creating utilities like this demands a high amount of automated tests to prevent the introduction of
+            bugs on the projects that use it (we have no idea how many edge cases of HTML element creation will
+            not work with this approach). If I make the utility function advanced enough, it is easier to just
+            use some library that already exists, like React, instead of reinventing the wheel.
+        </li>
+        <li>
+            And the biggest trade-off is that we lose almost all IDE support. When using the utility function,
+            we lose the auto-completion feature and all tools the analyze the usage of the native DOM API's will
+            not be able to help us. All we get from the IDE now are out of context suggestions.
+        </li>
+    </ol>
+    <figure class="cancel-out-body-x-padding">
+        <img src="/assets/images/20220623-screenshot-good-code.png" alt="código bom">
+        <figcaption>
+            With the original approach, the IDE provides sensible, context-driven auto-completion
+        </figcaption>
+    </figure>
+    <figure class="cancel-out-body-x-padding">
+        <img src="/assets/images/20220623-screenshot-bad-code.png" alt="código ruim">
+        <figcaption>
+            With the utility function, the IDE can only provide out of context suggestions
+        </figcaption>
+    </figure>
+    <p>
+        Initially, the idea of a utility function to create HTML components looked pretty good. But after trying
+        it, it proved to have more trade-offs than benefits.
+    </p>
+    <p>
+        We can get a simple lesson from this experiment: Don't write clever code. The tools you have at your
+        disposal are probably doing a better job than you will ever be able to achieve. &#x1F609;
+    </p>
+</article>

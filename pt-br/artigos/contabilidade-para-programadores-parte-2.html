@@ -1,88 +1,46 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="/assets/styles/index.css">
-    <link rel="stylesheet"
-          href="/assets/vendor/highlightjs/vs.min.css">
-    <link rel="stylesheet"
-          href="/assets/vendor/highlightjs/atom-one-dark.css">
-    <script src="/assets/js/theme-changer-component.js"
-            type="module"
-            defer></script>
-    <script src="/assets/vendor/highlightjs/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-    <title>Contabilidade 4 Devs 2</title>
-</head>
-
-<body>
-    <header class="header">
-        <nav class="header--navigation">
-            <ul>
-                <li>
-                    <a href="/en-us/articles/accounting-for-developers-part-2.html"
-                       lang="en-US">Read in English</a>
-                </li>
-                <li>
-                    <a href="/pt-br">Início</a>
-                </li>
-            </ul>
-        </nav>
-        <theme-changer aria-hidden="true"
-                       lang="pt-BR"></theme-changer>
-        <h1>Contabilidade para programadores, parte 2: A equação fundamental</h1>
-        <p class="header--article-publication-date">
-            <time datetime="2022-09-19">19 de setembro de 2022</time>
-        </p>
-    </header>
-    <main>
-        <article>
-            <p>Imagine as seguintes situações:</p>
-            <ol>
-                <li>João decidiu abrir uma empresa. Então, ele investiu R$ 20.000 para comprar matéria prima. No
-                    primeiro mês de operação, utilizou R$ 5.000 da matéria prima comprada e teve um faturamento de R$
-                    25.000 e tem R$ 10.000 de custos a pagar em salários em impostos.</li>
-                <li>Você possui um computador que vale atualmente em torno de R$ 5.000 se você vendesse hoje. O
-                    computador lhe custou R$ 7.500 pois você comprou parcelado, e você já pagou um total de R$ 4.000 das
-                    parcelas. Além disso, você tem mais R$ 2.000 na conta bancária e R$ 1.500 de contas a pagar.</li>
-            </ol>
-            <h2>Ativos e passivos</h2>
-            <p>Todas as pessoas, físicas ou jurídicas, geralmente são donas de algumas coisas e também geralmente devem
-                algumas coisas.</p>
-            <p>Todas as coisas que possuímos são chamadas de "ativos" no mundo da contabilidade, e todas as coisas que
-                devemos são chamadas de "passivos".</p>
-            <p>No primeiro exemplo acima, a empresa de João tem atualmente um total de R$ 40.000 em ativos e R$ 40.000
-                em passivos. No segundo exemplo, você teria um total de R$ 7.000 em ativos e R$ 7.000 em passivos - Eu
-                sei, por enquanto isso não faz nenhum sentido, mas vou explicar em breve.</p>
-            <h2>A equação fundamental da contabilidade</h2>
-            <p>Na contabilidade, tudo deve possuir um equilíbrio. Pense na contabilidade como uma balança antiga que
-                precisa estar sempre com os dois lados na mesma altura.</p>
-            <p>Esse equilíbrio é representado pela equação fundamental da contabilidade:</p>
-            <p class="board">Ativo = Passivo + Patrimônio Líquido</p>
-            <figure>
-                <img src="/assets/images/balanca-contabilidade.jpg"
-                     alt="balança antiga"
-                     width="500" />
-                <figcaption>Na contabilidade, tudo precisa estar equilibrado</figcaption>
-            </figure>
-            <p>O patrimônio líquido representa o quanto a empresa deve para os sócios, no caso de empresas, ou quanto
-                valem todas as posses de uma pessoa física.</p>
-            <p>Algumas vezes podemos encontrar essa mesma conta expressa de um jeito um pouco diferente, mas que na
-                verdade significa a mesma coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque
-                basicamente signica que o patrimônio de uma pessoa física ou jurídica é igual a tudo o que ela tem menos
-                tudo o que ela deve.</p>
-            <p>Agora que sabemos que a equação fundamental da contabilidade exige um equilíbrio, vamos voltar aos 2
-                exemplos do começo do artigo e demonstrá-los com código. Vale lembrar que o ponto do código é demonstrar
-                conceitos (não ligue para o fato das classes Ativo e Passivo não adicionarem nenhum novo dado ou
-                comportamento).</p>
-            <div class="codeblock--filename">src/ativo_passivo.ts</div>
-            <pre class="codeblock--source"><code class="language-typescript">import type { Dinheiro } from "./dinheiro";
+<h1>Contabilidade para programadores, parte 2: A equação fundamental</h1>
+<p class="header--article-publication-date">
+    <time datetime="2022-09-19">19 de setembro de 2022</time>
+</p>
+<article>
+    <p>Imagine as seguintes situações:</p>
+    <ol>
+        <li>João decidiu abrir uma empresa. Então, ele investiu R$ 20.000 para comprar matéria prima. No
+            primeiro mês de operação, utilizou R$ 5.000 da matéria prima comprada e teve um faturamento de R$
+            25.000 e tem R$ 10.000 de custos a pagar em salários em impostos.</li>
+        <li>Você possui um computador que vale atualmente em torno de R$ 5.000 se você vendesse hoje. O
+            computador lhe custou R$ 7.500 pois você comprou parcelado, e você já pagou um total de R$ 4.000 das
+            parcelas. Além disso, você tem mais R$ 2.000 na conta bancária e R$ 1.500 de contas a pagar.</li>
+    </ol>
+    <h2>Ativos e passivos</h2>
+    <p>Todas as pessoas, físicas ou jurídicas, geralmente são donas de algumas coisas e também geralmente devem
+        algumas coisas.</p>
+    <p>Todas as coisas que possuímos são chamadas de "ativos" no mundo da contabilidade, e todas as coisas que
+        devemos são chamadas de "passivos".</p>
+    <p>No primeiro exemplo acima, a empresa de João tem atualmente um total de R$ 40.000 em ativos e R$ 40.000
+        em passivos. No segundo exemplo, você teria um total de R$ 7.000 em ativos e R$ 7.000 em passivos - Eu
+        sei, por enquanto isso não faz nenhum sentido, mas vou explicar em breve.</p>
+    <h2>A equação fundamental da contabilidade</h2>
+    <p>Na contabilidade, tudo deve possuir um equilíbrio. Pense na contabilidade como uma balança antiga que
+        precisa estar sempre com os dois lados na mesma altura.</p>
+    <p>Esse equilíbrio é representado pela equação fundamental da contabilidade:</p>
+    <p class="board">Ativo = Passivo + Patrimônio Líquido</p>
+    <figure>
+        <img src="/assets/images/balanca-contabilidade.jpg" alt="balança antiga" width="500" />
+        <figcaption>Na contabilidade, tudo precisa estar equilibrado</figcaption>
+    </figure>
+    <p>O patrimônio líquido representa o quanto a empresa deve para os sócios, no caso de empresas, ou quanto
+        valem todas as posses de uma pessoa física.</p>
+    <p>Algumas vezes podemos encontrar essa mesma conta expressa de um jeito um pouco diferente, mas que na
+        verdade significa a mesma coisa: "Patrimônio Líquido = Ativo - Passivo", o que faz sentido, porque
+        basicamente signica que o patrimônio de uma pessoa física ou jurídica é igual a tudo o que ela tem menos
+        tudo o que ela deve.</p>
+    <p>Agora que sabemos que a equação fundamental da contabilidade exige um equilíbrio, vamos voltar aos 2
+        exemplos do começo do artigo e demonstrá-los com código. Vale lembrar que o ponto do código é demonstrar
+        conceitos (não ligue para o fato das classes Ativo e Passivo não adicionarem nenhum novo dado ou
+        comportamento).</p>
+    <div class="codeblock--filename">src/ativo_passivo.ts</div>
+    <pre class="codeblock--source"><code class="language-typescript">import type { Dinheiro } from "./dinheiro";
 
 export abstract class CoisaPrecificavel {
     constructor(private _nome: string, private _valor: Dinheiro) {}
@@ -115,8 +73,8 @@ export function somar(itens: CoisaPrecificavel[]) {
         return total.adicionar(item.valor);
     }, dinheiro("BRL", 0));
 }</code></pre>
-            <div class="codeblock--filename">test/exemplos.spec.ts</div>
-            <pre class="codeblock--source"><code class="language-typescript">import { Ativo, Passivo, somar } from "../src/ativo_passivo";
+    <div class="codeblock--filename">test/exemplos.spec.ts</div>
+    <pre class="codeblock--source"><code class="language-typescript">import { Ativo, Passivo, somar } from "../src/ativo_passivo";
 import dinheiro from "../src/dinheiro";
 
 test("Exemplo 1", () => {
@@ -185,39 +143,8 @@ test("Exemplo 2", () => {
     );
     expect(ladoEsquerdoDaEquacao.igualA(ladoDireitoDaEquacao)).toBe(true);
 });</code></pre>
-            <p>Você pode encontrar o código fonte <a
-                   href="https://github.com/andremarcondesteixeira/app-contabilidade-blog-pt-br/tree/artigo2"
-                   target="_blank">aqui</a>.</p>
-            <p>Por hoje é isso. Em breve posto o artigo número 3. Até mais!</p>
-        </article>
-    </main>
-    <footer class="footer">
-        <img src="/assets/images/profile-picture.jpg"
-             alt="André Teixeira"
-             aria-hidden="true"
-             class="footer--profile-picture rounded">
-        <strong>André Teixeira</strong>
-        <nav class="footer--navigation">
-            <ul>
-                <li>
-                    <a href="https://www.linkedin.com/in/andremarcondesteixeira/"
-                       target="_blank"><img src="/assets/images/LI-In-Bug.png"
-                             alt="LinkedIn"
-                             aria-hidden="true"
-                             class="footer--network-icon"></a>
-                </li>
-                <li>
-                    <a href="https://github.com/andremarcondesteixeira"
-                       target="_blank"><img src="/assets/images/GitHub-Mark-120px-plus.png"
-                             alt="GitHub"
-                             class="footer--network-icon hidden-in-dark-theme"><img
-                             src="/assets/images/GitHub-Mark-Light-120px-plus.png"
-                             alt="GitHub"
-                             class="footer--network-icon hidden-in-light-theme"></a>
-                </li>
-            </ul>
-        </nav>
-    </footer>
-</body>
-
-</html>
+    <p>Você pode encontrar o código fonte <a
+            href="https://github.com/andremarcondesteixeira/app-contabilidade-blog-pt-br/tree/artigo2"
+            target="_blank">aqui</a>.</p>
+    <p>Por hoje é isso. Em breve posto o artigo número 3. Até mais!</p>
+</article>
