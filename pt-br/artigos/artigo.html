@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visibilidade Reflete Escopo de Corretude</title>
+  <style>
+    :root {
+      --bg: #fdfdfd;
+      --fg: #1a1a1a;
+      --accent: #2a6496;
+      --code-bg: #f5f5f5;
+      --border: #e0e0e0;
+      --blockquote-bg: #f9f9f9;
+  --blockquote-border: #ccc;
+      --bad: #c0392b;
+      --good: #27ae60;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --fg: #e0e0e0;
+        --accent: #6ab0de;
+        --code-bg: #2a2a2a;
+        --border: #3a3a3a;
+        --blockquote-bg: #222;
+        --blockquote-border: #555;
+        --bad: #e74c3c;
+        --good: #2ecc71;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.75;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    p { margin-bottom: 1.2rem; }
+
+    blockquote {
+      background: var(--blockquote-bg);
+      border-left: 4px solid var(--blockquote-border);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+    }
+
+    blockquote p:last-child { margin-bottom: 0; }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem 1.2rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    pre.bad {
+      border-left: 4px solid var(--bad);
+    }
+
+    pre.good {
+      border-left: 4px solid var(--good);
+    }
+
+    .label {
+      font-weight: bold;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+
+    .label-bad { color: var(--bad); }
+    .label-good { color: var(--good); }
+
+    code {
+      font-family: 'Consolas', 'Fira Code', 'Source Code Pro', monospace;
+      font-size: 0.9em;
+    }
+
+    p code, li code {
+      background: var(--code-bg);
+      padding: 0.15em 0.35em;
+      border-radius: 3px;
+    }
+
+    .pullquote {
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-align: center;
+      color: var(--accent);
+      margin: 2rem 1rem;
+      line-height: 1.4;
+    }
+
+    ul, ol {
+      margin-bottom: 1.2rem;
+      padding-left: 1.5rem;
+    }
+
+    li { margin-bottom: 0.5rem; }
+
+    .closing {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Visibilidade Reflete Escopo de Corretude</h1>
+<p class="subtitle">Por que &ldquo;isso deveria ser public ou private?&rdquo; &eacute; a pergunta errada</p>
+
+<h2>O debate de sempre</h2>
+
+<p>Toda equipe discute sobre visibilidade em algum momento, e o racioc&iacute;nio geralmente se divide entre &ldquo;esconda para que ningu&eacute;m use errado&rdquo; e &ldquo;deixe public porque precisamos em todo lugar.&rdquo; Os dois lados est&atilde;o discutindo se confiamos em quem chama, mas confian&ccedil;a n&atilde;o &eacute; o eixo interessante. Existe uma pergunta diferente por baixo, e ela produz decis&otilde;es de design melhores.</p>
+
+<p>Tr&ecirc;s tentativas de resolver o mesmo problema mostram a diferen&ccedil;a, duas erradas de formas diferentes e uma que acerta.</p>
+
+<h2>O cen&aacute;rio</h2>
+
+<p>Digamos que voc&ecirc; est&aacute; construindo um sistema que organiza coisas em pastas (como um sistema de arquivos, um workspace de projeto, ou uma base de conhecimento). Voc&ecirc; precisa de duas coisas.</p>
+
+<ul>
+  <li>Um tipo <code>Folder</code> que guarda entries nomeadas e garante unicidade (duas entries n&atilde;o podem ter o mesmo nome).</li>
+  <li>Um <code>FolderManager</code> que &eacute; dono da &aacute;rvore de pastas e dispara events quando entries s&atilde;o adicionadas, para que a UI atualize, &iacute;ndices de busca se atualizem, e o hist&oacute;rico de undo registre as mudan&ccedil;as.</li>
+</ul>
+
+<p>Quem tem permiss&atilde;o de chamar o qu&ecirc;?</p>
+
+<h3>Uma nota r&aacute;pida sobre visibilidade em Rust</h3>
+
+<p>O primeiro conjunto de exemplos usa Rust, ent&atilde;o aqui vai um guia r&aacute;pido dos seus modificadores de visibilidade (com equivalentes em outras linguagens).</p>
+
+<ul>
+  <li><code>pub</code> significa acess&iacute;vel de qualquer lugar, como <code>public</code> em C# ou um s&iacute;mbolo exportado em TypeScript/JavaScript.</li>
+  <li><code>pub(crate)</code> significa acess&iacute;vel em qualquer lugar dentro da mesma biblioteca (chamada de <em>crate</em> em Rust), como <code>internal</code> em C# ou acesso a n&iacute;vel de package em Go.</li>
+  <li><code>pub(super)</code> significa acess&iacute;vel apenas dentro do m&oacute;dulo pai. Rust organiza c&oacute;digo em uma &aacute;rvore de m&oacute;dulos (similar a namespaces ou packages), e <code>pub(super)</code> limita o acesso a um n&iacute;vel acima nessa &aacute;rvore. N&atilde;o existe equivalente direto em C# ou TypeScript.</li>
+  <li>Sem modificador (apenas <code>fn</code> ou o nome de um campo) significa private para o m&oacute;dulo atual, como <code>private</code> em C# ou uma fun&ccedil;&atilde;o n&atilde;o exportada em TypeScript.</li>
+</ul>
+
+<p>O importante &eacute; o gradiente, onde <code>pub</code> &eacute; totalmente aberto, <code>pub(super)</code> &eacute; restrito a uma fronteira espec&iacute;fica de m&oacute;dulo, e sem modificador &eacute; totalmente fechado. O princ&iacute;pio se aplica independentemente da linguagem que voc&ecirc; usa; se&ccedil;&otilde;es posteriores mostram o mesmo padr&atilde;o em C# e TypeScript.</p>
+
+<h2>Tentativa 1. Tudo &eacute; public</h2>
+
+<p class="label label-bad">Ruim. Dois caminhos para a mesma muta&ccedil;&atilde;o</p>
+<pre class="bad"><code>use std::collections::BTreeMap;
+
+// Everything is public. The caller can insert entries
+// through the manager OR directly on the folder.
+
+pub struct Folder {
+    pub name: String,
+    pub entries: BTreeMap&lt;String, Entry&gt;,
+}
+
+impl Folder {
+    pub fn insert_entry(&amp;mut self, name: String, entry: Entry) -&gt; Result&lt;(), String&gt; {
+        if self.entries.contains_key(&amp;name) {
+            return Err(format!("duplicate name: {name}"));
+        }
+        self.entries.insert(name, entry);
+        Ok(())
+    }
+}
+
+pub struct FolderManager {
+    pub folders: Vec&lt;Folder&gt;,
+}
+
+impl FolderManager {
+    pub fn add_entry(&amp;mut self, folder_id: usize, name: String, entry: Entry) -&gt; Result&lt;(), String&gt; {
+        self.folders[folder_id].insert_entry(name, entry)?;
+        self.dispatch_event(EntryAdded { folder_id, entry });
+        Ok(())
+    }
+}</code></pre>
+
+<p>Isso compila e at&eacute; funciona, desde que todo caller passe por <code>manager.add_entry()</code>. Mas nada for&ccedil;a isso, e um caller pode facilmente escrever:</p>
+
+<pre class="bad"><code>// This succeeds. The folder's invariant is upheld (no duplicates).
+// But no event is dispatched. The UI does not refresh.
+// The search index is stale. The undo history has a gap.
+manager.folders[folder_id].insert_entry(name, entry)?;</code></pre>
+
+<p>Ou pior ainda.</p>
+
+<pre class="bad"><code>// This bypasses duplicate checking entirely.
+manager.folders[folder_id].entries.insert(name, entry);</code></pre>
+
+<p>Agora existem <em>tr&ecirc;s</em> formas de adicionar uma entry, e duas delas s&atilde;o bugs esperando para acontecer. O caller pode passar pelo manager (correto), pelo m&eacute;todo do folder (localmente v&aacute;lido mas perde events), ou diretamente pelo map (errado de todas as formas), e nada no c&oacute;digo o guia para a forma correta.</p>
+
+<h2>Tentativa 2. Trancar tudo</h2>
+
+<p>A rea&ccedil;&atilde;o natural &eacute; esconder tudo, tornar tudo private ou internal, e expor apenas o manager.</p>
+
+<p class="label label-bad">Ruim. Superprote&ccedil;&atilde;o que esconde o design</p>
+<pre class="bad"><code>pub struct Folder {
+    name: String,                       // private
+    entries: BTreeMap&lt;String, Entry&gt;,   // private
+}
+
+impl Folder {
+    // All methods are restricted, even reads.
+    pub(crate) fn name(&amp;self) -&gt; &amp;str { &amp;self.name }
+    pub(crate) fn get_entry(&amp;self, name: &amp;str) -&gt; Option&lt;&amp;Entry&gt; { self.entries.get(name) }
+    pub(crate) fn insert_entry(&amp;mut self, name: String, entry: Entry) -&gt; Result&lt;(), String&gt; { /* ... */ }
+    pub(crate) fn remove_entry(&amp;mut self, name: &amp;str) -&gt; Option&lt;Entry&gt; { self.entries.remove(name) }
+}
+
+pub struct FolderManager {
+    folders: Vec&lt;Folder&gt;,  // private
+}
+
+impl FolderManager {
+    pub fn add_entry(&amp;mut self, folder_id: usize, name: String, entry: Entry) -&gt; Result&lt;(), String&gt; { /* ... */ }
+    pub fn folder(&amp;self, id: usize) -&gt; &amp;Folder { &amp;self.folders[id] }
+    // ... dozens of pass-through methods for every read operation
+}</code></pre>
+
+<p>Isso resolve o problema dos &ldquo;dois caminhos&rdquo;, j&aacute; que callers s&oacute; podem passar pelo manager. Mas troca um problema por dois.</p>
+
+<h3>1. Indire&ccedil;&atilde;o for&ccedil;ada</h3>
+
+<p>Esconder tudo for&ccedil;a o manager a criar uma camada de pass-through para cada opera&ccedil;&atilde;o de leitura que poderia ser acessada diretamente. O caller n&atilde;o consegue acessar <code>folder.get_entry()</code>, ent&atilde;o o manager precisa expor <code>get_entry(folder_id, name)</code>, e o mesmo para listar entries, ler o nome do folder, e qualquer outra consulta inofensiva. Cada um desses m&eacute;todos n&atilde;o adiciona l&oacute;gica nem garante nenhuma invariante.</p>
+
+<p>Camadas de pass-through se justificam quando adicionam comportamento em cada acesso (auditoria, caching, permiss&otilde;es), mas aqui o manager n&atilde;o acrescenta nada &agrave;s leituras e o pass-through &eacute; puro overhead. Cada m&eacute;todo desses &eacute; superf&iacute;cie de c&oacute;digo para manter, indire&ccedil;&atilde;o para o leitor rastrear, e acoplamento que for&ccedil;a o pass-through a mudar toda vez que o tipo subjacente muda. A &ldquo;seguran&ccedil;a&rdquo; de esconder tudo se torna um imposto de manuten&ccedil;&atilde;o que se acumula a cada nova funcionalidade.</p>
+
+<h3>2. Sobrecarga cognitiva</h3>
+
+<p>Um leitor que abre <code>Folder</code> v&ecirc; <code>pub(crate)</code> em cada m&eacute;todo e n&atilde;o consegue dizer se <code>get_entry</code> &eacute; restrito porque cham&aacute;-lo diretamente &eacute; perigoso ou porque foi varrido por uma pol&iacute;tica gen&eacute;rica. Quando um m&eacute;todo de leitura carrega o mesmo modificador de visibilidade de uma muta&ccedil;&atilde;o que genuinamente precisa de supervis&atilde;o, os modificadores perdem o sentido e se tornam ru&iacute;do que o leitor aprende a ignorar.</p>
+
+<p>Os dois custos v&ecirc;m de tratar um domain object inteligente como se fosse dado burro. O folder garante suas pr&oacute;prias invariantes, e esconder seus m&eacute;todos de leitura implica que ele n&atilde;o pode ser confiado. O design acaba obscurecido em vez de revelado.</p>
+
+<h2>Tentativa 3. Visibilidade corresponde ao escopo de corretude</h2>
+
+<p>A pergunta que importa &eacute; <strong>se essa opera&ccedil;&atilde;o &eacute; completamente correta aqui, ou apenas localmente v&aacute;lida.</strong></p>
+
+<ul>
+  <li><code>get_entry()</code>, <code>name()</code>, <code>contains_entry()</code> s&atilde;o leituras. Nenhuma invariante de sistema depende de quem l&ecirc;, e elas s&atilde;o completamente corretas isoladamente. <strong>Torne-as public.</strong></li>
+  <li><code>insert_entry()</code>, <code>remove_entry()</code> s&atilde;o muta&ccedil;&otilde;es. Elas mant&ecirc;m a invariante do pr&oacute;prio folder (sem duplicatas), mas s&atilde;o <em>contextualmente incompletas</em>. O manager tamb&eacute;m precisa disparar events e manter a consist&ecirc;ncia da &aacute;rvore, ent&atilde;o elas s&oacute; s&atilde;o completamente corretas quando chamadas pelo manager. <strong>Restrinja-as &agrave; fronteira onde o manager opera.</strong></li>
+</ul>
+
+<p class="label label-good">Bom. Visibilidade comunica onde a corretude mora</p>
+<pre class="good"><code>// folder.rs
+
+use std::collections::BTreeMap;
+
+pub struct Folder {
+    name: String,
+    entries: BTreeMap&lt;String, Entry&gt;,
+}
+
+impl Folder {
+    // Reads are public. No system invariant at stake.
+    // Any caller can safely read folder contents.
+    pub fn name(&amp;self) -&gt; &amp;str { &amp;self.name }
+    pub fn get_entry(&amp;self, name: &amp;str) -&gt; Option&lt;&amp;Entry&gt; { self.entries.get(name) }
+    pub fn contains_entry(&amp;self, name: &amp;str) -&gt; bool { self.entries.contains_key(name) }
+
+    // Mutations are restricted to this module, where the
+    // FolderManager lives. Calling insert_entry directly
+    // upholds the folder's "no duplicate names" invariant,
+    // but skips event dispatching, leaving the rest of
+    // the system out of sync. The manager is the only
+    // entry point where insertion is fully correct.
+    pub(super) fn insert_entry(&amp;mut self, name: String, entry: Entry) -&gt; Result&lt;(), String&gt; {
+        if self.entries.contains_key(&amp;name) {
+            return Err(format!("duplicate name: {name}"));
+        }
+        self.entries.insert(name, entry);
+        Ok(())
+    }
+
+    pub(super) fn remove_entry(&amp;mut self, name: &amp;str) -&gt; Option&lt;Entry&gt; {
+        self.entries.remove(name)
+    }
+}</code></pre>
+
+<pre class="good"><code>// folder_manager.rs
+
+pub struct FolderManager {
+    folders: Vec&lt;Folder&gt;,
+}
+
+impl FolderManager {
+    pub fn add_entry(&amp;mut self, folder_id: usize, name: String, entry: Entry) -&gt; Result&lt;(), String&gt; {
+        // Local invariant: the folder rejects duplicates.
+        self.folders[folder_id].insert_entry(name, entry)?;
+        // System invariant: listeners are notified.
+        self.dispatch_event(EntryAdded { folder_id, entry });
+        Ok(())
+    }
+
+    // No need for pass-through read methods.
+    // Callers use folder.get_entry() directly.
+    pub fn folder(&amp;self, id: usize) -&gt; &amp;Folder { &amp;self.folders[id] }
+}</code></pre>
+
+<p>Um leitor que v&ecirc; <code>pub</code> em <code>get_entry</code> e <code>pub(super)</code> em <code>insert_entry</code> sabe imediatamente que leituras s&atilde;o seguras em qualquer lugar mas muta&ccedil;&otilde;es precisam do contexto do manager, e o coment&aacute;rio no m&eacute;todo restrito explica exatamente qual invariante de sistema seria violada sem ele.</p>
+
+<p class="pullquote">Um tipo pode ser localmente correto mas contextualmente incompleto.</p>
+
+<p>O folder garante suas pr&oacute;prias invariantes perfeitamente, mas usar seus m&eacute;todos de muta&ccedil;&atilde;o corretamente requer contexto (disparo de events, consist&ecirc;ncia da &aacute;rvore) que callers fora da fronteira do m&oacute;dulo n&atilde;o t&ecirc;m. A restri&ccedil;&atilde;o de visibilidade <em>guia o caller</em> at&eacute; o ponto de entrada onde a opera&ccedil;&atilde;o &eacute; completamente correta.</p>
+
+<p>Se o folder emitisse domain events por conta pr&oacute;pria e mantivesse a consist&ecirc;ncia da &aacute;rvore sozinho, <code>insert_entry</code> <em>seria</em> completamente correto no n&iacute;vel do folder, e o princ&iacute;pio diria que ele deveria ser public. A pergunta (&ldquo;essa opera&ccedil;&atilde;o &eacute; completamente correta aqui?&rdquo;) continua a mesma, mas a resposta muda dependendo de onde a fronteira de corretude realmente est&aacute;. Um design diferente move a fronteira, n&atilde;o o princ&iacute;pio.</p>
+
+<p>&ldquo;Make invalid states unrepresentable&rdquo; &eacute; tipicamente discutido como um princ&iacute;pio a n&iacute;vel de tipo sobre projetar estruturas de dados para que combina&ccedil;&otilde;es ilegais de valores n&atilde;o possam existir. Visibility-matches-scope-of-correctness &eacute; o mesmo princ&iacute;pio elevado ao n&iacute;vel de integra&ccedil;&atilde;o, a fronteira onde componentes interagem entre si. Um tipo bem projetado impede a constru&ccedil;&atilde;o de um valor imposs&iacute;vel; visibilidade bem projetada impede a chamada de uma opera&ccedil;&atilde;o a partir de um contexto onde ela seria incompleta. As duas garantias acontecem em tempo de compila&ccedil;&atilde;o, n&atilde;o em runtime.</p>
+
+<h2>O mesmo padr&atilde;o em C#</h2>
+
+<p>O mesmo padr&atilde;o aparece em todo lugar. Considere uma <code>Order</code> em um sistema de e-commerce em C#. A order sabe como adicionar um line item e rejeitar duplicatas.</p>
+
+<p class="label label-bad">Ruim. Tudo public, dois caminhos de muta&ccedil;&atilde;o</p>
+<pre class="bad"><code>// Order.cs
+
+public class Order
+{
+    public List&lt;OrderLine&gt; Lines { get; } = new();
+
+    public void AddLine(OrderLine line)
+    {
+        if (Lines.Any(l =&gt; l.ProductId == line.ProductId))
+            throw new DuplicateLineException(line.ProductId);
+        Lines.Add(line);
+    }
+}</code></pre>
+
+<pre class="bad"><code>// A caller can bypass AddLine entirely:
+order.Lines.Add(line);  // no duplicate check, no events, no totals</code></pre>
+
+<p class="label label-bad">Ruim. Tudo escondido, superprote&ccedil;&atilde;o</p>
+<pre class="bad"><code>public class Order
+{
+    private readonly List&lt;OrderLine&gt; _lines = new();
+
+    // Even reads are internal — callers must go
+    // through OrderService for everything.
+    internal IReadOnlyList&lt;OrderLine&gt; Lines =&gt; _lines.AsReadOnly();
+    internal void AddLine(OrderLine line) { ... }
+}
+
+// The OrderService becomes a bloated pass-through
+// for every read operation on Order.</code></pre>
+
+<p class="label label-good">Bom. Visibilidade corresponde ao escopo de corretude</p>
+<pre class="good"><code>// Order.cs
+
+public class Order
+{
+    private readonly List&lt;OrderLine&gt; _lines = new();
+
+    // Reads are public — no system invariant at stake.
+    public IReadOnlyList&lt;OrderLine&gt; Lines =&gt; _lines.AsReadOnly();
+
+    // Mutation is internal because the OrderService must also
+    // recalculate totals and publish domain events. Calling
+    // AddLine directly produces a valid order with stale
+    // totals and missing events.
+    internal void AddLine(OrderLine line)
+    {
+        if (_lines.Any(l =&gt; l.ProductId == line.ProductId))
+            throw new DuplicateLineException(line.ProductId);
+        _lines.Add(line);
+    }
+}</code></pre>
+
+<pre class="good"><code>// OrderService.cs
+
+public class OrderService
+{
+    public void AddLineToOrder(Order order, OrderLine line)
+    {
+        order.AddLine(line);         // local invariant
+        order.RecalculateTotals();   // system invariant
+        _eventBus.Publish(new OrderLineAdded(order.Id, line));
+    }
+}</code></pre>
+
+<p>A <code>Order</code> garante &ldquo;sem produtos duplicados&rdquo; por conta pr&oacute;pria. Mas <code>AddLine</code> s&oacute; &eacute; completamente correta quando chamada pelo service, que lida com as obriga&ccedil;&otilde;es que a order n&atilde;o conhece. A visibilidade diz exatamente isso.</p>
+
+<h2>E em TypeScript</h2>
+
+<p>TypeScript tem modificadores de visibilidade mais limitados, mas o princ&iacute;pio ainda se aplica atrav&eacute;s de fronteiras de m&oacute;dulo.</p>
+
+<p class="label label-bad">Ruim. Tudo exportado, dois caminhos de muta&ccedil;&atilde;o</p>
+<pre class="bad"><code>// index.ts — exports everything
+export { Folder } from './folder';
+export { FolderManager } from './folder-manager';</code></pre>
+
+<pre class="bad"><code>// some-caller.ts — which one should I use?
+manager.addEntry(folderId, entry);  // correct
+folder.addEntry(name, entry);       // locally valid, events skipped</code></pre>
+
+<p class="label label-good">Bom. Fronteira de m&oacute;dulo controla o escopo de corretude</p>
+<pre class="good"><code>// folder.ts
+
+export class Folder {
+  private entries = new Map&lt;string, Entry&gt;();
+
+  // Not part of the module's public API.
+  // Consumers use FolderManager.addEntry(), which also
+  // handles event dispatching and tree consistency.
+  addEntry(name: string, entry: Entry): void {
+    if (this.entries.has(name))
+      throw new DuplicateNameError(name);
+    this.entries.set(name, entry);
+  }
+
+  // Reads are part of the public API.
+  getEntry(name: string): Entry | undefined {
+    return this.entries.get(name);
+  }
+}</code></pre>
+
+<pre class="good"><code>// index.ts (barrel file) — the module boundary.
+// FolderManager is the entry point for mutations.
+// Folder is available as a type for reading only.
+
+export { FolderManager } from './folder-manager';
+export type { Folder } from './folder';</code></pre>
+
+<p>A linguagem oferece menos ferramentas, mas o <em>princ&iacute;pio</em> &eacute; o mesmo, e o caller deve alcan&ccedil;ar o ponto de entrada onde a opera&ccedil;&atilde;o &eacute; completa, n&atilde;o o ponto de entrada onde ela meramente n&atilde;o lan&ccedil;a exce&ccedil;&atilde;o.</p>
+
+<h2>Sempre explique o &ldquo;porqu&ecirc;&rdquo;</h2>
+
+<p>Os exemplos ruins tamb&eacute;m nunca explicam <em>por qu&ecirc;</em> a visibilidade &eacute; como &eacute;. Quando tudo &eacute; public n&atilde;o h&aacute; nada para explicar, e quando tudo est&aacute; escondido a explica&ccedil;&atilde;o &eacute; apenas &ldquo;pol&iacute;tica.&rdquo; Nenhum dos dois comunica o design. Quando a visibilidade corresponde ao escopo de corretude, os m&eacute;todos restritos se tornam os interessantes, porque marcam onde corretude local diverge de corretude contextual. O coment&aacute;rio em cada m&eacute;todo restrito deve explicar <strong>qual invariante de sistema seria violada se ele fosse public</strong>, e se voc&ecirc; n&atilde;o consegue escrever esse coment&aacute;rio, a restri&ccedil;&atilde;o &eacute; superprote&ccedil;&atilde;o e deve ser removida.</p>
+
+<h2>Uma hierarquia de ideias que se sustentam</h2>
+
+<p>Ela se apoia em alguns princ&iacute;pios.</p>
+
+<ol>
+  <li>
+    <strong>Tipos s&atilde;o donos de suas invariantes.</strong>
+    Campos s&atilde;o private, m&eacute;todos garantem as regras, e o tipo &eacute; localmente correto por constru&ccedil;&atilde;o. Se o tipo n&atilde;o garante suas pr&oacute;prias regras, n&atilde;o h&aacute; nada sobre o que a visibilidade possa construir.
+  </li>
+  <li>
+    <strong>Uma &uacute;nica forma de fazer qualquer coisa.</strong>
+    Se dois caminhos levam ao mesmo resultado, elimine um. Tornar um m&eacute;todo public quando um coordinator precisa supervision&aacute;-lo cria um segundo caminho n&atilde;o supervisionado, e essa &eacute; frequentemente a raz&atilde;o mec&acirc;nica pela qual visibilidade &eacute; restrita.
+  </li>
+  <li>
+    <strong>Visibilidade corresponde ao escopo de corretude.</strong>
+    A fronteira de visibilidade de um tipo &eacute; onde suas opera&ccedil;&otilde;es s&atilde;o completamente corretas, n&atilde;o meramente localmente v&aacute;lidas.
+  </li>
+</ol>
+
+<p class="pullquote">A coisa certa deve ser a &uacute;nica coisa.</p>
+
+<p>Quando um tipo &eacute; dono de suas invariantes, estados inv&aacute;lidos s&atilde;o irrepresent&aacute;veis a n&iacute;vel de tipo. Quando a visibilidade corresponde ao escopo de corretude, intera&ccedil;&otilde;es inv&aacute;lidas s&atilde;o irrepresent&aacute;veis a n&iacute;vel de integra&ccedil;&atilde;o. A estrutura do c&oacute;digo <em>impede</em> uso incorreto atrav&eacute;s da forma da API em si, em vez de depender de checks em runtime, avisos em documenta&ccedil;&atilde;o, ou disciplina de code review.</p>
+
+<h2>Trabalhos anteriores e o que h&aacute; de novo aqui</h2>
+
+<p>Nada disso &eacute; novo, e o valor est&aacute; em combinar conceitos estabelecidos em um &uacute;nico crit&eacute;rio de decis&atilde;o.</p>
+
+<ul>
+  <li>
+    <strong><a href="https://martinfowler.com/bliki/DDD_Aggregate.html">DDD Aggregates</a></strong> (Eric Evans, 2003) definem uma <em>fronteira de consist&ecirc;ncia</em> onde objetos externos mant&ecirc;m refer&ecirc;ncias apenas ao aggregate root e todas as muta&ccedil;&otilde;es passam por ele. A rela&ccedil;&atilde;o folder/manager neste artigo &eacute; estruturalmente um aggregate. Mas Evans enquadra aggregates como uma diretriz de design (&ldquo;direcione muta&ccedil;&otilde;es pelo root&rdquo;). Ele n&atilde;o conecta isso a <em>modificadores de visibilidade</em> como mecanismo de garantia em tempo de compila&ccedil;&atilde;o, e n&atilde;o distingue entre leituras que s&atilde;o seguras em qualquer lugar e muta&ccedil;&otilde;es que requerem o contexto do root. O princ&iacute;pio proposto aqui torna essa distin&ccedil;&atilde;o expl&iacute;cita e permite que a linguagem a imponha.
+  </li>
+  <li>
+    <strong><a href="https://dl.acm.org/doi/10.1145/361598.361623">Information Hiding</a></strong> (David Parnas, 1972) diz que cada m&oacute;dulo esconde uma &ldquo;decis&atilde;o de design&rdquo; e define sua interface como &ldquo;o conjunto de suposi&ccedil;&otilde;es que cada programador precisa fazer sobre o outro para demonstrar a corretude do seu pr&oacute;prio programa.&rdquo; Isso &eacute; pr&oacute;ximo em esp&iacute;rito, mas Parnas se preocupa em esconder <em>detalhes de implementa&ccedil;&atilde;o</em> (representa&ccedil;&otilde;es de dados, algoritmos). O princ&iacute;pio aqui &eacute; mais espec&iacute;fico, dizendo <em>quais</em> opera&ccedil;&otilde;es esconder (as contextualmente incompletas) e <em>por qu&ecirc;</em> (elas requerem uma autoridade superior para corretude completa), em vez de esconder tudo atr&aacute;s de uma interface uniforme.
+  </li>
+  <li>
+    <strong>Visibilidade assim&eacute;trica</strong> como mecanismo de linguagem existe desde <a href="https://www.eiffel.org/doc/eiffel/Eiffel_programming_language_syntax#Feature_adaptation">Eiffel</a> (Bertrand Meyer, 1986), onde selective export permite que cada feature especifique independentemente quais classes podem acess&aacute;-la. A sintaxe moderna de properties veio com <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/access-modifiers#asymmetric-access-modifiers">C# 2.0</a> (2005) via <code>public get; private set;</code>, seguida por <a href="https://docs.swift.org/swift-book/documentation/the-swift-programming-language/accesscontrol/">Swift</a> (2014) com <code>public private(set) var</code>. Em Rust, a <a href="https://github.com/rust-lang/rfcs/blob/master/text/3323-restrictions.md">RFC 3323 (Restrictions)</a> prop&otilde;e <code>pub mut(crate)</code> para alcan&ccedil;ar a mesma separa&ccedil;&atilde;o a n&iacute;vel de campo. Todos esses s&atilde;o <em>mecanismos</em> de visibilidade assim&eacute;trica de leitura/escrita. O princ&iacute;pio aqui fornece o <em>racioc&iacute;nio de design</em> para quando e por que aplicar esses mecanismos, que &eacute; restringir a visibilidade de muta&ccedil;&atilde;o quando a opera&ccedil;&atilde;o &eacute; localmente v&aacute;lida mas contextualmente incompleta.
+  </li>
+</ul>
+
+<p>A distin&ccedil;&atilde;o entre opera&ccedil;&otilde;es localmente v&aacute;lidas e v&aacute;lidas a n&iacute;vel de sistema j&aacute; est&aacute; impl&iacute;cita em todos esses conceitos. A contribui&ccedil;&atilde;o &eacute; um <strong>crit&eacute;rio de decis&atilde;o espec&iacute;fico</strong> que diz que a fronteira de visibilidade de um tipo deveria ser onde suas opera&ccedil;&otilde;es s&atilde;o completamente corretas, n&atilde;o meramente localmente v&aacute;lidas. DDD diz &ldquo;passe pelo root&rdquo; mas n&atilde;o enquadra a autoridade do root em termos de completude contextual. Parnas diz &ldquo;esconda decis&otilde;es de design&rdquo; mas n&atilde;o distingue leituras de muta&ccedil;&otilde;es. As features de linguagem fornecem o mecanismo mas n&atilde;o o racioc&iacute;nio. A s&iacute;ntese aqui nomeia uma pergunta espec&iacute;fica (&ldquo;essa opera&ccedil;&atilde;o &eacute; completamente correta aqui?&rdquo;) e a conecta a uma a&ccedil;&atilde;o espec&iacute;fica (ajustar o modificador de visibilidade de acordo com a resposta).</p>
+
+<h2>Na pr&aacute;tica</h2>
+
+<p>Ao decidir sobre visibilidade, pule o debate sobre confian&ccedil;a e pergunte em vez disso.</p>
+
+<blockquote>
+  <p>Essa opera&ccedil;&atilde;o &eacute; completamente correta aqui, ou &eacute; apenas localmente v&aacute;lida?</p>
+</blockquote>
+
+<p>Se a opera&ccedil;&atilde;o &eacute; completamente correta isoladamente, torne-a public. Visibilidade restrita adiciona carga cognitiva, e voc&ecirc; n&atilde;o deveria pagar esse custo sem uma raz&atilde;o. Se a opera&ccedil;&atilde;o &eacute; localmente v&aacute;lida mas contextualmente incompleta (um coordinator precisa disparar events, um service precisa recalcular estado derivado), restrinja a visibilidade &agrave; fronteira onde essa autoridade opera e deixe um coment&aacute;rio explicando <em>por qu&ecirc;</em>. Se voc&ecirc; n&atilde;o consegue articular a invariante contextual que seria violada, a restri&ccedil;&atilde;o &eacute; superprote&ccedil;&atilde;o e deve ser removida.</p>
+
+<p class="closing">
+  Visibilidade indica onde a corretude vive, n&atilde;o &eacute; um mecanismo de seguran&ccedil;a nem uma quest&atilde;o de confian&ccedil;a. Fa&ccedil;a a coisa certa ser a &uacute;nica coisa.
+</p>
+
+</body>
+</html>
